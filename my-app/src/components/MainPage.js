@@ -205,7 +205,6 @@ function MainPage() {
   //     }
   // }
   const [prefill, setPrefill] = useState([]);
-  const [saksnummer, setSaksnummer] = useState("");
 
   const f = async (id) => {
     axios.get("http://51.107.208.107/get_children/"+id).then(response => prefillChild(response.data));
@@ -232,7 +231,7 @@ function MainPage() {
   }
 
   const submitApp = async (application) => {
-    axios.post("http://51.107.208.107/submit_application", application).then(response => setSaksnummer(...response.data.saksnummer));
+    axios.post("http://51.107.208.107/submit_application", application).then(response => document.getElementById("saksnummer").innerHTML = "Saksnummer: " + response.data.saksnummer);
   }
 
   const prefillChild = (dataList) => {
@@ -246,7 +245,7 @@ function MainPage() {
       setPrefill(childrenNames);
     }
   } 
-  console.log(saksnummer);
+  
 
   return (
     <div className="App">
@@ -276,8 +275,8 @@ function MainPage() {
       <ChildrenField children={prefill}/>
       <button onClick={async () => { f(application.identifikasjonsnummer.foedselsEllerDNummer) }}>Prefill</button>
       <button onClick={() => console.log(application)}>Console</button>
-      <button onClick={() => myFunc(application)}>Submit</button>
-      <p>Saksnummer: {saksnummer}</p>
+      <button onClick={() => submitApp(application)}>Submit</button>
+      <p id="saksnummer">Saksnummer: </p>
     </div>
   );
 }
