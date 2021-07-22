@@ -2,6 +2,7 @@
 import './App.css';
 import MainPage from './components/MainPage.js';
 import Login from './components/Login.js';
+import ApplicationPage from './components/applicationPage/ApplicationPage';
 import React, { useState } from 'react';
 import {
   RecoilRoot,
@@ -16,7 +17,7 @@ function App() {
 
 
   return (
-      <MainPage />
+      <ApplicationPage />
     );
 }
 
