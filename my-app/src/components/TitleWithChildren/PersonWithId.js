@@ -1,6 +1,6 @@
 import React from 'react'
 
-function PersonWithId(props) {
+function PersonWithId(props){
     return (
         <div style={{display:"flex", margin:"15px"}}>
             <div style={{width:"50%"}}>

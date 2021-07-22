@@ -1,40 +1,42 @@
-import React, { useState } from 'react';
-import RadioButtonQuestion from './RadioButtonQuestion';
+import React from 'react';
+import { FormControl, RadioGroup, FormControlLabel, Radio } from '@material-ui/core'
+import InfoButtonText from '../InfoButtonText/InfoButtonText';
 
-function IntrodctionRadioButtons() {
-    const [chosenButton, setChosenButton] = useState(0)  
-    
-    let firstButton = 1
-    let secondButton = 2  
+export default function IntrodctionRadioButtons(props) {
 
-    let key1 = 0
-    let key2 = 0
-    
-    const handler = value => {
-        key1 = value == 1 ? 1 : 0
-        key2 = value == 1 ? 1 : 0
+    const [value, setValue] = React.useState('')
+
+    const handleChange = (event) => {
+        setValue(event.target.value);
+        props.onChange()
     }
-    
-    return(
-        <div>
-            <RadioButtonQuestion
-                id={firstButton}
-                key={key1}
-                context="Husholdningen har hatt stabil inntekt siden forrige skatteoppgjør."
-                info="Hva menes med stabil inntekt?"
-                onClick={handler}
 
-            />
-            <RadioButtonQuestion
-                id={secondButton}
-                key={key2}
-                context="Noen i husholdningen har en nylig, varig endring av sin inntekt."
-                info="Hva menes med varig endring?"
-                onClick={handler}
-            />
+    const firstValue = "stable-income"
+    const secondValue = "low-income"
+
+    return (
+        <div className="radioButtons">
+            <FormControl component="fieldset">
+                <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
+                    <FormControlLabel 
+                        value={firstValue}
+                        control={<Radio color="default" />} 
+                        label="Husholdningen har hatt stabil inntekt siden forrige skatteoppgjør." 
+                        className={
+                            value == firstValue ? 'radioButton active' : 'radioButton'
+                        } />
+                    <InfoButtonText text="Hva menes med stabil inntekt?" />
+                    <FormControlLabel 
+                        value={secondValue}
+                        control={<Radio color="default" />}
+                        label="Noen i husholdningen har en nylig, varig endring av sin inntekt." 
+                        className={
+                            value == secondValue ? 'radioButton active' : 'radioButton'
+                        } />
+                    <InfoButtonText text="Hva menes med varig endring?" />
+                </RadioGroup>
+            </FormControl>
         </div>
-
     )
 }
 
-export default IntrodctionRadioButtons

@@ -10,8 +10,8 @@ import {
   useRecoilState,
   useRecoilValue,
 } from 'recoil';
-import TitleWithChildren from './components/TitleWithChildren/TitleWithChildren';
-import IntrodctionRadioButtons from './components/IntroductionRadioButtons/IntroductionRadioButtons';
+import Situation from './pages/Situation/Situation';
+
 
 
 
@@ -23,45 +23,11 @@ import IntrodctionRadioButtons from './components/IntroductionRadioButtons/Intro
 
 
 function App() {
-
-  const people = [
-    {
-      name: "Karl",
-      id: "250789 78388",
-    },
-    {
-      name: "Boris",
-      id: "250789 78388",
-    },
-    {
-      name: "Johnson",
-      id: "250789 78388",
-    }
-  ]
-  const people2 = [
-    {
-      name: "Fred",
-      id: "250789 78388",
-      extraInformation: "Salhus SFO"
-    },
-    {
-      name: "Bernt",
-      id: "250789 78388",
-      extraInformation: "Salhus BHG"
-    },
-    {
-      name: "Hans",
-      id: "250789 78388",
-      extraInformation: "Salhus SFO"
-    }
-  ]
   
   return (
       <>
-        <MainPage />
-        <IntrodctionRadioButtons />
-        <TitleWithChildren title="Husholdning" people={people}  />
-        <TitleWithChildren title="Søker for" people={people2}  />
+        {/* <MainPage /> */}
+        <Situation name="Ola"/>
       </>
     );
 
