@@ -10,6 +10,7 @@ import {
   useRecoilState,
   useRecoilValue,
 } from 'recoil';
+import OverviewApplication from './pages/OverviewApplication/OverviewApplication';
 
 
 
@@ -24,7 +25,7 @@ function App() {
 
 
   return (
-      <MainPage />
+      <OverviewApplication title="Redusert foreldrebetaling"/>
     );
   
   // return (
