@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { Button } from '@material-ui/core'
 import Applicant from './Applicant'
 import Partner from './Partner'
-
+import IncomeArea from './IncomeArea';
+import InformationBox from './InformationBox';
 
 function ApplicationPage() {
     const [applicantName, setApplicantName] = useState("Ola Nordmann")
@@ -16,6 +17,8 @@ function ApplicationPage() {
             <Applicant applicantName={applicantName} identifier={applicantIdentifier} />
             <Partner partnerName={partnerName} identifier={partnerIdentifier}/>
             {/*<ChildList />*/}
+            <IncomeArea />
+            <InformationBox />
         </div>
     );
 }

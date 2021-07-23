@@ -1,0 +1,12 @@
+.information-box-wrapper {
+    margin: 0, 10%, 0, 0;
+    display: flex;
+    align-items: center;
+    background-color: gray;
+}
+
+.information-box-text-body {
+    /* margin-left: 5%;
+    font-size: 18px;
+    font-weight: bold; */
+}
