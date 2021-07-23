@@ -1,23 +1,46 @@
-import {
-    RecoilRoot,
-    atom,
-    selector,
-    useRecoilState,
-    useRecoilValue,
-  } from 'recoil';
+import "./Login.css"
+
+
   
-  
-  const page = selector({
-    key: 'page', // unique ID (with respect to other atoms/selectors)
-  });
-  
+  var fodselsnummer = "";
+  var password = "";
+
+  function loginfunction() {
+    if(fodselsnummer === "") {
+      document.getElementById("fodselsnummer").style.borderColor = "red";
+    }else{
+      document.getElementById("fodselsnummer").style.borderColor = "green";
+    }
+
+    if(password === "") {
+      document.getElementById("password").style.borderColor = "red";
+    }else{
+      document.getElementById("password").style.borderColor = "green";
+    }
+  }
+
   function Login() {
-      const [state, setState] = useRecoilState(page);
+     
+    
+
+
     return (
       <div className="Login">
-        <button onClick={() => setState(1)}>Til søknad</button>
+        
+        <div className="inputText">
+        <p className="label">FØDSELSNUMMER:</p>
+          <input id="fodselsnummer" type="text" required="required" onChange={(event) => fodselsnummer = event.target.value}></input>
+        </div>
+        <div>
+        <p className="label">PASSORD: </p>
+          <input id="password" type="password" onChange={(event) => password = event.target.value}></input>
+        </div>
+        <div id="buttons">
+          <button id="cancel">AVBRYT</button><button id="login" onClick={loginfunction}>LOGG INN</button>
+        </div>
       </div>
     );
   }
   
   export default Login;
+

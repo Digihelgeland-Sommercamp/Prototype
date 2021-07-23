@@ -1,0 +1,71 @@
+#login {
+    background-color: #1c45ff;
+    border-radius: 6px;
+    font-size: 17px;
+    width: 150px;
+    height:60px;
+}
+
+#login:hover {
+    background-color: #102fb9;
+}
+
+#cancel {
+    background-color: #f8f8f8;
+    color: #404040;
+    border-radius: 6px;
+    font-size: 17px;
+    width: 150px;
+    height:60px;
+    border-color: #a0a0a0;
+    border-style: solid;
+    border-width: 2px;
+}
+
+#cancel:hover {
+    background-color: #f0f0f0;
+    border-color: #505050;
+}
+
+.Login {
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.label {
+    margin-left: 10%;
+}
+
+#buttons {
+    text-align: center;
+}
+
+input[type=password], select {
+    outline: none;
+    width: 80%;
+    padding: 12px 20px;
+    margin: 6px 10%;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  input[type=text], select {
+    outline: none;
+    width: 80%;
+    padding: 12px 20px;
+    margin: 6px 10%;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  input[type=text]:focus, select {
+    border: 3px solid #00c;
+  }
+
+  input[type=password]:focus, select {
+    border: 3px solid #00c;
+  }

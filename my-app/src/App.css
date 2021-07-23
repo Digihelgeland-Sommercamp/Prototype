@@ -3,47 +3,34 @@
   display: flex;
   flex-direction: column;
 }
-
-.form {
+.login {
+  text-align: center;
   display: flex;
   flex-direction: column;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+label {
+  font: bold;
 }
 
-
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+input:placeholder-shown {
+  border: 1px solid red; /* Red border only if the input is empty */
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+input[type=password], select {
+  width: 80%;
+  padding: 12px 20px;
+  margin: 6px 10%;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
 input[type=text], select {
-  width: 97%;
+  width: 80%;
   padding: 12px 20px;
-  margin: 8px 0;
+  margin: 6px 10%;
   display: inline-block;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -61,7 +48,7 @@ button {
   background-color: #4CAF50;
   border: none;
   border-radius: 15px;
-  box-shadow: 0 9px #999;
+  
   margin: 10px 10px;
 }
 
