@@ -11,6 +11,7 @@ import {
   useRecoilValue,
 } from 'recoil';
 import OverviewApplication from './pages/OverviewApplication/OverviewApplication';
+import Situation from './pages/Situation/Situation';
 
 
 
@@ -22,23 +23,25 @@ import OverviewApplication from './pages/OverviewApplication/OverviewApplication
 
 
 function App() {
-
-
-  return (
-      <OverviewApplication title="Redusert foreldrebetaling"/>
-    );
   
+  return (
+      <>
+        <OverviewApplication title="Redusert foreldrebetaling"/>
+        <Situation name="Ola"/>
+      </>
+    );
+
   // return (
   //   <RecoilRoot>
   //     <Router />  
   //   </RecoilRoot>
   // );
- 
+
 }
 
 // function Router() {
 //   const [state, setState] = useRecoilState(page);
-  
+
 //   switch(state){
 //     case 0 :
 //       return (
@@ -49,12 +52,12 @@ function App() {
 //     default:
 //       return (
 //         <div className="App">
-        
+
 //           <button onClick={() => setState(1)}>Logg inn</button>
 //         </div>
 //       );
 //   }
- 
+
 // }
 
 export default App;
