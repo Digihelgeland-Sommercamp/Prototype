@@ -12,6 +12,7 @@ import {
 } from 'recoil';
 import OverviewApplication from './pages/OverviewApplication/OverviewApplication';
 import Situation from './pages/Situation/Situation';
+import OverviewApplications from './pages/OverviewApplications/OverviewApplications';
 
 
 
@@ -26,8 +27,12 @@ function App() {
   
   return (
       <>
-        <OverviewApplication title="Redusert foreldrebetaling"/>
-        <Situation name="Ola"/>
+        <OverviewApplications />
+        {/* <OverviewApplication 
+          title="Redusert foreldrebetaling"
+          status="Søknad ikke sendt"
+          action="Gjenoppta søknad"/> */}
+        {/* <Situation name="Ola"/> */}
       </>
     );
 

@@ -1,14 +1,18 @@
 import React from 'react'
-import ChangeButton from '../ChangeButton'
-import InfoButton from '../InfoButton'
+
+// Components
+import InfoButtonText from '../InfoButtonText/InfoButtonText'
 import PersonWithId from './PersonWithId'
+
+// Style
+import styles from './TitleWithChildren.module.css'
 
 function TitleWithChildren(props) {
     return (
-        <div style={{padding:"20px"}}> 
+        <div style={{padding:props.padding}}> 
             <div style={{display:"flex"}}>
-                <h1>{props.title}</h1>
-                <InfoButton />
+                <h1 className={styles.title} style={{fontSize:props.titleFontSize}}>{props.title}</h1>
+                <InfoButtonText />
             </div>
             
             {props.people.map((person, i) => {
@@ -17,12 +21,27 @@ function TitleWithChildren(props) {
                         name={person.name}
                         id={person.id}
                         extraInformation={person.extraInformation}
+                        padding="10px"
+                        margin="5px"
                     />
                 )
             })}
-            <ChangeButton/>
         </div>
     )
+}
+
+TitleWithChildren.defaultProps = {
+    title: "Tittel",
+    people: [
+        {
+            name: "Rafael",
+            id: "123456789",
+            extraInformation: "Hei sveis"
+        }
+    ],
+    margin: "20px",
+    padding: "10px",
+    titleFontSize: "1em"
 }
 
 export default TitleWithChildren

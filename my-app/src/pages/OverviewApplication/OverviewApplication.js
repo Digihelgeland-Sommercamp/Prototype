@@ -1,16 +1,45 @@
 import React from 'react'
+import BackButton from '../../components/BackButton/BackButton'
+import ProgressBar from '../../components/ProgressBar/ProgressBar'
+import TitleWithChildren from '../../components/TitleWithChildren/TitleWithChildren'
 
-import './OverviewApplication.css'
+import styles from './OverviewApplication.module.css'
 
-export default function OverviewApplication(props) {
+export default function OverviewApplication(props) {    
+
     return (
         <div>
-            <h1>{props.title}</h1>
-            <h1>{props.status}</h1>
-            <a>{props.action}</a>
-            <div>progressbar</div>
-            <div>title with children</div>
-            <div>title with children</div>
+            <BackButton />
+            <h1 className={styles.title}>{props.title}</h1>
+            <h2 className={styles.status}>{props.status}</h2>
+            <a className={styles.action}>{props.action}</a>
+            <ProgressBar filled={1}/>
+            <TitleWithChildren title="Foresatte:" people={props.firstInfo} />
+            <TitleWithChildren title="Søkt for:" people={props.secondInfo} />
         </div>
     )
+}
+
+OverviewApplication.defaultProps = {
+    title: "Søknadsnavn",
+    status: "Søknad ikke sendt",
+    action: "",
+    firstInfo: [
+        {
+            name:"Ola Normann"
+        },
+        {
+            name:"Thea Normann"
+        }
+    ],
+    secondInfo: [
+        {
+            name:"Ola Normann",
+            extraInformation:"Salhus SFO"
+        },
+        {
+            name:"Thea Normann",
+            extraInformation:"Salhus SFO"
+        }
+    ]
 }
