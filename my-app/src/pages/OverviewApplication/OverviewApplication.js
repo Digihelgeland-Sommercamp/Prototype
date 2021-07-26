@@ -1,21 +1,27 @@
 import React from 'react'
+import { selector, useRecoilValue } from 'recoil'
 import BackButton from '../../components/BackButton/BackButton'
 import ProgressBar from '../../components/ProgressBar/ProgressBar'
 import TitleWithChildren from '../../components/TitleWithChildren/TitleWithChildren'
 
 import styles from './OverviewApplication.module.css'
 
-export default function OverviewApplication(props) {    
+const overviewOfApplication = selector({
+    key:"overviewOfApplication"
+})
+
+export default function OverviewApplication(props) {
+    const applicationData = useRecoilValue(overviewOfApplication)    
 
     return (
         <div>
             <BackButton />
-            <h1 className={styles.title}>{props.title}</h1>
-            <h2 className={styles.status}>{props.status}</h2>
-            <a className={styles.action}>{props.action}</a>
-            <ProgressBar filled={1}/>
-            <TitleWithChildren title="Foresatte:" people={props.firstInfo} />
-            <TitleWithChildren title="Søkt for:" people={props.secondInfo} />
+            <h1 className={styles.title}>{applicationData.applicationName}</h1>
+            <h2 className={styles.status}>{applicationData.status}</h2>
+            <a className={styles.action}>{applicationData.action}</a>
+            <ProgressBar filled={applicationData.filled}/>
+            <TitleWithChildren title="Foresatte:" people={applicationData.firstInfo} />
+            <TitleWithChildren title="Søkt for:" people={applicationData.secondInfo} />
         </div>
     )
 }

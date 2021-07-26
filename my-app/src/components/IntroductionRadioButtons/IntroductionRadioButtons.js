@@ -1,14 +1,23 @@
 import React from 'react';
 import { FormControl, RadioGroup, FormControlLabel, Radio } from '@material-ui/core'
 import InfoButtonText from '../InfoButtonText/InfoButtonText';
+import { selector, useRecoilState } from 'recoil';
+
+
+const situation = selector({
+    key: 'situation', 
+});
 
 export default function IntrodctionRadioButtons(props) {
+    const [currentSituaton, setSituation] = useRecoilState(situation)
 
     const [value, setValue] = React.useState('')
 
     const handleChange = (event) => {
         setValue(event.target.value);
+        setSituation(event.target.value)
         props.onChange()
+        
     }
 
     const firstValue = "stable-income"

@@ -16,53 +16,60 @@ import OverviewApplications from './pages/OverviewApplications/OverviewApplicati
 
 
 
-// const page = atom({
-//   key: "page",
-//   default: 0
-// });
+const page = atom({
+  key: "page",
+  default: 0
+});
 
+const lastPage = atom({
+  key: "lastPage",
+  default: 0
+})
 
+const situation = atom({
+  key: "situation",
+  default: ""
+})
+
+const overviewOfApplication = atom({
+  key: "overviewOfApplication",
+  default: {}
+})
 
 function App() {
   
   return (
-      <>
-        <OverviewApplications />
-        {/* <OverviewApplication 
-          title="Redusert foreldrebetaling"
-          status="Søknad ikke sendt"
-          action="Gjenoppta søknad"/> */}
-        {/* <Situation name="Ola"/> */}
-      </>
-    );
-
-  // return (
-  //   <RecoilRoot>
-  //     <Router />  
-  //   </RecoilRoot>
-  // );
+    <RecoilRoot>
+      <Router />  
+    </RecoilRoot>
+  );
 
 }
 
-// function Router() {
-//   const [state, setState] = useRecoilState(page);
+function Router() {
+  const [state, setState] = useRecoilState(page);
+  const currentSituaton = useRecoilValue(situation)
+  
+  console.log(currentSituaton);
 
-//   switch(state){
-//     case 0 :
-//       return (
-//         <Login />
-//       );
-//     case 1 :
-//       return <MainPage />
-//     default:
-//       return (
-//         <div className="App">
+  switch(state){
+    case 0 :
+      return <Login />
+    case 1 :
+      return <Situation />
+    case 2 : 
+      return <OverviewApplications />
+    case 3 : 
+      return <OverviewApplication />
+    default:
+      return (
+        <div className="App">
 
-//           <button onClick={() => setState(1)}>Logg inn</button>
-//         </div>
-//       );
-//   }
+          <button onClick={() => setState(1)}>Logg inn</button>
+        </div>
+      );
+  }
 
-// }
+}
 
 export default App;
