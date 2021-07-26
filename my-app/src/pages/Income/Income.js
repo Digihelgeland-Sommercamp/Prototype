@@ -1,6 +1,6 @@
 import { Button } from '@material-ui/core'
 import React from 'react'
-import { selector, useRecoilValue } from 'recoil'
+import { selector, useRecoilState, useRecoilValue } from 'recoil'
 import InformationBox from '../../components/InformationBox/InformationBox'
 import ProgressBar from '../../components/ProgressBar/ProgressBar'
 
@@ -9,12 +9,26 @@ import styles from './Income.module.css'
 const incomePeople = selector({
     key: "incomePeople"
 })
+const page = selector({
+    key: "page"
+})
+const lastPage = selector({
+    key: "lastPage"
+})
+
 
 export default function Income() {
+    const [currentPage, changePage] = useRecoilState(page)
+    const [currentLastPage, setLastPage] = useRecoilState(lastPage)
 
     //TODO: Change to incomepeople set earlier in the progress
     //const currentIncomePeople = useRecoilValue(incomePeople)
     const mockPeople = [{ name: "Ola Normann" }, { name: "Kari Normann" }]
+
+    const handlePageChange = () => {
+        setLastPage(currentPage)
+        changePage(3)
+    }
 
     return (
         <div className={styles.container}>
@@ -50,7 +64,9 @@ export default function Income() {
             <div className={styles.button}>
                 <Button style={{
                     background: "whitesmoke"
-                }}>Neste</Button>
+                }}
+                onClick={() => handlePageChange()}
+                    >Neste</Button>
             </div>
 
         </div>

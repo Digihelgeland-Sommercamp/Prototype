@@ -45,7 +45,9 @@ const incomePeople = atom({
 function App() {
   
   return (
-    <Income />
+    <RecoilRoot>
+      <Router />
+    </RecoilRoot>
   );
 
 }
@@ -58,12 +60,14 @@ function Router() {
 
   switch(state){
     case 0 :
-      return <Income />
+      return <Login />
     case 1 :
       return <Situation />
     case 2 : 
+      return <Income />
+    case 3 :  
       return <OverviewApplications />
-    case 3 : 
+    case 4 : 
       return <OverviewApplication />
     default:
       return (

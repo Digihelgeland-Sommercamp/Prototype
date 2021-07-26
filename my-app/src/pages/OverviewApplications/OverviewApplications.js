@@ -109,7 +109,7 @@ export default function OverviewApplications() {
     const excerptClicked = (arr, index) => {
         setApplication(arr == "new" ? newApplications[index] : oldApplications[index])
         setLastPage(currentPage)
-        setPage(3)
+        setPage(4)
     }
 
 
