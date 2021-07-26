@@ -1,0 +1,30 @@
+
+
+.container {
+    display: grid;
+    grid-template-columns: 0.2fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: 
+        "icon text"
+        ". link";
+    background-color: var(--grey_bg);
+    padding: 10px
+}
+
+.icon {
+    grid-area: icon;
+    display: flex;
+    justify-content: center;
+    padding-top:15px;
+}
+
+.text {
+    grid-area: text;
+}
+
+.link {
+    grid-area: link;
+    color: var(--info_blue);
+    text-decoration: underline;
+}
+

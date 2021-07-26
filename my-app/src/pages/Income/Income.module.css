@@ -1,0 +1,26 @@
+.container {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+}
+.title {
+    text-align: center;
+    margin: 20px 0;
+}
+.info {
+    margin: 10px 0;
+}
+.info p {
+    margin: 15px 0
+}
+
+li {
+    font-weight: bold;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+}

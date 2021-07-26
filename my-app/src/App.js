@@ -13,6 +13,7 @@ import {
 import OverviewApplication from './pages/OverviewApplication/OverviewApplication';
 import Situation from './pages/Situation/Situation';
 import OverviewApplications from './pages/OverviewApplications/OverviewApplications';
+import Income from './pages/Income/Income';
 
 
 
@@ -36,12 +37,15 @@ const overviewOfApplication = atom({
   default: {}
 })
 
+const incomePeople = atom({
+  key: "incomePeople",
+  default: []
+})
+
 function App() {
   
   return (
-    <RecoilRoot>
-      <Router />  
-    </RecoilRoot>
+    <Income />
   );
 
 }
@@ -54,7 +58,7 @@ function Router() {
 
   switch(state){
     case 0 :
-      return <Login />
+      return <Income />
     case 1 :
       return <Situation />
     case 2 : 
