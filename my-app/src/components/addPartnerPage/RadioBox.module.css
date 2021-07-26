@@ -1,0 +1,28 @@
+.container {
+    display: flex;
+    justify-content: center;
+    
+}
+
+.box {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    justify-items: center;
+    border: 1px;
+    border-style: groove;
+
+    width: 80%;
+
+}
+
+.text {
+    font-size: 16px;
+    padding: 20px 15px;
+    align-self: left;
+    justify-self: left;
+}
+
+.radioButton {
+
+    justify-self: right;
+}

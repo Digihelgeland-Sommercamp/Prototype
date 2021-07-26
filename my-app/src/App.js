@@ -11,13 +11,15 @@ import {
   useRecoilState,
   useRecoilValue,
 } from 'recoil';
+import AddPartnerPage from './components/addPartnerPage/AddPartnerPage';
 
 
 function App() {
 
 
   return (
-      <ApplicationPage />
+      <AddPartnerPage />
+      // <ApplicationPage />
     );
 }
 
