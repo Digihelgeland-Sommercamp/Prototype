@@ -18,7 +18,7 @@ export default function OverviewApplication(props) {
             <BackButton />
             <h1 className={styles.title}>{applicationData.applicationName}</h1>
             <h2 className={styles.status}>{applicationData.status}</h2>
-            <a className={styles.action}>{applicationData.action}</a>
+            <button className={styles.action}>{applicationData.action}</button>
             <ProgressBar filled={applicationData.filled}/>
             <TitleWithChildren title="Foresatte:" people={applicationData.firstInfo} />
             <TitleWithChildren title="Søkt for:" people={applicationData.secondInfo} />

@@ -11,11 +11,11 @@ const page = selector({
 
 export default function Situation(props) {
     
-    const [currentPage, changePage] = useRecoilState(page)
+    const [, changePage] = useRecoilState(page)
 
     const [noClick, setNoClick] = useState(true)
 
-    const handler = (value) => {
+    const handler = () => {
         setNoClick(false)
     }
 

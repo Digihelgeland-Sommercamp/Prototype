@@ -12,12 +12,11 @@ export default function InformationBox(props) {
                <FontAwesomeIcon icon={faInfoCircle} color="#1C77FF"/> 
             </div>
             <p className={styles.text}>{props.text}</p>
-            <a className={styles.link}>{props.link}</a>
+            <button className={styles.link}>{props.link}</button>
         </div>
     )
 }
 
 InformationBox.defaultProps = {
-    text:"Informasjon",
-    link:"Les mer..."
+    text:"Informasjon"
 }

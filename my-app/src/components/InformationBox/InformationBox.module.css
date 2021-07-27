@@ -1,5 +1,3 @@
-
-
 .container {
     display: grid;
     grid-template-columns: 0.2fr 1fr;
@@ -26,5 +24,8 @@
     grid-area: link;
     color: var(--info_blue);
     text-decoration: underline;
+    text-align: left;
+    border: none;
+    padding: 2px 0;
 }
 

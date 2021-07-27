@@ -1,12 +1,13 @@
 import React from 'react'
-import { selector, useRecoilState } from 'recoil'
+import { atom, selector, useRecoilState } from 'recoil'
 
 import ApplicationExcerpt from '../../components/ApplicationExcerpt/ApplicationExcerpt'
 
-const overviewOfApplication = selector({
-    key: "overviewOfApplication"
-})
-
+const overviewOfApplication = atom({
+    key: "overviewOfApplication",
+    default: {}
+  })
+  
 const page = selector({
     key: "page"
 })
@@ -15,9 +16,9 @@ const lastPage = selector({
 });
 
 export default function OverviewApplications() {
-    const [application, setApplication] = useRecoilState(overviewOfApplication)
+    const [, setApplication] = useRecoilState(overviewOfApplication)
     const [currentPage, setPage] = useRecoilState(page)
-    const [currentLastPage, setLastPage] = useRecoilState(lastPage)
+    const [, setLastPage] = useRecoilState(lastPage)
 
     // TODO: fetch applications for currentUser
     const newApplications = [
@@ -107,9 +108,9 @@ export default function OverviewApplications() {
     ]
 
     const excerptClicked = (arr, index) => {
-        setApplication(arr == "new" ? newApplications[index] : oldApplications[index])
+        setApplication(arr === "new" ? newApplications[index] : oldApplications[index])
         setLastPage(currentPage)
-        setPage(4)
+        setPage(5)
     }
 
 

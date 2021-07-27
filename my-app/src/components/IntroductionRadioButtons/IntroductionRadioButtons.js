@@ -9,7 +9,7 @@ const situation = selector({
 });
 
 export default function IntrodctionRadioButtons(props) {
-    const [currentSituaton, setSituation] = useRecoilState(situation)
+    const [, setSituation] = useRecoilState(situation)
 
     const [value, setValue] = React.useState('')
 
@@ -32,7 +32,7 @@ export default function IntrodctionRadioButtons(props) {
                         control={<Radio color="default" />} 
                         label="Husholdningen har hatt stabil inntekt siden forrige skatteoppgjør." 
                         className={
-                            value == firstValue ? 'radioButton active' : 'radioButton'
+                            value === firstValue ? 'radioButton active' : 'radioButton'
                         } />
                     <InfoButtonText text="Hva menes med stabil inntekt?" />
                     <FormControlLabel 
@@ -40,7 +40,7 @@ export default function IntrodctionRadioButtons(props) {
                         control={<Radio color="default" />}
                         label="Noen i husholdningen har en nylig, varig endring av sin inntekt." 
                         className={
-                            value == secondValue ? 'radioButton active' : 'radioButton'
+                            value === secondValue ? 'radioButton active' : 'radioButton'
                         } />
                     <InfoButtonText text="Hva menes med varig endring?" />
                 </RadioGroup>

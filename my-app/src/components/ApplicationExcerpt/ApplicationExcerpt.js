@@ -9,8 +9,7 @@ export default function ApplicationExcerpt(props) {
     }
 
     return (
-        <a onClick={() => excerptClicked()}>
-            <div className={styles.wrapper} >
+            <div className={styles.wrapper}  onClick={() => excerptClicked()}>
             <div className={styles.info + ' ' + (props.changeOrCheck ? styles.new : styles.old)}>
                 <p className={styles.applicationName}>{props.applicationName}</p>
                 <p className={styles.date}>{props.date}</p>
@@ -19,11 +18,10 @@ export default function ApplicationExcerpt(props) {
                 ?
                 <p className={styles.extra}>Sist endret: {props.changedDate}</p>
                 :
-                <a className={styles.extra}>Se digipost</a>
+                <button className={styles.link}>Se digipost</button>
             }
 
         </div>
-        </a>
         
     )
 }
