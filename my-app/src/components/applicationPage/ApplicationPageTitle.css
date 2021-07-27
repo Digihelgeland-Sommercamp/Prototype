@@ -1,0 +1,15 @@
+.applicant-title-wrapper {
+    margin-top: 5%;
+    display: flex;
+    align-items: center;
+    /* background-color: aqua; */
+}
+
+
+.title-card {
+    margin-left: 5%;
+    font-size: 18px;
+    font-weight: bold;
+
+    /* background-color: chartreuse; */
+}

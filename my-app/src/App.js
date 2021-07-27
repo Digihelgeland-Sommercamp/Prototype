@@ -9,12 +9,14 @@ import {
 } from 'recoil';
 
 // Pages
+import ApplicationPage from './components/applicationPage/ApplicationPage';
 import Login from './pages/Login/Login.js';
 import OverviewApplication from './pages/OverviewApplication/OverviewApplication';
 import Situation from './pages/Situation/Situation';
 import OverviewApplications from './pages/OverviewApplications/OverviewApplications';
 import Income from './pages/Income/Income';
 import Kids from './pages/Kids/Kids';
+import AddPartnerPage from './components/addPartnerPage/AddPartnerPage';
 
 
 
@@ -26,6 +28,7 @@ const lastPage = atom({
   key: "lastPage",
   default: 0
 })
+
 
 
 const situation = atom({
@@ -72,7 +75,7 @@ function Router() {
         </div>
       );
   }
-
 }
+
 
 export default App;
