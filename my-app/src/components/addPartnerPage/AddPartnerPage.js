@@ -4,6 +4,7 @@ import RadioBox from '../radioBox/RadioBoxGroup';
 import { useReducer } from 'react';
 import RadioBoxGroup from '../radioBox/RadioBoxGroup';
 import CheckBoxField from '../checkBoxField/CheckBoxField';
+import CheckBoxGroup from '../checkBoxField/CheckBoxGroup';
 
 const radioTextList = [
     "test1",
@@ -13,6 +14,16 @@ const radioTextList = [
     "test5"
 ]
 
+const checkboxTextList = [{
+    name: "Navn Navnesen",
+    birth: "01.03.1996"
+},
+{
+    name: "Kari Navnesen",
+    birth: "02.03.1998"
+}
+]
+
 function AddPartnerPage(props) {
     const [selectedRadioBoxId, setSelectedRadioBoxId] = useState(-1)
 
@@ -20,11 +31,13 @@ function AddPartnerPage(props) {
         setSelectedRadioBoxId(value);
     }
 
+    
 
     return (
         <div>
-            <RadioBoxGroup radioGroupCallback={radioGroupCallback} radioTextList={radioTextList}/>
+            {/* <RadioBoxGroup radioGroupCallback={radioGroupCallback} radioTextList={radioTextList}/> */}
             {/* <CheckBoxField /> */}
+            <CheckBoxGroup personList={checkboxTextList}/>
         </div>
     );
 }
