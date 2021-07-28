@@ -18,8 +18,8 @@ function App() {
 
 
   return (
-      <AddPartnerPage />
-      // <ApplicationPage />
+      // <AddPartnerPage />
+      <ApplicationPage />
     );
 }
 

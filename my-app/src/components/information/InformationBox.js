@@ -1,8 +1,6 @@
 import { useState } from "react";
-import './InformationBox.css'
-
-
-
+import styles from './InformationBox.module.css'
+import InfoIcon from '@material-ui/icons/Info';
 
 
 function InformationBox(props) {
@@ -10,8 +8,11 @@ function InformationBox(props) {
 
     return(
         <div>
-            <div className="information-box-wrapper">
-                <div className="information-box-text-body">
+            <div className={styles.container}>
+                <div className={styles.iconWrapper}>
+                    <InfoIcon />
+                </div>
+                <div className={styles.text}>
                     {informationBoxTextBody}
                 </div>
             
@@ -22,7 +23,7 @@ function InformationBox(props) {
 }
 
 InformationBox.defaultProps = {
-    informationBoxTextBody: "Dersom noen i husholdningen har en nylig, varig endring av sin inntekt må dette dokumenteres"
+    informationBoxTextBody: "Dersom noen i husholdningen har en nylig, varig endring av sin inntekt må dette dokumenteres."
 
 }
 
