@@ -58,7 +58,7 @@ function Router() {
     case PAGE_POINTER.login :
       return <Login />
     case PAGE_POINTER.situation :
-      return <Situation />
+      return <Situation name="Ola"/>
     case PAGE_POINTER.household : 
       return <Household />
     case PAGE_POINTER.kids : 
@@ -72,7 +72,7 @@ function Router() {
     default:
       return (
         <div className="App">
-          <button onClick={() => setState(1)}>Logg inn</button>
+          <button onClick={() => setState(PAGE_POINTER.situation)}>Logg inn</button>
         </div>
       );
   }

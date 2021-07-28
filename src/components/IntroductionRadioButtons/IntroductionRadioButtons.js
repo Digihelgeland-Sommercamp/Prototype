@@ -1,8 +1,10 @@
 import React from 'react';
-import { FormControl, RadioGroup, FormControlLabel, Radio } from '@material-ui/core'
-import InfoButtonText from '../InfoButtonText/InfoButtonText';
 import { selector, useRecoilState } from 'recoil';
 
+import { FormControl, RadioGroup, FormControlLabel, Radio } from '@material-ui/core'
+import InfoButtonText from '../InfoButtonText/InfoButtonText';
+
+import styles from './IntroductionRadioButtons.module.css'
 
 const situation = selector({
     key: 'situation', 
@@ -24,25 +26,31 @@ export default function IntrodctionRadioButtons(props) {
     const secondValue = "low-income"
 
     return (
-        <div className="radioButtons">
+        <div className={styles.radioButtons}>
             <FormControl component="fieldset">
                 <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
-                    <FormControlLabel 
+                    <div className={`${styles.radioChoice} ${value===firstValue ? styles.active:''}`}>
+                        <FormControlLabel 
                         value={firstValue}
                         control={<Radio color="default" />} 
                         label="Husholdningen har hatt stabil inntekt siden forrige skatteoppgjør." 
-                        className={
-                            value === firstValue ? 'radioButton active' : 'radioButton'
-                        } />
-                    <InfoButtonText text="Hva menes med stabil inntekt?" />
-                    <FormControlLabel 
+                        className={styles.radioButton} />
+                        <div className={styles.link}>
+                            <InfoButtonText text="Hva menes med stabil inntekt?" />
+                        </div>
+                        
+                    </div>
+                    <div className={`${styles.radioChoice} ${value===secondValue ? styles.active:''}`}>
+                        <FormControlLabel 
                         value={secondValue}
                         control={<Radio color="default" />}
                         label="Noen i husholdningen har en nylig, varig endring av sin inntekt." 
-                        className={
-                            value === secondValue ? 'radioButton active' : 'radioButton'
-                        } />
-                    <InfoButtonText text="Hva menes med varig endring?" />
+                        className={styles.radioButton} />
+                        <div className={styles.link}>
+                            <InfoButtonText text="Hva menes med varig endring?" />
+                        </div>
+                    </div>
+                    
                 </RadioGroup>
             </FormControl>
         </div>
