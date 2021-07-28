@@ -3,7 +3,7 @@ import { Button } from '@material-ui/core'
 import Applicant from './Applicant'
 import Partner from './Partner'
 import IncomeArea from './IncomeArea';
-import InformationBox from './InformationBox';
+import InformationBox from '../information/InformationBox';
 
 function ApplicationPage() {
     const [applicantName, setApplicantName] = useState("Ola Nordmann")

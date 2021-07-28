@@ -25,19 +25,22 @@ const checkboxTextList = [{
 ]
 
 function AddPartnerPage(props) {
-    const [selectedRadioBoxId, setSelectedRadioBoxId] = useState(-1)
+    const [selectedRadioBoxId, setSelectedRadioBoxId] = useState(-1);
+    const [selectedCheckboxElements, setSelectedCheckboxElements] = useState([]);
 
     const radioGroupCallback = (value)=>{
         setSelectedRadioBoxId(value);
     }
 
-    
+    const checkboxCallback = (selectedElementList) => {
+        setSelectedCheckboxElements(selectedElementList);
+    }
 
     return (
         <div>
             {/* <RadioBoxGroup radioGroupCallback={radioGroupCallback} radioTextList={radioTextList}/> */}
             {/* <CheckBoxField /> */}
-            <CheckBoxGroup personList={checkboxTextList}/>
+            <CheckBoxGroup personList={checkboxTextList} checkboxCallback={checkboxCallback}/>
         </div>
     );
 }
