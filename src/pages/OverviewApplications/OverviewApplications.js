@@ -1,6 +1,8 @@
 import React from 'react'
 import { atom, selector, useRecoilState } from 'recoil'
 
+import { PAGE_POINTER } from '../../pagePointer';
+
 import ApplicationExcerpt from '../../components/ApplicationExcerpt/ApplicationExcerpt'
 
 const overviewOfApplication = atom({
@@ -110,7 +112,7 @@ export default function OverviewApplications() {
     const excerptClicked = (arr, index) => {
         setApplication(arr === "new" ? newApplications[index] : oldApplications[index])
         setLastPage(currentPage)
-        setPage(5)
+        setPage(PAGE_POINTER.applicationOverview)
     }
 
 

@@ -1,6 +1,9 @@
-import { Button, TextField } from '@material-ui/core'
 import React, { useState } from 'react'
 import { selector, useRecoilState } from 'recoil'
+
+import { PAGE_POINTER } from '../../pagePointer.js';
+
+import { Button, TextField } from '@material-ui/core'
 import InformationBox from '../../components/InformationBox/InformationBox'
 import ProgressBar from '../../components/ProgressBar/ProgressBar'
 import Kid from './Kid'
@@ -59,7 +62,7 @@ export default function Kids(props) {
     return (
         <>
             <ProgressBar
-                filled={2}
+                filled={3}
                 elements={[{}, {}, {}, {}, {}]} />
             <div className={styles.container}>
 
@@ -85,7 +88,7 @@ export default function Kids(props) {
                     style={{ margin: "20px 0" }}
                     onClick={() => {
                         setLastPage(currentPage)
-                        setPage(3)
+                        setPage(PAGE_POINTER.income)
                     }}>
                     Neste
                 </Button>

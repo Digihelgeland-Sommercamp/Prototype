@@ -8,6 +8,8 @@ import {
   useRecoilValue,
 } from 'recoil';
 
+import { PAGE_POINTER } from './pagePointer';
+
 // Pages
 import ApplicationPage from './components/applicationPage/ApplicationPage';
 import Login from './pages/Login/Login.js';
@@ -17,26 +19,23 @@ import OverviewApplications from './pages/OverviewApplications/OverviewApplicati
 import Income from './pages/Income/Income';
 import Kids from './pages/Kids/Kids';
 import AddPartnerPage from './components/addPartnerPage/AddPartnerPage';
+import Household from './pages/Household/Household';
 
 
 
 const page = atom({
   key: "page",
-  default: 0
+  default: PAGE_POINTER.login
 });
 const lastPage = atom({
   key: "lastPage",
   default: 0
 })
 
-
-
 const situation = atom({
   key: "situation",
   default: ""
 })
-
-
 
 
 function App() {
@@ -56,17 +55,19 @@ function Router() {
   console.log(currentSituaton);
 
   switch(state){
-    case 0 :
+    case PAGE_POINTER.login :
       return <Login />
-    case 1 :
+    case PAGE_POINTER.situation :
       return <Situation />
-    case 2 : 
+    case PAGE_POINTER.household : 
+      return <Household />
+    case PAGE_POINTER.kids : 
       return <Kids />
-    case 3 : 
+    case PAGE_POINTER.income : 
       return <Income />
-    case 4 :  
+    case PAGE_POINTER.allApplications :  
       return <OverviewApplications />
-    case 5 : 
+    case PAGE_POINTER.applicationOverview : 
       return <OverviewApplication />
     default:
       return (

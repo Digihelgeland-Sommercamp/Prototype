@@ -1,5 +1,7 @@
 import { selector, useRecoilState } from 'recoil';
 
+import { PAGE_POINTER } from '../../pagePointer.js';
+
 import styles from './Login.module.css'
 
 const page = selector({
@@ -17,7 +19,7 @@ function Login() {
     <div className={styles.container}>
       <button className={styles.login} onClick={() => {
         setLastPage(state)
-        setState(1)
+        setState(PAGE_POINTER.situation)
       }}>Til søknad</button>
     </div>
   );

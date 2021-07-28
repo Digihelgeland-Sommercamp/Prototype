@@ -1,6 +1,9 @@
-import { Button } from '@material-ui/core'
 import React, { useState } from 'react'
 import { useRecoilState, selector } from 'recoil'
+
+import { PAGE_POINTER } from '../../pagePointer.js';
+
+import { Button } from '@material-ui/core'
 import IntrodctionRadioButtons from '../../components/IntroductionRadioButtons/IntroductionRadioButtons'
 
 import './Situation.css'
@@ -29,7 +32,7 @@ export default function Situation(props) {
                 variant='contained'
                 disabled={noClick}
                 className="nextButton"
-                onClick={() => changePage(2)}>
+                onClick={() => changePage(PAGE_POINTER.household)}>
                 Neste
             </Button>
         </div>

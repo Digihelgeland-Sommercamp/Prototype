@@ -1,6 +1,9 @@
-import { Button } from '@material-ui/core'
 import React from 'react'
 import { selector, useRecoilState } from 'recoil'
+
+import { PAGE_POINTER } from '../../pagePointer';
+
+import { Button } from '@material-ui/core'
 import InformationBox from '../../components/InformationBox/InformationBox'
 import ProgressBar from '../../components/ProgressBar/ProgressBar'
 
@@ -27,13 +30,12 @@ export default function Income() {
     const mockPeople = [{ name: "Ola Normann" }, { name: "Kari Normann" }]
 
     const handlePageChange = () => {
-        setLastPage(currentPage)
-        changePage(4)
+        
     }
 
     return (
         <div className={styles.container}>
-            <ProgressBar filled={2} elements={[{}, {}, {}, {}, {}]} />
+            <ProgressBar filled={4} elements={[{}, {}, {}, {}, {}]} />
             <h1 className={styles.title}>Inntekt</h1>
             <div className={styles.info}>
                 <p >Vi beregner anslått inntekt i år basert på siste oppdaterte skatteopplysninger.</p>
@@ -64,9 +66,12 @@ export default function Income() {
 
             <div className={styles.button}>
                 <Button style={{
-                    background: "whitesmoke"
-                }}
-                onClick={() => handlePageChange()}
+                        background: "whitesmoke"
+                    }}
+                    onClick={() => {
+                        setLastPage(currentPage)
+                        changePage(PAGE_POINTER.allApplications)
+                    }}
                     >Neste</Button>
             </div>
 
