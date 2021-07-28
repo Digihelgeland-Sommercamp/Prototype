@@ -6,9 +6,10 @@ export default function Form(props) {
 
     const handleFieldChange = (id, value) => {
         let newForm = form
-        newForm.id = value
+        newForm[id] = value
         setForm(newForm)
         props.handleFormChange(form)
+        console.log(form);
     }
 
     return (
@@ -16,7 +17,6 @@ export default function Form(props) {
             <form noValidate autoComplete="off">
                 {
                     props.fields.map((field, _) => {
-                        {console.log(field);}
                         return <TextField 
                             style={{ margin: "5px" }}
                             fullWidth

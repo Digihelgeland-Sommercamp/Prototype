@@ -42,7 +42,7 @@ function App() {
   
   return (
     <RecoilRoot>
-      <Router />
+      <Kids />
     </RecoilRoot>
   );
 
