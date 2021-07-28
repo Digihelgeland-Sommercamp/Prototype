@@ -3,11 +3,15 @@ import styles from './InformationLink.module.css';
 import InfoIcon from '@material-ui/icons/Info';
 import InformationModal from "./InformationModal";
 
+/* A clickable link that opens an InformationModal when clicked
+* @param linkText the text of the link. If not supplied, the link will be in iconOnly mode
+* @param iconOnly defaults to false. If this is true, only the icon is shown and clickable.*/
 function InformationLink(props) {
-    const [linkText,] = useState(props.linkText);
-    const [modalTitle,] = useState(props.modalTitle);
-    const [modalTextBody,] = useState(props.modalTextBody);
-    const [modalButtonText,] = useState(props.modalButtonText);
+    const linkText = props.linkText;
+    const [iconOnly, setIconOnly] = useState(props.iconOnly);
+    const modalTitle = props.modalTitle;
+    const modalTextBody = props.modalTextBody;
+    const modalButtonText = props.modalButtonText;
 
     const [shouldShowInformation, setShouldShowInformation] = useState(false);
 
@@ -15,14 +19,17 @@ function InformationLink(props) {
         setShouldShowInformation(!shouldShowInformation);
     }
 
-    console.log(modalTitle)
+    if(typeof linkText === 'undefined' && !iconOnly)
+        setIconOnly(true);
 
     return(
-        <div className={styles.container} onClick={toggleInformation}>
-            <InfoIcon color="primary"/>
-            <div className={styles.text}>
-                {linkText}
-            </div>
+        <div className={iconOnly ? styles.iconContainer : styles.textContainer} >
+            {/* <div className={styles.box}> */}
+                <InfoIcon color="primary" onClick={toggleInformation}/>
+                <div className={styles.text} onClick={toggleInformation}>
+                    {iconOnly ? "" : linkText}
+                </div>
+            {/* </div> */}
             <InformationModal shouldBeVisible={shouldShowInformation} 
             textBody={modalTextBody} 
             toggleVisible={toggleInformation}
@@ -30,6 +37,10 @@ function InformationLink(props) {
             buttonText={modalButtonText}/>
         </div>
     );
+}
+
+InformationLink.defaultProps = {
+    iconOnly: false
 }
 
 export default InformationLink;
