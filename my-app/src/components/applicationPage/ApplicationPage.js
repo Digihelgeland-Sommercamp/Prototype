@@ -5,6 +5,7 @@ import Partner from './Partner'
 import IncomeArea from './IncomeArea';
 import InformationBox from '../information/InformationBox';
 import InformationModal from '../information/InformationModal';
+import InformationLink from '../information/InformationLink';
 
 var informationText = "Her kan du lese mer om det du lurer på."
 
@@ -33,6 +34,7 @@ function ApplicationPage(props) {
             <InformationBox />
             <InformationModal shouldBeVisible={shouldShowInformationModal} textBody={informationText} toggleVisible={toggleInformationModal}/>
             <button onClick={toggleInformationModal}>sd</button>
+            <InformationLink modalTitle={"Kul tittel"} modalTextBody={"Masse tekst"} linkText={"Dette er en link"} modalButtonText={"GREIT"} />
         </div>
     );
 }

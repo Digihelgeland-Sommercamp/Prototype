@@ -1,0 +1,10 @@
+.container {
+    display: grid;
+    grid-template-columns: 1fr 11fr;
+}
+
+.text {
+    color: blue;
+    font-style: italic ;
+    text-decoration: underline;
+}

@@ -23,8 +23,6 @@ function InformationModal(props) {
         );
     }
 
-    console.log(props.shouldBeVisible);
-
     return(
         props.shouldBeVisible ? modal() : <div></div> 
     );
