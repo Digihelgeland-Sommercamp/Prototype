@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import styles from './CheckBoxField.module.css'
 import { Checkbox } from '@material-ui/core';
-import { sizing } from '@material-ui/system';
 
 function CheckBoxField(props) {
     const [isClicked, setIsClicked] = useState(false);
     const [identifier, ] = useState(props.identifier)
 
+    const [name, ] = useState(props.name)
+    const [birth, ] = useState(props.birth)
+
     const onSelect = (event) => {
         setIsClicked(!isClicked);
-        // props.onClickCheckbox(isClicked);
+        props.onClickCheckbox(isClicked, identifier);
     }
 
     return(
@@ -19,8 +21,8 @@ function CheckBoxField(props) {
                     <Checkbox checked={isClicked} size='medium' color="default" />
                 </div>
                 <div className={styles.textWrapper}>
-                    <div className={styles.text}>Navn Navnesen</div>
-                    <div className={styles.text}>f. 01.03.96</div>
+                    <div className={styles.text}>{name}</div>
+                    <div className={styles.text}>f. {birth}</div>
                 </div>
             </div>
         </div>
