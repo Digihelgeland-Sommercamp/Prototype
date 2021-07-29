@@ -10,7 +10,6 @@ import Kid from './Kid'
 import Form from '../../components/Form/Form.js';
 
 import styles from './Kids.module.css'
-import { stringify } from 'querystring';
 
 
 const page = selector({

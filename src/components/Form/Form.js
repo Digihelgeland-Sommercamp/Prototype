@@ -9,16 +9,14 @@ export default function Form(props) {
         newForm[id] = value
         setForm(newForm)
         props.handleFormChange(form)
-        console.log(form);
     }
 
     return (
         <div>
-            <form noValidate autoComplete="off">
+            <form noValidate autoComplete="off" style={{padding: "5px"}}>
                 {
                     props.fields.map((field, _) => {
                         return <TextField 
-                            style={{ margin: "5px" }}
                             fullWidth
                             id={field.id}
                             label={field.label} 
