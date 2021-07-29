@@ -1,5 +1,6 @@
 import React from 'react'
-import { selector, useRecoilState } from 'recoil'
+import ProgressBar from '../../components/ProgressBar/ProgressBar'
+import { selector, useRecoilState, useRecoilValue } from 'recoil'
 
 import ApplicationExcerpt from '../../components/ApplicationExcerpt/ApplicationExcerpt'
 
@@ -18,6 +19,7 @@ export default function OverviewApplications() {
     const [application, setApplication] = useRecoilState(overviewOfApplication)
     const [currentPage, setPage] = useRecoilState(page)
     const [currentLastPage, setLastPage] = useRecoilState(lastPage)
+    const applicationData = useRecoilValue(overviewOfApplication)
 
     // TODO: fetch applications for currentUser
     const newApplications = [
@@ -115,6 +117,7 @@ export default function OverviewApplications() {
 
     return (
         <div>
+            <ProgressBar filled={applicationData.filled}/>
             <h3>Nye</h3>
             {newApplications.map((application, index) => {
                 return (
