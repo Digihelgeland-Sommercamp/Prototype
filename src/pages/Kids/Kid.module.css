@@ -1,0 +1,24 @@
+.container {
+    background: var(--grey_bg);
+    padding:20px;
+    margin: 15px 0;
+}
+
+.container h2, .container p {
+    margin:0;
+}
+
+.checkBox {
+    display:flex;
+    justify-content: flex-end;
+}
+
+.checkBox span {
+    margin-right: 15px;
+}
+
+.cbContainer {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}

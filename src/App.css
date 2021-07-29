@@ -1,0 +1,12 @@
+:root {
+  --white: #fff;
+  --black: #000;
+  --grey_bg: #EFEFEF;
+  --info_blue: #1C77FF;
+}
+
+.App {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}

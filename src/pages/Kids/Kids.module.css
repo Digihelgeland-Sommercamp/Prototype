@@ -1,0 +1,17 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 90vh;
+    padding: 10px;
+}
+
+.title {
+    margin: 20px 0;
+}
+.information {
+    margin-bottom: 20px;
+}
+
+.childForm {
+    margin: 20px 0
+}

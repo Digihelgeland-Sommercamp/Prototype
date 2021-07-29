@@ -1,0 +1,27 @@
+import React from 'react'
+
+import styles from './ApplicationExcerpt.module.css'
+
+export default function ApplicationExcerpt(props) {
+
+    const excerptClicked = () => {
+        props.excerptClicked(props.arr, props.index)
+    }
+
+    return (
+            <div className={styles.wrapper}  onClick={() => excerptClicked()}>
+            <div className={styles.info + ' ' + (props.changeOrCheck ? styles.new : styles.old)}>
+                <p className={styles.applicationName}>{props.applicationName}</p>
+                <p className={styles.date}>{props.date}</p>
+            </div>
+            {props.changeOrCheck
+                ?
+                <p className={styles.extra}>Sist endret: {props.changedDate}</p>
+                :
+                <button className={styles.link}>Se digipost</button>
+            }
+
+        </div>
+        
+    )
+}

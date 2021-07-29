@@ -1,0 +1,23 @@
+.wrapper {
+    padding:20px;
+}
+
+.radioButtons {
+    margin: 50px 0;
+}
+
+.radioButton {
+    border: 2px solid lightgrey;
+    padding: 30px 20px;
+    margin: 20px 0 0 0 !important;
+
+}
+
+.active {
+    background-color: lightgrey;
+}
+
+.nextButton {
+    display: block !important;
+    margin: 0 auto !important;
+}
