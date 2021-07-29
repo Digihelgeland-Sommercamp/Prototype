@@ -23,13 +23,12 @@ function InformationLink(props) {
         setIconOnly(true);
 
     return(
-        <div className={iconOnly ? styles.iconContainer : styles.textContainer} >
-            {/* <div className={styles.box}> */}
-                <InfoIcon color="primary" onClick={toggleInformation}/>
-                <div className={styles.text} onClick={toggleInformation}>
-                    {iconOnly ? "" : linkText}
-                </div>
-            {/* </div> */}
+        <div className={iconOnly ? styles.iconContainer : styles.textContainer}>
+            <InfoIcon color="primary" onClick={toggleInformation}/>
+            <div className={styles.text} onClick={toggleInformation}>
+                {iconOnly ? "" : linkText}
+            </div>
+            
             <InformationModal shouldBeVisible={shouldShowInformation} 
             textBody={modalTextBody} 
             toggleVisible={toggleInformation}
