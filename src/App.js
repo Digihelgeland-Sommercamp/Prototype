@@ -25,7 +25,8 @@ import Household from './pages/Household/Household';
 
 const page = atom({
   key: "page",
-  default: PAGE_POINTER.login
+  // default: PAGE_POINTER.login
+  default: PAGE_POINTER.kids
 });
 const lastPage = atom({
   key: "lastPage",

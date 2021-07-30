@@ -10,14 +10,14 @@
 
 .text {
     justify-self: left;
-    padding: 10px 0 10px 0;
+    padding: 20px 20px 20px 0;
 }
 
 .iconWrapper {
     display: flex;
     align-items: flex-start;
     justify-self: center;
-    padding-top: 10px;
+    padding-top: 20px;
     /* background-color: aqua; */
 }
 

@@ -6,7 +6,7 @@ import { createTheme, ThemeProvider } from "@material-ui/core";
 
 
 function InformationBox(props) {
-    const [informationBoxTextBody, setInformationBoxTextBody] = useState(props.informationBoxTextBody)
+    const textBody= props.text
     
     return(
         <div>
@@ -15,7 +15,7 @@ function InformationBox(props) {
                     <InfoIcon color={"primary"}/>
                 </div>
                 <div className={styles.text}>
-                    {informationBoxTextBody}
+                    {textBody}
                 </div>
             
             </div>
