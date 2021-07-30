@@ -14,16 +14,20 @@ function CheckBoxGroup(props) {
     var checkboxes = [];
 
     const onClickCheckbox = (isClicked, identifier) => {
-        let list = selectedElements;
+        let list = [...selectedElements];
         list[identifier] = isClicked;
-
+        console.log(list)
         setSelectedElements(list);
 
-        props.checkboxCallback(selectedElements);
+        props.checkboxCallback(list);
     }
 
     for(let i=0; i<personList.length; i++) {
-        checkboxes[i] = <CheckBoxField key={"checkbox"+i} identifier={i} name={personList[i]["name"]} birth={personList[i]["birth"]} onClickCheckbox={onClickCheckbox} />
+        checkboxes[i] = <CheckBoxField key={"checkbox"+i} 
+        identifier={i} 
+        name={personList[i]["name"]} 
+        birth={personList[i]["birth"]} 
+        onClickCheckbox={onClickCheckbox} />
     }
 
     return(

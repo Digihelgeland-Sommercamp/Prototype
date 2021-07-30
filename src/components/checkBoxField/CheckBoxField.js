@@ -10,8 +10,14 @@ function CheckBoxField(props) {
     const [birth, ] = useState(props.birth)
 
     const onSelect = (event) => {
-        setIsClicked(!isClicked);
-        props.onClickCheckbox(isClicked, identifier);
+        console.log(isClicked)
+        const clicker = !isClicked;
+        console.log("Clicker: " +clicker)
+        console.log("isClicked: " +isClicked)
+        setIsClicked(clicker);
+        console.log("Clicker after: " +clicker)
+        console.log("IsClicked after: " +isClicked)
+        props.onClickCheckbox(clicker, identifier);
     }
 
     return(

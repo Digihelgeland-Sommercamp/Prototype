@@ -11,6 +11,7 @@ import Form from '../../components/Form/Form.js';
 
 import styles from './Kids.module.css'
 import AddChildren from '../../components/AddChildren/AddChildren.js';
+import CheckBoxGroup from '../../components/checkBoxField/CheckBoxGroup.js';
 
 
 const page = selector({
@@ -26,20 +27,38 @@ export default function Kids(props) {
     const [, setLastPage] = useRecoilState(lastPage)
 
     const [addingChild, setAddingChild] = useState(false)
-    const [newChild, setNewChild] = useState({ name: "", born: "" })
+    const [newChild, setNewChild] = useState({ name: "", birth: "" })
     const [form, setForm] = useState({fornavn:"", etternavn:"",personidentifikator:""})
 
+    const [selectedChildren, setSelectedChildren] = useState([]);
+
+    
     //TODO: Get kids from userID
     const [kids, setKids] = useState([
         {
             name: "Karl Karlsrud",
-            born: "20.05.2015",
+            birth: "20.05.2015",
         },
         {
             name: "Karl Karlsrud",
-            born: "20.05.2015",
+            birth: "20.05.2015",
         }
     ])
+
+    const childrenCallback = (selectedElementList) => {
+
+        let tempSelectedChildren = []
+        for(let i=0; i<kids.length; i++)
+        {
+            console.log("Selected element list in kids: "+selectedElementList)
+
+            if(selectedElementList[i] === true)
+                tempSelectedChildren.push(kids[i])
+        }
+
+        setSelectedChildren(tempSelectedChildren);
+    }
+
     const handleAddChild = () => {
         //TODO: check for faulty child
         
@@ -77,6 +96,12 @@ export default function Kids(props) {
         }
     ]
 
+    function goToNextPage() {
+        localStorage.setItem("children", JSON.stringify(selectedChildren)) // Only send in selected kids
+        console.log(localStorage.getItem("children"))
+        setPage(PAGE_POINTER.income);
+    }
+
     return (
         <>
             <ProgressBar
@@ -99,9 +124,10 @@ export default function Kids(props) {
                     :
                     <>
                     <p className={styles.information}>Vi fant opplysninger om barn i Folkeregisteret. Hvilke barn vil du søke for?</p>
-                    {kids.map((kid, _) => {
+                    {/* {kids.map((kid, _) => {
                         return <Kid name={kid.name} born={kid.born} />
-                    })}
+                    })} */
+                    <CheckBoxGroup personList={kids} checkboxCallback={childrenCallback}/>}
                     
                     {/* <Button variant="outlined" style={{ margin: "20px 0 50px 0" }} onClick={() => setAddingChild(true)}>Legg til barn</Button> */}
                     <AddChildren callback={() => setAddingChild(true)}/>
@@ -112,7 +138,7 @@ export default function Kids(props) {
                         style={{ margin: "20px 0" }}
                         onClick={() => {
                             setLastPage(currentPage)
-                            setPage(PAGE_POINTER.income)
+                            goToNextPage();
                         }}>
                         Neste
                     </Button>
