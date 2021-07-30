@@ -20,13 +20,14 @@ import Income from './pages/Income/Income';
 import Kids from './pages/Kids/Kids';
 import AddPartnerPage from './components/addPartnerPage/AddPartnerPage';
 import Household from './pages/Household/Household';
+import ReviewApplication from './pages/ReviewApplication/ReviewApplication';
 
 
 
 const page = atom({
   key: "page",
   // default: PAGE_POINTER.login
-  default: PAGE_POINTER.kids
+  default: PAGE_POINTER.reviewApplication
 });
 const lastPage = atom({
   key: "lastPage",
@@ -70,6 +71,8 @@ function Router() {
       return <OverviewApplications />
     case PAGE_POINTER.applicationOverview : 
       return <OverviewApplication />
+    case PAGE_POINTER.reviewApplication :
+      return <ReviewApplication />
     default:
       return (
         <div className="App">

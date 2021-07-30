@@ -6,6 +6,6 @@ export const PAGE_POINTER = {
     income: "income",
     application: "application",
     applicationOverview: "applicationOverview",
-    allApplications: "allApplications"
-
+    allApplications: "allApplications",
+    reviewApplication: "reviewApplication"
 }
