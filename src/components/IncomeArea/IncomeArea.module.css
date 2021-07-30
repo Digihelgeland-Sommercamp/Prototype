@@ -1,0 +1,27 @@
+.title {
+    margin-left: 7%;
+    margin-bottom: 20px;
+
+}
+
+.text {
+    margin: 3% 0 4% 7%;
+    white-space: pre-line;
+    font-size: 16px;
+}
+
+.applicants {
+    /* margin: 0% 0 1% 5%; */
+    list-style-type:circle;
+    margin: 0% 0 5px 10%;
+    list-style-position: inside;
+    font-weight: 700;
+}
+
+.container {
+    border: 0;
+    border-bottom-width: 1px;
+    border-top-width: 1px;
+    border-style: solid;
+    border-color: darkgray;
+}

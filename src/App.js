@@ -26,8 +26,8 @@ import ReviewApplication from './pages/ReviewApplication/ReviewApplication';
 
 const page = atom({
   key: "page",
-  default: PAGE_POINTER.login
-  // default: PAGE_POINTER.reviewApplication
+  // default: PAGE_POINTER.login
+  default: PAGE_POINTER.reviewApplication
 });
 const lastPage = atom({
   key: "lastPage",

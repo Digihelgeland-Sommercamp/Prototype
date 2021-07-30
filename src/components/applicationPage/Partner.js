@@ -1,5 +1,5 @@
 import './ApplicationPageTitle'
-import './Applicant.css';
+// import './Applicant.css';
 import { useState } from 'react';
 import InfoIcon from '@material-ui/icons/Info';
 import ApplicationPageTitle from './ApplicationPageTitle';

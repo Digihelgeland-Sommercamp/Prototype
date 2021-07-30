@@ -70,7 +70,7 @@ export default function Income() {
                     }}
                     onClick={() => {
                         setLastPage(currentPage)
-                        changePage(PAGE_POINTER.allApplications)
+                        changePage(PAGE_POINTER.reviewApplication)
                     }}
                     >Neste</Button>
             </div>

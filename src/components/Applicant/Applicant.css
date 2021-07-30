@@ -25,13 +25,13 @@
     border-top-width: 1px;
     border-top-style: solid;
     border-bottom-style: solid;
-
+    margin-bottom: 7px;
 }
 
 .applicant-content-name {
-    margin: 3% 0 1% 5%;
+    margin: 3% 0 1% 7%;
 }
 
 .applicant-content-id {
-    margin: 0 0 3% 5%
+    margin: 0 0 3% 7%
 }
