@@ -31,6 +31,10 @@ function UploadItem(props) {
         return type.split("/")[1].toUpperCase()
     }
 
+    function delFile() {
+        props.deleteFile();
+    }
+
 
 
     return(
@@ -39,7 +43,7 @@ function UploadItem(props) {
             <div className="file-name-box">{formatName(filename)}</div>
             <div className="file-size-box">{formatBytes(size)}</div>
             <div className="file-remove-box">
-                <div onClick={() => props.deleteFile(props.keykey)}>
+                <div onClick={delFile}>
                     Fjern
                 </div>
 

@@ -20,23 +20,39 @@ function UploadArea() {
         setOpen(! open);
     };
 
-    const deleteFile = (key) => {
-        const list_of_items = {...itemList};
+    const deleteFile = (key) => { //gjør dette med for loops
+        console.log("deleteFile called");
+        console.log(itemList);
+
+        const list_of_items = {}; 
+        //const list_of_items = {...itemList};
         const list_of_divs = {...displayDivs};
-        delete list_of_items[key];
-        console.log("list_of_items" + list_of_items);
-        console.log("target " + key);
-        delete list_of_divs[key];
-        console.log("list_of_divs" + list_of_divs);
+        console.log("before");
+        console.log(Object.entries(list_of_items));
+        console.log("after");
+        console.log(Object.entries(list_of_items));
+        console.log("list_of_divs " + list_of_divs);
         console.log("target key " + key);
-        setItemList(list_of_items);
-        setDisplayDivs(list_of_divs);
+        //setItemList(list_of_items);
+        //setDisplayDivs(list_of_divs);
     };
+
+
+    function makeid(length) {
+        var result           = '';
+        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for ( var i = 0; i < length; i++ ) {
+          result += characters.charAt(Math.floor(Math.random() * 
+     charactersLength));
+       }
+       return result;
+    }
 
     const changeHandler = (event) => {
         //set a selected file
         setSelectedFile(event.target.files[0]);
-        const counterKey = counter.toString();
+        const counterKey = makeid(20);
         
 
         //add file to list of items
@@ -49,12 +65,13 @@ function UploadArea() {
         const filename = event.target.files[0].name;
         const type = event.target.files[0].type;
         const size = event.target.files[0].size;
-        list_of_divs[counterKey] = <UploadItem key={counterKey} keykey={counterKey} filename={filename} type={type} size={size} deleteFile={deleteFile}/>
-        const new_count = counter + 1;
-        setCounter(new_count);
-        console.log("new counter: " + counter);
+        list_of_divs[counterKey] = <UploadItem key={counterKey} keykey={counterKey} filename={filename} type={type} size={size} deleteFile={() => deleteFile(counterKey)}/>
+        //const new_count = counter + 1;
+        //setCounter(new_count);
+        console.log("CounterKey: " + counterKey);
 
         setDisplayDivs(list_of_divs);
+        //clearInputFile(event.target);
     };
 
     const handleSubmission = () => { //må vurderes om denne logikken skal flyttes opp til en høyere komponent
@@ -88,13 +105,22 @@ function UploadArea() {
             );
         }
         else {
-            console.log(Object.values(displayDivs))
+            console.log(Object.values(displayDivs));
             return(
                 <div>
                     {Object.values(displayDivs)}
                 </div>
             );
         };
+    };
+
+    function clearInputFile(f) {
+        if (f.value) {
+            try{
+                f.value = ''
+            }catch(err){
+            }
+        }
     };
 
 
@@ -105,11 +131,12 @@ function UploadArea() {
             </div>
             <div className="uploaded-files-area">
                 <p className="uploaded-files-title">Opplastede filer</p>
+                <input id="inputSelectFile" hidden type="file" name="file" onChange={changeHandler} />
                 <div className="list-wrapper">
                     <ListRender /> 
                 </div>
             </div>
-            <input id="inputSelectFile" type="file" name="file" onChange={changeHandler} />
+            
         </div>
     );
 }

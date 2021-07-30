@@ -3,6 +3,7 @@ import './App.css';
 import MainPage from './components/MainPage.js';
 import Login from './components/Login.js';
 import ApplicationPage from './components/applicationPage/ApplicationPage';
+import UploadArea from './components/fileUpload/UploadArea';
 import React, { useState } from 'react';
 import {
   RecoilRoot,
@@ -18,8 +19,7 @@ function App() {
 
 
   return (
-      <AddPartnerPage />
-      // <ApplicationPage />
+      <UploadArea />
     );
 }
 
