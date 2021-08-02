@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { selector, useRecoilState, useRecoilValue } from 'recoil'
+import { selector, useRecoilState } from 'recoil'
 
 import { PAGE_POINTER } from '../../pagePointer';
 
@@ -7,9 +7,11 @@ import ProgressBar from '../../components/ProgressBar/ProgressBar';
 import { Button } from '@material-ui/core';
 import RadioBoxGroup from '../../components/radioBox/RadioBoxGroup';
 import InfoButtonText from '../../components/InfoButtonText/InfoButtonText';
+import Form from '../../components/Form/Form';
 
 import styles from './Household.module.css'
-import Form from '../../components/Form/Form';
+import InformationLink from '../../components/information/InformationLink';
+
 
 const page = selector({
     key: 'page',
@@ -22,7 +24,7 @@ const lastPage = selector({
 export default function Household() {
     const [currentPage, setPage] = useRecoilState(page)
     const [previousPage, setLastPage] = useRecoilState(lastPage)
-
+    
     const [notClicked, setNotClicked] = useState(true)
     
     const [partner, setPartner] = useState("")
@@ -119,6 +121,13 @@ export default function Household() {
         }
     ]
 
+    const info = {
+        linkText: "Hvem bor du sammen med?",
+        modalTitle: "",
+        modalTextBody: "",
+        modalButtonText: ""
+    }
+
     return (
         <>
             <ProgressBar filled={3} elements={[{}, {}, {}, {}, {}, {}]} />
@@ -126,8 +135,10 @@ export default function Household() {
                 <h1 className={styles.title}>Husholdning</h1>
                 {yesNo &&
                     <>
-                        <h2>Stemmer det at du er gift og bor sammen med</h2>
-                        <p>{fetchPartner()}</p>
+                        <h4 className={styles.question}>
+                            Stemmer det at du er gift og bor sammen med <span className={styles.partner}>{fetchPartner()}</span>
+                        </h4>
+                        
                         <RadioBoxGroup
                             radioTextList={yesNoList}
                             radioGroupCallback={yesNoRadioGroupCallback}
@@ -143,12 +154,17 @@ export default function Household() {
                 }
                 {askQuestion &&
                     <>
-                        <InfoButtonText text="Hvem bor du sammen med?" />
+                        <InformationLink 
+                            linkText={info.linkText}
+                            modalTitle={info.modalTitle}
+                            modalTextBody={info.modalTextBody}
+                            modalButtonText={info.modalButtonText}/>
                         <RadioBoxGroup
                             radioTextList={radioTextList}
                             radioGroupCallback={radioGroupCallback}
                         />
                         <Button
+                            disabled={notClicked}
                             variant='contained'
                             style={{ margin: "20px 0", width:"100%" }}
                             onClick={() => {
