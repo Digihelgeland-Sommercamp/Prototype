@@ -10,6 +10,7 @@ import InfoButtonText from '../../components/InfoButtonText/InfoButtonText';
 import Form from '../../components/Form/Form';
 
 import styles from './Household.module.css'
+import InformationLink from '../../components/information/InformationLink';
 
 
 const page = selector({
@@ -22,7 +23,7 @@ const lastPage = selector({
 
 export default function Household() {
     const [currentPage, setPage] = useRecoilState(page)
-    const [, setLastPage] = useRecoilState(lastPage)
+    const [previousPage, setLastPage] = useRecoilState(lastPage)
     
     const [notClicked, setNotClicked] = useState(true)
     
@@ -120,6 +121,13 @@ export default function Household() {
         }
     ]
 
+    const info = {
+        linkText: "Hvem bor du sammen med?",
+        modalTitle: "",
+        modalTextBody: "",
+        modalButtonText: ""
+    }
+
     return (
         <>
             <ProgressBar filled={3} elements={[{}, {}, {}, {}, {}, {}]} />
@@ -144,7 +152,11 @@ export default function Household() {
                 }
                 {askQuestion &&
                     <>
-                        <InfoButtonText text="Hvem bor du sammen med?" />
+                        <InformationLink 
+                            linkText={info.linkText}
+                            modalTitle={info.modalTitle}
+                            modalTextBody={info.modalTextBody}
+                            modalButtonText={info.modalButtonText}/>
                         <RadioBoxGroup
                             radioTextList={radioTextList}
                             radioGroupCallback={radioGroupCallback}
