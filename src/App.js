@@ -21,6 +21,7 @@ import Kids from './pages/Kids/Kids';
 import AddPartnerPage from './components/addPartnerPage/AddPartnerPage';
 import Household from './pages/Household/Household';
 import ReviewApplication from './pages/ReviewApplication/ReviewApplication';
+import Invoice from './pages/Invoice/Invoice';
 
 
 
@@ -71,10 +72,12 @@ function Router() {
       return <OverviewApplication />
     case PAGE_POINTER.reviewApplication :
       return <ReviewApplication />
+    case PAGE_POINTER.invoice: 
+      return <Invoice />
     default:
       return (
         <div className="App">
-          <button onClick={() => setState(PAGE_POINTER.situation)}>Logg inn</button>
+          <button onClick={() => setState(PAGE_POINTER.invoice)}>Logg inn</button>
         </div>
       );
   }

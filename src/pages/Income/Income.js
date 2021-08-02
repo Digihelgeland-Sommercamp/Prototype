@@ -32,7 +32,7 @@ export default function Income() {
 
     return (
         <>
-            <ProgressBar filled={4} elements={[{}, {}, {}, {}, {}]} />
+            <ProgressBar filled={5} elements={[{}, {}, {}, {}, {}, {}]} />
             <div className={styles.container}>
 
                 <h1 className={styles.title}>Inntekt</h1>
@@ -64,9 +64,9 @@ export default function Income() {
                 </div>
 
                 <div className={styles.button}>
-                    <Button style={{
-                        background: "whitesmoke"
-                    }}
+                    <Button
+                        variant='contained'
+                        style={{background: "whitesmoke" }}
                         onClick={() => {
                             setLastPage(currentPage)
                             changePage(PAGE_POINTER.reviewApplication)

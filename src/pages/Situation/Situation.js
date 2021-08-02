@@ -10,17 +10,11 @@ import ProgressBar from '../../components/ProgressBar/ProgressBar'
 
 import './Situation.css'
 
-const overviewOfApplication = selector({
-    key:"overviewOfApplication"
-})
-
 const page = selector({
     key: 'page', 
 });
 
-export default function Situation(props) {
-    const applicationData = useRecoilValue(overviewOfApplication)
-    
+export default function Situation(props) {    
     const [, changePage] = useRecoilState(page)
 
     const [noClick, setNoClick] = useState(true)
@@ -33,8 +27,8 @@ export default function Situation(props) {
     return (
         <>
             <ProgressBar
-                filled={1}
-                elements={[{}, {}, {}, {}, {}]} />
+                filled={2}
+                elements={[{}, {}, {}, {}, {}, {}]} />
             <div className="wrapper">
                 
                 <h1>Hei, {props.name}!</h1>
