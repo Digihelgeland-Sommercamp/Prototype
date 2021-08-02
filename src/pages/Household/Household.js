@@ -21,7 +21,7 @@ const lastPage = selector({
 
 export default function Household() {
     const [currentPage, setPage] = useRecoilState(page)
-    const [, setLastPage] = useRecoilState(lastPage)
+    const [previousPage, setLastPage] = useRecoilState(lastPage)
 
     const [partner, setPartner] = useState("")
     const [yesNo, setYesNo] = useState(true)
@@ -88,7 +88,10 @@ export default function Household() {
 
         localStorage.setItem("partner", JSON.stringify(partner));
         console.log(localStorage.getItem("partner"));
-        setPage(PAGE_POINTER.kids)
+
+        previousPage === PAGE_POINTER.reviewApplication ? 
+            setPage(PAGE_POINTER.reviewApplication) : 
+            setPage(PAGE_POINTER.kids);
     }
 
     const handleFormChange = (form) => {

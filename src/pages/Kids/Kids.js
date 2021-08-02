@@ -24,29 +24,56 @@ const lastPage = selector({
 
 export default function Kids(props) {
     const [currentPage, setPage] = useRecoilState(page)
-    const [, setLastPage] = useRecoilState(lastPage)
+    const [previousPage, setLastPage] = useRecoilState(lastPage)
 
     const [addingChild, setAddingChild] = useState(false)
     const [newChild, setNewChild] = useState({ name: "", birth: "" })
     const [form, setForm] = useState({fornavn:"", etternavn:"",personidentifikator:""})
 
-    const [selectedChildren, setSelectedChildren] = useState([]);
-
-    
+    const [selectedChildren, setSelectedChildren] = useState([]); // List of the selected kids objects
+        
     //TODO: Get kids from userID
-    const [kids, setKids] = useState([
+    const [kids, setKids] = useState(localStorage.getItem("kids") ? JSON.parse(localStorage.getItem("kids")) :
+    [
         {
-            name: "Karl Karlsrud",
-            birth: "20.05.2015",
+            "name": "Karl Morten",
+            "birth": "20.05.2015",
+            "personidentifikator": "154623958774"
         },
         {
-            name: "Karl Karlsrud",
-            birth: "20.05.2015",
+            "name": "Karl Karlsrud",
+            "birth": "20.05.2015",
+            "personidentifikator": "19586325477"
         }
     ])
+    // List of bools corresponding to selectedChildren
+    const [selectedChildElements, setSelectedChildElements] = useState([]) 
+    
+    // Gets the children from storage and compares to the available kids. Saving matches as selected
+    const findSelectedKids = () => {
+        let children = localStorage.getItem("children") ? JSON.parse(localStorage.getItem("children")) : null;
+        let tempSelectedChildElements = new Array(kids.length).fill(false);
+
+        if (!children)
+            return;
+        
+        for(let i=0; i<children.length; i++)
+        {
+            for(let j=0; j<kids.length; j++)
+            {
+                if(children[i]["personidentifikator"] === kids[j]["personidentifikator"])
+                {
+                    tempSelectedChildElements[j] = true;
+                    break;
+                }
+            }
+        }
+        // setSelectedChildren(tempSelectedChildren);
+        childrenCallback(tempSelectedChildElements);
+    }
 
     const childrenCallback = (selectedElementList) => {
-
+        // TODO: Make sure this does not add children prematurely
         let tempSelectedChildren = []
         for(let i=0; i<kids.length; i++)
         {
@@ -55,19 +82,17 @@ export default function Kids(props) {
             if(selectedElementList[i] === true)
                 tempSelectedChildren.push(kids[i])
         }
-
         setSelectedChildren(tempSelectedChildren);
+        setSelectedChildElements(selectedElementList);
     }
 
     const handleAddChild = () => {
         //TODO: check for faulty child
         
-
         let currentKids = kids
         currentKids.push(newChild)
         setKids(currentKids)
         setAddingChild(false)
-
     }
 
     const handleFormChange = (newForm) => {
@@ -98,10 +123,19 @@ export default function Kids(props) {
 
     function goToNextPage() {
         localStorage.setItem("children", JSON.stringify(selectedChildren)) // Only send in selected kids
-        console.log(localStorage.getItem("children"))
-        setPage(PAGE_POINTER.income);
+        localStorage.setItem("kids", JSON.stringify(kids));
+        console.log(kids)
+
+        setLastPage(currentPage)
+
+        previousPage === PAGE_POINTER.reviewApplication ? 
+            setPage(PAGE_POINTER.reviewApplication) : 
+            setPage(PAGE_POINTER.income);
     }
 
+    if(previousPage === PAGE_POINTER.reviewApplication && selectedChildElements.length === 0)
+        findSelectedKids();
+    // localStorage.setItem("kids", []);
     return (
         <>
             <ProgressBar
@@ -127,7 +161,7 @@ export default function Kids(props) {
                     {/* {kids.map((kid, _) => {
                         return <Kid name={kid.name} born={kid.born} />
                     })} */
-                    <CheckBoxGroup personList={kids} checkboxCallback={childrenCallback}/>}
+                    <CheckBoxGroup personList={kids} checkboxCallback={childrenCallback} selectedElements={selectedChildElements}/>}
                     
                     {/* <Button variant="outlined" style={{ margin: "20px 0 50px 0" }} onClick={() => setAddingChild(true)}>Legg til barn</Button> */}
                     <AddChildren callback={() => setAddingChild(true)}/>
@@ -137,7 +171,6 @@ export default function Kids(props) {
                         variant='contained'
                         style={{ margin: "20px 0" }}
                         onClick={() => {
-                            setLastPage(currentPage)
                             goToNextPage();
                         }}>
                         Neste

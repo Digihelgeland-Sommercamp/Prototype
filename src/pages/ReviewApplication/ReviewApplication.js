@@ -17,10 +17,17 @@ const page = selector({
     key: 'lastPage', 
   });
 
+
+
 function ReviewApplication(props) {
 
     const [state, setState] = useRecoilState(page);
     const [, setLastPage] = useRecoilState(lastPage)
+
+    const setNextPage = (page) => {
+        setLastPage(state);
+        setState(page);
+    }
 
     const title = () => {
         return(
@@ -40,7 +47,7 @@ function ReviewApplication(props) {
                 <Applicant applicantName={"Kari jajaja"} identifier={"465487465"}/>
 
             <div className={styles.container}>
-                <Edit callback={()=>setState(PAGE_POINTER.household)}/>
+                <Edit callback={()=>setNextPage(PAGE_POINTER.household)}/>
             </div>
         </>);
     }
@@ -54,7 +61,7 @@ function ReviewApplication(props) {
                 <Applicant applicantName={"Kari jajaja"} identifier={"465487465"}/>
 
             <div className={styles.container}>
-                <Edit callback={()=>setState(PAGE_POINTER.kids)}/>
+                <Edit callback={()=>setNextPage(PAGE_POINTER.kids)}/>
             </div>
             </>
         )
