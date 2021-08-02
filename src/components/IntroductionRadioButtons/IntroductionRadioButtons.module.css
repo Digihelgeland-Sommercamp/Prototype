@@ -4,7 +4,7 @@
 
 .radioChoice {
     border: 1px solid lightgrey;
-    margin: 15px 0;
+    margin: 15px 1px;
     padding: 15px;
 }
 
@@ -13,7 +13,9 @@
 }
 
 .active {
-    background-color: lightgrey;
+    border: 2px solid black;
+    margin: 14px 0;
+    background-color: var(--grey_bg);
 }
 
 .link {

@@ -8,7 +8,7 @@ import IntrodctionRadioButtons from '../../components/IntroductionRadioButtons/I
 import ProgressBar from '../../components/ProgressBar/ProgressBar'
 
 
-import './Situation.css'
+import styles from './Situation.module.css'
 
 const page = selector({
     key: 'page', 
@@ -29,7 +29,7 @@ export default function Situation(props) {
             <ProgressBar
                 filled={2}
                 elements={[{}, {}, {}, {}, {}, {}]} />
-            <div className="wrapper">
+            <div className={styles.container}>
                 
                 <h1>Hei, {props.name}!</h1>
                 <p>Hvilken situasjon gjelder deg?</p>
@@ -38,7 +38,7 @@ export default function Situation(props) {
                     style={{width:"100%"}}
                     variant='contained'
                     disabled={noClick}
-                    className="nextButton"
+                    className={styles.nextButton}
                     onClick={() => changePage(PAGE_POINTER.household)}>
                     Neste
                 </Button>
