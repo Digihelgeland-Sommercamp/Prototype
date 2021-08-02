@@ -7,9 +7,10 @@ import ProgressBar from '../../components/ProgressBar/ProgressBar';
 import { Button } from '@material-ui/core';
 import RadioBoxGroup from '../../components/radioBox/RadioBoxGroup';
 import InfoButtonText from '../../components/InfoButtonText/InfoButtonText';
+import Form from '../../components/Form/Form';
 
 import styles from './Household.module.css'
-import Form from '../../components/Form/Form';
+
 
 const page = selector({
     key: 'page',
@@ -60,10 +61,8 @@ export default function Household() {
             setAskQuestion(true)
         }
         else if (chosenYesNo === "Ja") {
-            console.log(currentPage);
             setLastPage(currentPage)
             setPage(PAGE_POINTER.kids)
-            console.log(currentPage);
             
         }
     }
@@ -93,7 +92,7 @@ export default function Household() {
     return (
         <>
             <ProgressBar filled={2} elements={[{}, {}, {}, {}, {}]} />
-            <div>
+            <div className={styles.container}>
                 <h1 className={styles.title}>Husholdning</h1>
                 {yesNo &&
                     <>
