@@ -77,7 +77,7 @@ function Router() {
     default:
       return (
         <div className="App">
-          <button onClick={() => setState(PAGE_POINTER.invoice)}>Logg inn</button>
+          <button onClick={() => setState(PAGE_POINTER.portal)}>Logg inn</button>
         </div>
       );
   }
