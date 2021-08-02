@@ -135,8 +135,10 @@ export default function Household() {
                 <h1 className={styles.title}>Husholdning</h1>
                 {yesNo &&
                     <>
-                        <h2>Stemmer det at du er gift og bor sammen med</h2>
-                        <p>{fetchPartner()}</p>
+                        <h4 className={styles.question}>
+                            Stemmer det at du er gift og bor sammen med <span className={styles.partner}>{fetchPartner()}</span>
+                        </h4>
+                        
                         <RadioBoxGroup
                             radioTextList={yesNoList}
                             radioGroupCallback={yesNoRadioGroupCallback}
