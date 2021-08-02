@@ -24,7 +24,7 @@ function InformationLink(props) {
 
     return(
         <div className={iconOnly ? styles.iconContainer : styles.textContainer}>
-            <InfoIcon color="primary" onClick={toggleInformation}/>
+            <InfoIcon style={{color:"#1C77FF"}} onClick={toggleInformation}/>
             <div className={styles.text} onClick={toggleInformation}>
                 {iconOnly ? "" : linkText}
             </div>

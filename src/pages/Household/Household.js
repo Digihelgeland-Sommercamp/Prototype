@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { selector, useRecoilState, useRecoilValue } from 'recoil'
+import { selector, useRecoilState } from 'recoil'
 
 import { PAGE_POINTER } from '../../pagePointer';
 
@@ -56,7 +56,17 @@ export default function Household() {
 
     function fetchPartner() {
         //TODO: Fetch partner from folkreg
-        return "Kari Normann (f. 30.01.1988)"
+
+        if(partner === "")
+        {
+            let tempPartner = {
+                "fornavn": "Kari",
+                "etternavn": "Nordmann",
+                "personidentifikator": "23568945586" 
+                };
+            setPartner(tempPartner);
+        }
+        return partner['fornavn'] + " " + partner["etternavn"];
     }
 
     const handleYesNoClick = () => {
@@ -67,12 +77,28 @@ export default function Household() {
         }
         else if (chosenYesNo === "Ja") {
             setLastPage(currentPage)
-            setPage(PAGE_POINTER.kids)
-            
+            goToNextPage();
+
         }
     }
     function addPartner(){
-        return
+
+        // console.log(partnerDict);
+    }
+
+    function goToNextPage() {
+        let partnerDict = {
+            "partner": {
+                partner
+            }
+        }
+
+        localStorage.setItem("partner", JSON.stringify(partner));
+        console.log(localStorage.getItem("partner"));
+
+        previousPage === PAGE_POINTER.reviewApplication ? 
+            setPage(PAGE_POINTER.reviewApplication) : 
+            setPage(PAGE_POINTER.kids);
     }
 
     const handleFormChange = (form) => {
@@ -145,7 +171,7 @@ export default function Household() {
                             onClick={() => {
                                 addPartner()
                                 setLastPage(currentPage)
-                                setPage(PAGE_POINTER.kids)
+                                goToNextPage();
                             }}>
                             Legg til
                         </Button>

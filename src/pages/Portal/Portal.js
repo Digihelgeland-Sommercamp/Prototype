@@ -1,10 +1,13 @@
 import React from 'react'
-import ProgressBar from '../../components/ProgressBar/ProgressBar'
 import { atom, selector, useRecoilState, useRecoilValue } from 'recoil'
 
 import { PAGE_POINTER } from '../../pagePointer';
 
 import ApplicationExcerpt from '../../components/ApplicationExcerpt/ApplicationExcerpt'
+
+import styles from './Portal.module.css'
+import { Button } from '@material-ui/core';
+import InformationLink from '../../components/information/InformationLink';
 
 const overviewOfApplication = atom({
     key: "overviewOfApplication",
@@ -18,11 +21,10 @@ const lastPage = selector({
     key: 'lastPage',
 });
 
-export default function OverviewApplications() {
+export default function Portal(props) {
     const [, setApplication] = useRecoilState(overviewOfApplication)
     const [currentPage, setPage] = useRecoilState(page)
     const [, setLastPage] = useRecoilState(lastPage)
-    const applicationData = useRecoilValue(overviewOfApplication)
 
     // TODO: fetch applications for currentUser
     const newApplications = [
@@ -117,11 +119,29 @@ export default function OverviewApplications() {
         setPage(PAGE_POINTER.applicationOverview)
     }
 
+    const questions = [
+        {
+            text:"Hva er redusert foreldrebetaling og gratis kjernetid?",
+            modalTitle:"",
+            modalTextBody:"",
+            modalButtonText:""
+        },
+        {
+            text:"Hvem har rett på redusert foreldrebetaling og gratis kjernetid?",
+            modalTitle:"",
+            modalTextBody:"",
+            modalButtonText:""
+        }        
+    ]
 
     return (
-        <div>
-            <ProgressBar filled={applicationData.filled}/>
-            <h3>Nye</h3>
+        <div className={styles.container}>
+            <div className={styles.titleArea}>
+                <h2 className={styles.title}>Du er logget inn som <span className={styles.name}>{props.name}</span></h2>
+                <button className={styles.logout}>Logg ut</button>
+            </div>
+            <h2 className={styles.minorHeading}>Dine søknader</h2>
+            <h5>Aktive</h5>
             {newApplications.map((application, index) => {
                 return (
                     <ApplicationExcerpt
@@ -135,7 +155,7 @@ export default function OverviewApplications() {
                     />
                 )
             })}
-            <h3>Eldre</h3>
+            <h5>Eldre</h5>
             {oldApplications.map((application, index) => {
                 return (
                     <ApplicationExcerpt
@@ -144,8 +164,31 @@ export default function OverviewApplications() {
                         changeOrCheck={application.changeOrCheck}
                         excerptClicked={() => excerptClicked("old", index)}
                         arr="old"
-                        index={index} />)
+                        index={index} 
+                        status={application.status}/>)
+            })}
+
+            <Button onClick={() => {
+                setLastPage(currentPage)
+                setPage(PAGE_POINTER.invoice)
+            }}>Send ny søknad</Button>
+ 
+            <h2 className={styles.minorHeading}>Ofte stilte spørsmål</h2>
+            {questions.map((question, _) => {
+                return (
+                    <div className={styles.spacer}>
+                        <InformationLink 
+                            linkText={question.text}
+                            modalTitle={question.modalTitle}
+                            modalTextBody={question.modalTextBody}
+                            modalButtonText={question.modalButtonText}/>
+                    </div>
+                )
             })}
         </div>
     )
+}
+
+Portal.defaultProps = {
+    name:"Ola Nordmann"
 }

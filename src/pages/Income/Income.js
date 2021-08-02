@@ -55,6 +55,15 @@ export default function Income() {
                     må dette dokumenteres."
                     link="Liste over gyldig dokumentasjon" />
 
+            {/* <div className={styles.button}> */}
+                {/* <Button style={{
+                        background: "whitesmoke"
+                    }}
+                    onClick={() => {
+                        setLastPage(currentPage)
+                        changePage(PAGE_POINTER.reviewApplication)
+                    }} */}
+
                 <div className={styles.button}>
                     <Button style={{
                         padding: "20px",

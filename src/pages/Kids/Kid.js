@@ -11,6 +11,7 @@ export default function Kid(props) {
 
     const handleClicked = (isClicked, identifier ) => {
         setClicked(isClicked);
+        props.callback(isClicked);
     }
 
     return (

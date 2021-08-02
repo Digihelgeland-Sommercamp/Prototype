@@ -9,17 +9,12 @@ export default function ApplicationExcerpt(props) {
     }
 
     return (
-            <div className={styles.wrapper}  onClick={() => excerptClicked()}>
-            <div className={styles.info + ' ' + (props.changeOrCheck ? styles.new : styles.old)}>
+        <div className={styles.container +  ' ' + (props.changeOrCheck ? styles.new : styles.old)}  onClick={() => excerptClicked()}>
+            <div className={styles.info}>
                 <p className={styles.applicationName}>{props.applicationName}</p>
                 <p className={styles.date}>{props.date}</p>
             </div>
-            {props.changeOrCheck
-                ?
-                <p className={styles.extra}>Sist endret: {props.changedDate}</p>
-                :
-                <button className={styles.link}>Se digipost</button>
-            }
+            <button className={styles.link}>Vis mer</button>
 
         </div>
         

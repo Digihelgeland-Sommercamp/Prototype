@@ -3,15 +3,18 @@ import styles from './CheckBoxField.module.css'
 import { Checkbox } from '@material-ui/core';
 
 function CheckBoxField(props) {
-    const [isClicked, setIsClicked] = useState(false);
+    const [isClicked, setIsClicked] = useState(props.checked ? true : false);
     const [identifier, ] = useState(props.identifier)
 
     const [name, ] = useState(props.name)
     const [birth, ] = useState(props.birth)
 
     const onSelect = (event) => {
-        setIsClicked(!isClicked);
-        props.onClickCheckbox(isClicked, identifier);
+        const clicker = !isClicked;
+
+        setIsClicked(clicker);
+
+        props.onClickCheckbox(clicker, identifier);
     }
 
     return(

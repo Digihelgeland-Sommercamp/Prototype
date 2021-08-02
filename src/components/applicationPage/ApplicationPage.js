@@ -1,8 +1,8 @@
 import { useState} from 'react';
 import { Button } from '@material-ui/core'
-import Applicant from './Applicant'
+// import Applicant from './Applicant'
 import Partner from './Partner'
-import IncomeArea from './IncomeArea';
+// import IncomeArea from '../IncomeArea/IncomeArea';
 import InformationBox from '../information/InformationBox';
 import InformationModal from '../information/InformationModal';
 import InformationLink from '../information/InformationLink';
@@ -27,10 +27,10 @@ function ApplicationPage(props) {
 
     return(
         <div>
-            <Applicant applicantName={applicantName} identifier={applicantIdentifier} />
-            <Partner partnerName={partnerName} identifier={partnerIdentifier}/>
+            {/* <Applicant applicantName={applicantName} identifier={applicantIdentifier} /> */}
+            {/* <Partner partnerName={partnerName} identifier={partnerIdentifier}/> */}
             {/*<ChildList />*/}
-            <IncomeArea />
+            {/* <IncomeArea /> */}
             <InformationBox />
             <InformationModal shouldBeVisible={shouldShowInformationModal} textBody={informationText} toggleVisible={toggleInformationModal}/>
             <button onClick={toggleInformationModal}>sd</button>
