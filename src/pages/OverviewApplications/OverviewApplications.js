@@ -1,5 +1,10 @@
 import React from 'react'
+<<<<<<< HEAD:src/pages/OverviewApplications/OverviewApplications.js
 import { atom, selector, useRecoilState } from 'recoil'
+=======
+import ProgressBar from '../../components/ProgressBar/ProgressBar'
+import { selector, useRecoilState, useRecoilValue } from 'recoil'
+>>>>>>> f42b27458330b8231dc418c1ad92384d4490de0e:my-app/src/pages/OverviewApplications/OverviewApplications.js
 
 import { PAGE_POINTER } from '../../pagePointer';
 
@@ -20,7 +25,12 @@ const lastPage = selector({
 export default function OverviewApplications() {
     const [, setApplication] = useRecoilState(overviewOfApplication)
     const [currentPage, setPage] = useRecoilState(page)
+<<<<<<< HEAD:src/pages/OverviewApplications/OverviewApplications.js
     const [, setLastPage] = useRecoilState(lastPage)
+=======
+    const [currentLastPage, setLastPage] = useRecoilState(lastPage)
+    const applicationData = useRecoilValue(overviewOfApplication)
+>>>>>>> f42b27458330b8231dc418c1ad92384d4490de0e:my-app/src/pages/OverviewApplications/OverviewApplications.js
 
     // TODO: fetch applications for currentUser
     const newApplications = [
@@ -118,6 +128,7 @@ export default function OverviewApplications() {
 
     return (
         <div>
+            <ProgressBar filled={applicationData.filled}/>
             <h3>Nye</h3>
             {newApplications.map((application, index) => {
                 return (
