@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import CheckBoxField from './CheckBoxField';
 import styles from './CheckBoxGroup.module.css';
 
+var isInitialized = false;
+
 /* Creates a list of checkboxes. Creates one box per element in personList
 @param personList is a list of json objects in the format {"name": "navn navnesen", "birth": "17.05.1984"}
 @param checkboxCallback must be a function that takes a list of bools as an argument. Each element corresponds to
@@ -9,22 +11,31 @@ import styles from './CheckBoxGroup.module.css';
  */
 function CheckBoxGroup(props) {
     const [personList, ] = useState(props.personList);
-    const [selectedElements, setSelectedElements] = useState(new Array(personList.length).fill(false));
+    const [selectedElements, setSelectedElements] = useState(
+        (props.selectedElements && props.selectedElements.length === personList.length) ?
+        props.selectedElements : new Array(personList.length).fill(false));
 
     var checkboxes = [];
 
     const onClickCheckbox = (isClicked, identifier) => {
-        let list = selectedElements;
+        let list = [...selectedElements];
         list[identifier] = isClicked;
-
         setSelectedElements(list);
 
-        props.checkboxCallback(selectedElements);
+        props.checkboxCallback(list);
     }
 
     for(let i=0; i<personList.length; i++) {
-        checkboxes[i] = <CheckBoxField key={"checkbox"+i} identifier={i} name={personList[i]["name"]} birth={personList[i]["birth"]} onClickCheckbox={onClickCheckbox} />
+        checkboxes[i] = <CheckBoxField key={"checkbox"+i} 
+        identifier={i} 
+        name={personList[i]["name"]} 
+        birth={personList[i]["birth"]}
+        checked={selectedElements[i]} 
+        onClickCheckbox={onClickCheckbox} />
     }
+
+    // if(props.checked && props.checked.length > 0 && (!isInitialized))
+    //     findSelectedKids();
 
     return(
         <div> 

@@ -8,6 +8,7 @@ export default function Form(props) {
         let newForm = form
         newForm[id] = value
         setForm(newForm)
+        
         props.handleFormChange(form)
     }
 
