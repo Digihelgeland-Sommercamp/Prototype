@@ -23,7 +23,7 @@ const lastPage = selector({
 export default function Household() {
     const [currentPage, setPage] = useRecoilState(page)
     const [, setLastPage] = useRecoilState(lastPage)
-
+    
     const [notClicked, setNotClicked] = useState(true)
     
     const [partner, setPartner] = useState("")
@@ -124,6 +124,7 @@ export default function Household() {
                             radioGroupCallback={radioGroupCallback}
                         />
                         <Button
+                            disabled={notClicked}
                             variant='contained'
                             style={{ margin: "20px 0", width:"100%" }}
                             onClick={() => {
