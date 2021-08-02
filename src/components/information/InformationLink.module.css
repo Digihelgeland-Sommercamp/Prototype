@@ -13,14 +13,14 @@
 } */
 
 .text {
-    color: blue;
+    color: var(--info_blue);
     font-style: italic ;
     text-decoration: underline;
     padding: 0 10px;
 }
 
 .text:active {
-    color: rgb(0, 0, 184);
+    color: var(--info_blue);
 }
 
 .text:hover {

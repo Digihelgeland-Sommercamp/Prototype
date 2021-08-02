@@ -19,7 +19,7 @@ function Login() {
     <div className={styles.container}>
       <button className={styles.login} onClick={() => {
         setLastPage(state)
-        setState(PAGE_POINTER.invoice)
+        setState(PAGE_POINTER.portal)
       }}>Til søknad</button>
     </div>
   );

@@ -15,13 +15,13 @@ import ApplicationPage from './components/applicationPage/ApplicationPage';
 import Login from './pages/Login/Login.js';
 import OverviewApplication from './pages/OverviewApplication/OverviewApplication';
 import Situation from './pages/Situation/Situation';
-import OverviewApplications from './pages/OverviewApplications/OverviewApplications';
 import Income from './pages/Income/Income';
 import Kids from './pages/Kids/Kids';
 import AddPartnerPage from './components/addPartnerPage/AddPartnerPage';
 import Household from './pages/Household/Household';
 import ReviewApplication from './pages/ReviewApplication/ReviewApplication';
 import Invoice from './pages/Invoice/Invoice';
+import Portal from './pages/Portal/Portal';
 
 
 
@@ -66,8 +66,8 @@ function Router() {
       return <Kids />
     case PAGE_POINTER.income : 
       return <Income />
-    case PAGE_POINTER.allApplications :  
-      return <OverviewApplications />
+    case PAGE_POINTER.portal :  
+      return <Portal />
     case PAGE_POINTER.applicationOverview : 
       return <OverviewApplication />
     case PAGE_POINTER.reviewApplication :
