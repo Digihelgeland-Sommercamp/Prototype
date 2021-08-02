@@ -66,7 +66,7 @@ export default function Income() {
                 <div className={styles.button}>
                     <Button
                         variant='contained'
-                        style={{background: "whitesmoke" }}
+                        style={{background: "whitesmoke",  width:"100%" }}
                         onClick={() => {
                             setLastPage(currentPage)
                             changePage(PAGE_POINTER.reviewApplication)

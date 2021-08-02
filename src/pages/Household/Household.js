@@ -109,7 +109,7 @@ export default function Household() {
                         <Button
                             disabled={notClicked}
                             variant='contained'
-                            style={{ margin: "20px 0" }}
+                            style={{ margin: "20px 0", width:"100%" }}
                             onClick={handleYesNoClick}>
                             Neste
                         </Button>
@@ -124,7 +124,7 @@ export default function Household() {
                         />
                         <Button
                             variant='contained'
-                            style={{ margin: "20px 0" }}
+                            style={{ margin: "20px 0", width:"100%" }}
                             onClick={() => {
                                 setAskQuestion(false)
                                 setAddPartner(true)
@@ -139,7 +139,7 @@ export default function Household() {
                         <Form fields={formFields} handleFormChange={handleFormChange} />
                         <Button
                             variant='contained'
-                            style={{ margin: "20px 0" }}
+                            style={{ margin: "20px 0", width:"100%" }}
                             onClick={() => {
                                 addPartner()
                                 setLastPage(currentPage)

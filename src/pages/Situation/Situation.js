@@ -35,6 +35,7 @@ export default function Situation(props) {
                 <p>Hvilken situasjon gjelder deg?</p>
                 <IntrodctionRadioButtons onChange={handler} />
                 <Button
+                    style={{width:"100%"}}
                     variant='contained'
                     disabled={noClick}
                     className="nextButton"

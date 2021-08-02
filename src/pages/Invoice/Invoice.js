@@ -45,9 +45,10 @@ export default function Invoice(props) {
                 <RadioBoxGroup radioTextList={textForRadioButtons} radioGroupCallback={handler}/>
                 <InfoButtonText text="Hva menes med husholdning?"/>
                 <Button
+                    style={{width:"100%"}}
                     variant='contained'
                     disabled={noClick}
-                    className="nextButton"
+                    className={styles.nextButton}
                     onClick={() => changePage(PAGE_POINTER.situation)}>
                     Neste
                 </Button>
