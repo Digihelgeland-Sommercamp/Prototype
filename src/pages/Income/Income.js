@@ -29,52 +29,52 @@ export default function Income() {
     //const currentIncomePeople = useRecoilValue(incomePeople)
     const mockPeople = [{ name: "Ola Normann" }, { name: "Kari Normann" }]
 
-    const handlePageChange = () => {
-        
-    }
 
     return (
-        <div className={styles.container}>
-            <ProgressBar filled={4} elements={[{}, {}, {}, {}, {}]} />
-            <h1 className={styles.title}>Inntekt</h1>
-            <div className={styles.info}>
-                <p >Vi beregner anslått inntekt i år basert på siste oppdaterte skatteopplysninger.</p>
-                <p >Søknaden blir behandlet på bakgrunn av inntekten til:</p>
-                <ul>
-                    {mockPeople.map((person, _) => {
-                        return (
-                            <li>{person.name}</li>
-                        )
-                    })}
-                </ul>
-            </div>
+        <>
+            <ProgressBar filled={5} elements={[{}, {}, {}, {}, {}, {}]} />
+            <div className={styles.container}>
+
+                <h1 className={styles.title}>Inntekt</h1>
+                <div className={styles.info}>
+                    <p >Vi beregner anslått inntekt i år basert på siste oppdaterte skatteopplysninger.</p>
+                    <p >Søknaden blir behandlet på bakgrunn av inntekten til:</p>
+                    <ul>
+                        {mockPeople.map((person, _) => {
+                            return (
+                                <li>{person.name}</li>
+                            )
+                        })}
+                    </ul>
+                </div>
 
 
 
-            <InformationBox
-                text="Dersom noen i husholdningen hatt nedgang i inntekt siden forrige skattemelding,
+                <InformationBox
+                    text="Dersom noen i husholdningen hatt nedgang i inntekt siden forrige skattemelding,
                     må dette dokumenteres."
-                link="Liste over gyldig dokumentasjon"/>
+                    link="Liste over gyldig dokumentasjon" />
 
-            <div className={styles.button}>
-                <Button style={{
-                    padding:"20px",
-                    border:"1px solid grey",
-                    width:"100%"
-                }}>Last opp dokumentasjon</Button>
-            </div>
+                <div className={styles.button}>
+                    <Button style={{
+                        padding: "20px",
+                        border: "1px solid grey",
+                        width: "100%"
+                    }}>Last opp dokumentasjon</Button>
+                </div>
 
-            <div className={styles.button}>
-                <Button style={{
-                        background: "whitesmoke"
-                    }}
-                    onClick={() => {
-                        setLastPage(currentPage)
-                        changePage(PAGE_POINTER.allApplications)
-                    }}
+                <div className={styles.button}>
+                    <Button
+                        variant='contained'
+                        style={{background: "whitesmoke",  width:"100%" }}
+                        onClick={() => {
+                            setLastPage(currentPage)
+                            changePage(PAGE_POINTER.reviewApplication)
+                        }}
                     >Neste</Button>
-            </div>
+                </div>
 
-        </div>
+            </div>
+        </>
     )
 }

@@ -24,6 +24,8 @@ export default function Household() {
     const [currentPage, setPage] = useRecoilState(page)
     const [, setLastPage] = useRecoilState(lastPage)
 
+    const [notClicked, setNotClicked] = useState(true)
+    
     const [partner, setPartner] = useState("")
     const [yesNo, setYesNo] = useState(true)
     const [askQuestion, setAskQuestion] = useState(false)
@@ -39,6 +41,7 @@ export default function Household() {
         "Enslig"
     ]
     const radioGroupCallback = (id) => {
+        setNotClicked(false)
         setAnswer(radioTextList[id])
     }
 
@@ -47,6 +50,7 @@ export default function Household() {
         "Nei"
     ]
     const yesNoRadioGroupCallback = (id) => {
+        setNotClicked(false)
         setChosenYesNo(yesNoList[id])
     }
 
@@ -59,6 +63,7 @@ export default function Household() {
         if(chosenYesNo === "Nei"){
             setYesNo(false)
             setAskQuestion(true)
+            setNotClicked(true)
         }
         else if (chosenYesNo === "Ja") {
             setLastPage(currentPage)
@@ -91,7 +96,11 @@ export default function Household() {
 
     return (
         <>
+<<<<<<< HEAD
             <ProgressBar filled={2} elements={[{}, {}, {}, {}, {}]} />
+=======
+            <ProgressBar filled={3} elements={[{}, {}, {}, {}, {}, {}]} />
+>>>>>>> main
             <div className={styles.container}>
                 <h1 className={styles.title}>Husholdning</h1>
                 {yesNo &&
@@ -103,8 +112,9 @@ export default function Household() {
                             radioGroupCallback={yesNoRadioGroupCallback}
                         />
                         <Button
+                            disabled={notClicked}
                             variant='contained'
-                            style={{ margin: "20px 0" }}
+                            style={{ margin: "20px 0", width:"100%" }}
                             onClick={handleYesNoClick}>
                             Neste
                         </Button>
@@ -119,7 +129,7 @@ export default function Household() {
                         />
                         <Button
                             variant='contained'
-                            style={{ margin: "20px 0" }}
+                            style={{ margin: "20px 0", width:"100%" }}
                             onClick={() => {
                                 setAskQuestion(false)
                                 setAddPartner(true)
@@ -134,7 +144,7 @@ export default function Household() {
                         <Form fields={formFields} handleFormChange={handleFormChange} />
                         <Button
                             variant='contained'
-                            style={{ margin: "20px 0" }}
+                            style={{ margin: "20px 0", width:"100%" }}
                             onClick={() => {
                                 addPartner()
                                 setLastPage(currentPage)

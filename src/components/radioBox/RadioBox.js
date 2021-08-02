@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import React from 'react'
 import styles from './RadioBox.module.css'
-import { useReducer } from 'react';
-// import Radio from '@material-ui/core/Radio'
-import { FormControl, RadioGroup, FormControlLabel, Radio } from '@material-ui/core'
+import { Radio } from '@material-ui/core'
 
 
 function RadioBox(props) {

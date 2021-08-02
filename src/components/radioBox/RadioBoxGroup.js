@@ -27,7 +27,8 @@ function RadioBoxGroup(props) {
 
     // Populate a list with one radio button per entry in radioTextList
     for(let i = 0; i<radioTextList.length; i++) {
-        buttons.push(<RadioBox onClickRadioButton={onClickRadioButton} 
+        buttons.push(<RadioBox key={"radiobox"+i}
+            onClickRadioButton={onClickRadioButton} 
             radioText={radioTextList[i]} 
             selected={selectedList[i]}
             identifier={i} />)

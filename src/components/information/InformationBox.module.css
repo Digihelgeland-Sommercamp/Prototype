@@ -1,0 +1,23 @@
+.container {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    width: 90%;
+    height: 40%;
+    background-color: rgb(230, 230, 230);
+    margin: 0px auto;
+
+}
+
+.text {
+    justify-self: left;
+    padding: 20px 20px 20px 0;
+}
+
+.iconWrapper {
+    display: flex;
+    align-items: flex-start;
+    justify-self: center;
+    padding-top: 20px;
+    /* background-color: aqua; */
+}
+
