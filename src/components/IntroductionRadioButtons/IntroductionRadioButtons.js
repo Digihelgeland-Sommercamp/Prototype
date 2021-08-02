@@ -29,7 +29,7 @@ export default function IntrodctionRadioButtons(props) {
         <div className={styles.radioButtons}>
             <FormControl component="fieldset">
                 <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
-                    <div className={`${styles.radioChoice} ${value===firstValue ? styles.active:''}`}>
+                    <div className={`${styles.radioChoice} ${value===firstValue ? styles.active :''}`}>
                         <FormControlLabel 
                         value={firstValue}
                         control={<Radio color="default" />} 
@@ -40,7 +40,7 @@ export default function IntrodctionRadioButtons(props) {
                         </div>
                         
                     </div>
-                    <div className={`${styles.radioChoice} ${value===secondValue ? styles.active:''}`}>
+                    <div className={`${styles.radioChoice} ${value===secondValue ? styles.active :''}`}>
                         <FormControlLabel 
                         value={secondValue}
                         control={<Radio color="default" />}
