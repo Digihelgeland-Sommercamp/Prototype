@@ -140,8 +140,8 @@ export default function Kids(props) {
     return (
         <>
             <ProgressBar
-                filled={3}
-                elements={[{}, {}, {}, {}, {}]} />
+                filled={4}
+                elements={[{}, {}, {}, {}, {}, {}]} />
             <div className={styles.container}>
 
                 <h1 className={styles.title}>Barn</h1>

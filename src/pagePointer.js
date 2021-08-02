@@ -7,5 +7,6 @@ export const PAGE_POINTER = {
     application: "application",
     applicationOverview: "applicationOverview",
     allApplications: "allApplications",
-    reviewApplication: "reviewApplication"
+    reviewApplication: "reviewApplication",
+    invoice: "invoice"
 }
