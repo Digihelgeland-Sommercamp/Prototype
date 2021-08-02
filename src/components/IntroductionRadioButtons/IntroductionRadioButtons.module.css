@@ -5,6 +5,7 @@
 .radioChoice {
     border: 1px solid lightgrey;
     margin: 15px 0;
+    padding: 15px;
 }
 
 .radioButton {
@@ -17,4 +18,5 @@
 
 .link {
     margin-left: 20px;
+    padding-bottom: 20px;
 }

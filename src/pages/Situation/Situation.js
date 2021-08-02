@@ -14,7 +14,6 @@ const overviewOfApplication = selector({
     key:"overviewOfApplication"
 })
 
-
 const page = selector({
     key: 'page', 
 });
@@ -33,7 +32,9 @@ export default function Situation(props) {
 
     return (
         <>
-            <ProgressBar filled={applicationData.filled}/>
+            <ProgressBar
+                filled={1}
+                elements={[{}, {}, {}, {}, {}]} />
             <div className="wrapper">
                 
                 <h1>Hei, {props.name}!</h1>

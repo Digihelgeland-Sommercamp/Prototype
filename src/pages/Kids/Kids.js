@@ -10,6 +10,7 @@ import Kid from './Kid'
 import Form from '../../components/Form/Form.js';
 
 import styles from './Kids.module.css'
+import AddChildren from '../../components/AddChildren/AddChildren.js';
 
 
 const page = selector({
@@ -102,8 +103,8 @@ export default function Kids(props) {
                         return <Kid name={kid.name} born={kid.born} />
                     })}
                     
-                    <Button variant="outlined" style={{ margin: "20px 0 50px 0" }} onClick={() => setAddingChild(true)}>Legg til barn</Button>
-
+                    {/* <Button variant="outlined" style={{ margin: "20px 0 50px 0" }} onClick={() => setAddingChild(true)}>Legg til barn</Button> */}
+                    <AddChildren callback={() => setAddingChild(true)}/>
                     <InformationBox
                         text="Barn det søkes for må være registrert på samme adresse som forelder som søker." />
                     <Button

@@ -93,7 +93,7 @@ export default function Household() {
     return (
         <>
             <ProgressBar filled={2} elements={[{}, {}, {}, {}, {}]} />
-            <div>
+            <div className={styles.container}>
                 <h1 className={styles.title}>Husholdning</h1>
                 {yesNo &&
                     <>

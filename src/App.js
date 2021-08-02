@@ -20,11 +20,13 @@ import Income from './pages/Income/Income';
 import Kids from './pages/Kids/Kids';
 import AddPartnerPage from './components/addPartnerPage/AddPartnerPage';
 import Household from './pages/Household/Household';
+import ReviewApplication from './pages/ReviewApplication/ReviewApplication';
 
 
 
 const page = atom({
   key: "page",
+  // default: PAGE_POINTER.login
   default: PAGE_POINTER.login
 });
 const lastPage = atom({
@@ -51,8 +53,6 @@ function App() {
 function Router() {
   const [state, setState] = useRecoilState(page);
   const currentSituaton = useRecoilValue(situation)
-  
-  console.log(currentSituaton);
 
   switch(state){
     case PAGE_POINTER.login :
@@ -69,6 +69,8 @@ function Router() {
       return <OverviewApplications />
     case PAGE_POINTER.applicationOverview : 
       return <OverviewApplication />
+    case PAGE_POINTER.reviewApplication :
+      return <ReviewApplication />
     default:
       return (
         <div className="App">
