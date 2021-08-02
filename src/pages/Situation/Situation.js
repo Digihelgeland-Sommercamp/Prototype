@@ -32,18 +32,21 @@ export default function Situation(props) {
 
 
     return (
-        <div className="wrapper">
+        <>
             <ProgressBar filled={applicationData.filled}/>
-            <h1>Hei, {props.name}!</h1>
-            <p>Hvilken situasjon gjelder deg?</p>
-            <IntrodctionRadioButtons onChange={handler} />
-            <Button
-                variant='contained'
-                disabled={noClick}
-                className="nextButton"
-                onClick={() => changePage(PAGE_POINTER.household)}>
-                Neste
-            </Button>
-        </div>
+            <div className="wrapper">
+                
+                <h1>Hei, {props.name}!</h1>
+                <p>Hvilken situasjon gjelder deg?</p>
+                <IntrodctionRadioButtons onChange={handler} />
+                <Button
+                    variant='contained'
+                    disabled={noClick}
+                    className="nextButton"
+                    onClick={() => changePage(PAGE_POINTER.household)}>
+                    Neste
+                </Button>
+            </div>
+        </>
     );
 }
