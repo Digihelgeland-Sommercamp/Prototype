@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import InfoIcon from '@material-ui/icons/Info';
 import './ApplicationPageTitle.css'
-// var test = true;
 
 
 function ApplicationPageTitle(props) {

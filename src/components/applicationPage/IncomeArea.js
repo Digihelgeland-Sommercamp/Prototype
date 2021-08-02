@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './IncomeArea.css'
 import './ApplicationPageTitle'
 import ApplicationPageTitle from './ApplicationPageTitle';
-import InformationBox from './InformationBox';
+import InformationBox from '../information/InformationBox';
 
 function IncomeArea(props) {
     const [incomeTitleText, setIncomeTitleText] = useState(props.incomeTitleText)
@@ -23,8 +23,7 @@ function IncomeArea(props) {
 
 IncomeArea.defaultProps =  {
     incomeTitleText: "Inntekt",
-    incomeTextBody: "Vi beregner inntekt i år basert på sist oppdaterte skatteopplysninger. \n\n\
-                    Søknaden blir behandlet på bakgrunn av inntekten til:",
+    incomeTextBody: "Vi beregner inntekt i år basert på sist oppdaterte skatteopplysninger. \n\n Søknaden blir behandlet på bakgrunn av inntekten til:",
     applicants: ["Ola Nordmann", "Kari Nordmann"]
 }
 
