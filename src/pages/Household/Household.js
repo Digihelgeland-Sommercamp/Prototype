@@ -92,8 +92,8 @@ export default function Household() {
             }
         }
 
-        localStorage.setItem("partner", JSON.stringify(partner));
-        console.log(localStorage.getItem("partner"));
+        sessionStorage.setItem("partner", JSON.stringify(partner));
+        console.log(sessionStorage.getItem("partner"));
 
         previousPage === PAGE_POINTER.reviewApplication ? 
             setPage(PAGE_POINTER.reviewApplication) : 

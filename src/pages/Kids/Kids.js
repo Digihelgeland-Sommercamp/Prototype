@@ -33,7 +33,7 @@ export default function Kids(props) {
     const [selectedChildren, setSelectedChildren] = useState([]); // List of the selected kids objects
         
     //TODO: Get kids from userID
-    const [kids, setKids] = useState(localStorage.getItem("kids") ? JSON.parse(localStorage.getItem("kids")) :
+    const [kids, setKids] = useState(sessionStorage.getItem("kids") ? JSON.parse(sessionStorage.getItem("kids")) :
     [
         {
             "name": "Karl Morten",
@@ -51,7 +51,7 @@ export default function Kids(props) {
     
     // Gets the children from storage and compares to the available kids. Saving matches as selected
     const findSelectedKids = () => {
-        let children = localStorage.getItem("children") ? JSON.parse(localStorage.getItem("children")) : null;
+        let children = sessionStorage.getItem("children") ? JSON.parse(sessionStorage.getItem("children")) : null;
         let tempSelectedChildElements = new Array(kids.length).fill(false);
 
         if (!children)
@@ -123,8 +123,8 @@ export default function Kids(props) {
     ]
 
     function goToNextPage() {
-        localStorage.setItem("children", JSON.stringify(selectedChildren)) // Only send in selected kids
-        localStorage.setItem("kids", JSON.stringify(kids));
+        sessionStorage.setItem("children", JSON.stringify(selectedChildren)) // Only send in selected kids
+        sessionStorage.setItem("kids", JSON.stringify(kids));
         console.log(kids)
 
         setLastPage(currentPage)
@@ -136,7 +136,7 @@ export default function Kids(props) {
 
     if(previousPage === PAGE_POINTER.reviewApplication && selectedChildElements.length === 0)
         findSelectedKids();
-    // localStorage.setItem("kids", []);
+    // sessionStorage.setItem("kids", []);
     return (
         <>
             <ProgressBar

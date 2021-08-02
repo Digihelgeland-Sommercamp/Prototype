@@ -14,6 +14,8 @@
     /* background-color: aquamarine; */
 }
 
-.wide {
-    margin: 0;
+.subtitle {
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-weight: 700;
 }

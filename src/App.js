@@ -27,8 +27,8 @@ import Invoice from './pages/Invoice/Invoice';
 
 const page = atom({
   key: "page",
+  default: PAGE_POINTER.reviewApplication
   // default: PAGE_POINTER.login
-  default: PAGE_POINTER.login
 });
 const lastPage = atom({
   key: "lastPage",
@@ -55,6 +55,7 @@ function Router() {
   const [state, setState] = useRecoilState(page);
   const currentSituaton = useRecoilValue(situation)
 
+  //TODO: Make situation name dynamic
   switch(state){
     case PAGE_POINTER.login :
       return <Login />
