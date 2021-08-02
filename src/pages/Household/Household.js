@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { selector, useRecoilState } from 'recoil'
 
 import { PAGE_POINTER } from '../../pagePointer';
@@ -11,6 +11,7 @@ import Form from '../../components/Form/Form';
 
 import styles from './Household.module.css'
 import InformationLink from '../../components/information/InformationLink';
+import axios from 'axios';
 
 
 const page = selector({
@@ -20,6 +21,15 @@ const page = selector({
 const lastPage = selector({
     key: 'lastPage',
 });
+
+const applicantIdentifier = "09838197571"
+
+const radioTextList = [
+    "Ektefelle / Registrert partner",
+    "Samboer med felles barn",
+    "Samboer uten felles barn",
+    "Enslig"
+]
 
 export default function Household() {
     const [currentPage, setPage] = useRecoilState(page)
@@ -35,16 +45,35 @@ export default function Household() {
     const [chosenYesNo, setChosenYesNo] = useState("")
     const [answer, setAnswer] = useState("")
 
-    const radioTextList = [
-        "Ektefelle / Registrert partner",
-        "Samboer med felles barn",
-        "Samboer uten felles barn",
-        "Enslig"
-    ]
+    const [applicant, setApplicant] = useState(null)
+
+
     const radioGroupCallback = (id) => {
         setNotClicked(false)
         setAnswer(radioTextList[id])
     }
+
+    const saveApplicant = (applicantToSave) => {
+         setApplicant(applicantToSave);
+         console.log(applicantToSave);
+    } 
+
+// Get applicant, then get partner, then get kids
+    // const fetchApplicant = (identifier) => {
+    //     let url = "http://51.107.208.107/get_applicant/"+identifier;
+    //     axios.get(url).then((response) => {saveApplicant(response.data)})
+    // }
+    
+
+    useEffect(() => {
+        let url = "http://51.107.208.107/get_applicant/"+applicantIdentifier;
+        axios.get(url).then((response) => {saveApplicant(response.data); fetchPartner()})
+    }, [])
+
+    // applicant !== null ? fetchApplicant("09838197571") : ()=>{}
+    // if(!applicant)
+    //     fetchApplicant("09838197571")
+    // console.log(applicant);
 
     const yesNoList = [
         "Ja",
@@ -55,19 +84,30 @@ export default function Household() {
         setChosenYesNo(yesNoList[id])
     }
 
+    const savePartner = (partnerToSave) => {
+        let tempPartner = {
+            "fornavn": partnerToSave["navn"]["fornavn"],
+            "etternavn": partnerToSave["navn"]["etternavn"],
+            "personidentifikator": partnerToSave["identifikasjonsnummer"]["foedselsEllerDNummer"]
+        }
+
+        setPartner(tempPartner)
+    }
+
     function fetchPartner() {
         //TODO: Fetch partner from folkreg
 
         if(partner === "")
         {
-            let tempPartner = {
-                "fornavn": "Kari",
-                "etternavn": "Nordmann",
-                "personidentifikator": "23568945586" 
-                };
-            setPartner(tempPartner);
+            // let tempPartner = {
+            //     "fornavn": "Kari",
+            //     "etternavn": "Nordmann",
+            //     "personidentifikator": "23568945586" 
+            //     };
+            let url = "http://51.107.208.107/get_partner/"+applicantIdentifier;
+            axios.get(url).then((response) => {savePartner(response.data);})
         }
-        return partner['fornavn'] + " " + partner["etternavn"];
+        // return partner['fornavn'] + " " + partner["etternavn"];
     }
 
     const handleYesNoClick = () => {
@@ -136,7 +176,8 @@ export default function Household() {
                 {yesNo &&
                     <>
                         <h4 className={styles.question}>
-                            Stemmer det at du er gift og bor sammen med <span className={styles.partner}>{fetchPartner()}</span>
+                            Stemmer det at du er gift og bor sammen med <span className={styles.partner}>
+                                {partner["fornavn"] + " " + partner["etternavn"]}</span>
                         </h4>
                         
                         <RadioBoxGroup
