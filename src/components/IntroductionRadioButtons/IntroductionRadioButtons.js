@@ -5,6 +5,7 @@ import { FormControl, RadioGroup, FormControlLabel, Radio } from '@material-ui/c
 import InfoButtonText from '../InfoButtonText/InfoButtonText';
 
 import styles from './IntroductionRadioButtons.module.css'
+import InformationLink from '../information/InformationLink';
 
 const situation = selector({
     key: 'situation', 
@@ -31,23 +32,31 @@ export default function IntrodctionRadioButtons(props) {
                 <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
                     <div className={`${styles.radioChoice} ${value===firstValue ? styles.active :''}`}>
                         <FormControlLabel 
-                        value={firstValue}
-                        control={<Radio color="default" />} 
-                        label="Husholdningen har hatt stabil inntekt siden forrige skatteoppgjør." 
-                        className={styles.radioButton} />
+                            value={firstValue}
+                            control={<Radio color="default" />} 
+                            label="Husholdningen har hatt stabil inntekt siden forrige skatteoppgjør." 
+                            className={styles.radioButton} />
                         <div className={styles.link}>
-                            <InfoButtonText text="Hva menes med stabil inntekt?" />
+                            <InformationLink 
+                                linkText="Hva menes med stabil inntekt?"
+                                modalTitle=""
+                                modalTextBody=""
+                                modalButtoText=""/>
                         </div>
                         
                     </div>
                     <div className={`${styles.radioChoice} ${value===secondValue ? styles.active :''}`}>
                         <FormControlLabel 
-                        value={secondValue}
-                        control={<Radio color="default" />}
-                        label="Noen i husholdningen har en nylig, varig endring av sin inntekt." 
-                        className={styles.radioButton} />
+                            value={secondValue}
+                            control={<Radio color="default" />}
+                            label="Noen i husholdningen har en nylig, varig endring av sin inntekt." 
+                            className={styles.radioButton} />
                         <div className={styles.link}>
-                            <InfoButtonText text="Hva menes med varig endring?" />
+                            <InformationLink 
+                                    linkText="Hva menes med varig endring?"
+                                    modalTitle=""
+                                    modalTextBody=""
+                                    modalButtoText=""/>
                         </div>
                     </div>
                     
