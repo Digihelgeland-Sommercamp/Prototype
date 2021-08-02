@@ -101,7 +101,8 @@ export default function Kids(props) {
         const childName = `${form.fornavn} ${form.etternavn}`
         const child = {
             name: childName,
-            born: personid
+            birth: personid ? personid.substr(0, 6) : "",
+            personidentifikator: personid
         }
         setNewChild(child) 
     }

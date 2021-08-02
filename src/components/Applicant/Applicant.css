@@ -18,14 +18,14 @@
 }
 
 .applicant-info-wrapper {
-    margin-top: 5%;
+    /* margin-top: 1px; */
     border-top: darkgray;
     border-bottom: darkgray;
     border-bottom-width: 1px;
     border-top-width: 1px;
     border-top-style: solid;
     border-bottom-style: solid;
-    margin-bottom: 7px;
+    /* margin-bottom: 7px; */
 }
 
 .applicant-content-name {
