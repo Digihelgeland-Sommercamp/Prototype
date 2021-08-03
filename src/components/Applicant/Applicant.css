@@ -1,0 +1,37 @@
+.applicant-title-wrapper {
+    margin-top: 5%;
+    display: flex;
+    align-items: center;
+}
+
+
+.title-card {
+    margin-left: 5%;
+    font-size: 20px;
+    font-weight: bold;
+    /* background-color: chartreuse; */
+}
+
+.info-icon {
+    /* background-color: brown; */
+    margin-left: 2%;
+}
+
+.applicant-info-wrapper {
+    /* margin-top: 1px; */
+    border-top: darkgray;
+    border-bottom: darkgray;
+    border-bottom-width: 1px;
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-bottom-style: solid;
+    /* margin-bottom: 7px; */
+}
+
+.applicant-content-name {
+    margin: 3% 0 1% 7%;
+}
+
+.applicant-content-id {
+    margin: 0 0 3% 7%
+}

@@ -1,0 +1,21 @@
+* {
+    margin: 0;
+}
+
+.container {
+    margin: 0 7% 0 7%;
+}
+
+.title {
+    font-size: 28px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    /* color: aqua; */
+    /* background-color: aquamarine; */
+}
+
+.subtitle {
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-weight: 700;
+}

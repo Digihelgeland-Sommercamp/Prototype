@@ -1,0 +1,41 @@
+
+.container {
+    margin: 20px 0;
+    padding: 10px
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.new {
+    background:var(--blue_bg);
+}
+
+.old {
+    background: whitesmoke;
+}
+
+.applicationName {
+    width: 60%;
+    padding:5px;
+}
+
+.date {
+    width: 30%;
+    padding:5px;
+}
+
+.extra {
+    padding: 5px;
+    margin: 0px;
+}
+
+.link {
+    text-decoration: underline;
+    background: none;
+    color: var(--info_blue);
+    border:none;
+}

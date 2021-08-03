@@ -1,0 +1,28 @@
+.textContainer {
+    display: flex;
+}
+
+.iconContainer {
+    display: flex;
+}
+
+/* .box {
+    display: flex;
+    grid-template-columns: 1fr 11fr;
+    background-color: black;
+} */
+
+.text {
+    color: var(--info_blue);
+    font-style: italic ;
+    text-decoration: underline;
+    padding: 0 10px;
+}
+
+.text:active {
+    color: var(--info_blue);
+}
+
+.text:hover {
+    color: black;
+}

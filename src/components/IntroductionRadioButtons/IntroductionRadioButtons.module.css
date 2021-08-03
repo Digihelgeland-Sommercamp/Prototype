@@ -1,0 +1,20 @@
+.radioButtons {
+    margin: 50px 0;
+}
+
+.radioChoice {
+    border: 1px solid lightgrey;
+    margin: 15px 1px;
+    padding: 20px;
+}
+
+
+.active {
+    border: 2px solid black;
+    margin: 14px 0;
+    background-color: var(--grey_bg);
+}
+
+.link {
+    padding-top: 10px;
+}
