@@ -23,7 +23,6 @@ export default function Situation(props) {
         setNoClick(false)
     }
 
-
     return (
         <>
             <ProgressBar

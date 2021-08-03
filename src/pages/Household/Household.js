@@ -57,17 +57,14 @@ export default function Household() {
     }
 
     const saveApplicant = (applicantToSave) => {
-        setApplicant(applicantToSave);
-        console.log(applicantToSave);
+         setApplicant(applicantToSave);
+         sessionStorage.setItem("applicant", JSON.stringify(applicantToSave));
+         sessionStorage.setItem("applicantIdentifier", applicantIdentifier);
+         console.log(applicantToSave);
     } 
-
-// Get applicant, then get partner, then get kids
-    // const fetchApplicant = (identifier) => {
-    //     let url = "http://51.107.208.107/get_applicant/"+identifier;
-    //     axios.get(url).then((response) => {saveApplicant(response.data)})
-    // }
     
-
+    // Get the applicant from hub
+    // TODO: Move this to login
     useEffect(() => {
         let url = "http://51.107.208.107/get_applicant/"+applicantIdentifier;
         axios.get(url).then((response) => {
@@ -75,11 +72,6 @@ export default function Household() {
             fetchPartner()
         })
     }, [])
-
-    // applicant !== null ? fetchApplicant("09838197571") : ()=>{}
-    // if(!applicant)
-    //     fetchApplicant("09838197571")
-    // console.log(applicant);
 
     const yesNoList = [
         "Ja",
