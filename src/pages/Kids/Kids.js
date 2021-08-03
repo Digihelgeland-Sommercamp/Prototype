@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { selector, useRecoilState } from 'recoil'
 
 import { PAGE_POINTER } from '../../pagePointer.js';
@@ -12,6 +12,7 @@ import Form from '../../components/Form/Form.js';
 import styles from './Kids.module.css'
 import AddChildren from '../../components/AddChildren/AddChildren.js';
 import CheckBoxGroup from '../../components/checkBoxField/CheckBoxGroup.js';
+import axios from 'axios';
 
 
 const page = selector({
@@ -35,20 +36,40 @@ export default function Kids(props) {
     //TODO: Get kids from userID
     const [kids, setKids] = useState(sessionStorage.getItem("kids") ? JSON.parse(sessionStorage.getItem("kids")) :
     [
-        {
-            "name": "Karl Morten",
-            "birth": "20.05.2015",
-            "personidentifikator": "154623958774"
-        },
-        {
-            "name": "Karl Karlsrud",
-            "birth": "20.05.2015",
-            "personidentifikator": "19586325477"
-        }
+        // {
+        //     "name": "Karl Morten",
+        //     "birth": "20.05.2015",
+        //     "personidentifikator": "154623958774"
+        // },
+        // {
+        //     "name": "Karl Karlsrud",
+        //     "birth": "20.05.2015",
+        //     "personidentifikator": "19586325477"
+        // }
     ])
     // List of bools corresponding to selectedChildren
     const [selectedChildElements, setSelectedChildElements] = useState([]) 
     
+    const saveChildren = (childrenToSave) => {
+        console.log("Saving children");
+        console.log(childrenToSave);
+        setKids(childrenToSave);
+        sessionStorage.setItem("kids", JSON.stringify(childrenToSave))
+    }
+
+    useEffect(() => {
+        let applicantIdentifier = sessionStorage.getItem("applicantIdentifier");
+
+        console.log(sessionStorage.getItem("kids"))
+        if(sessionStorage.getItem("kids") || !applicantIdentifier)
+            return;
+        console.log("Getting kids from hub")
+
+        // let applicantIdentifier = tempApplicant[""]
+        let url = "http://51.107.208.107/get_children/"+applicantIdentifier;
+        axios.get(url).then((response) => {saveChildren(response.data);})
+    }, [])
+
     // Gets the children from storage and compares to the available kids. Saving matches as selected
     const findSelectedKids = () => {
         let children = sessionStorage.getItem("children") ? JSON.parse(sessionStorage.getItem("children")) : null;
@@ -100,8 +121,12 @@ export default function Kids(props) {
         const personid = form.personidentifikator
         const childName = `${form.fornavn} ${form.etternavn}`
         const child = {
-            name: childName,
-            birth: personid ? personid.substr(0, 6) : "",
+            navn: {
+            fornavn: form.fornavn,
+            mellomnavn: "",
+            etternavn: form.etternavn,
+            },
+            foedsel: personid ? personid.substr(0, 6) : "",
             personidentifikator: personid
         }
         setNewChild(child) 

@@ -78,8 +78,11 @@ function ReviewApplication(props) {
         let applicantList = [];
         for(let i=0; i<childrenList.length; i++)
         {
-            let applicant = <Applicant applicantName={childrenList[i]["name"]} 
-                            identifier={childrenList[i]["personidentifikator"]} />;
+            let mellomnavn = childrenList[i]["navn"]["mellomnavn"] ? childrenList[i]["navn"]["mellomnavn"]+" " : ""
+            let childName = childrenList[i]["navn"]["fornavn"] + " " + mellomnavn + childrenList[i]["navn"]["etternavn"]
+
+            let applicant = <Applicant applicantName={childName} 
+                            identifier={childrenList[i]["foedsel"]} />;
             applicantList.push(applicant);
         }
 
@@ -192,18 +195,6 @@ function ReviewApplication(props) {
                 "samlivsbrudd": false
             }
         }
-
-    //     const config ={
-    //     "headers": {"Access-Control-Allow-Origin": "*",
-    //     "Access-Control-Allow-Methods": "POST",
-    //     "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
-    // }}
-    // const config = {
-    //     headers: {
-    //       'Content-Type' : 'application/x-www-form-urlencoded'
-    //       //'Authorization' : 'Basic dGVzdF9ycF95dDI6cGFzc3dvcmQ='
-    //     }
-    //   }
 
         axios.post(url, data)
 
