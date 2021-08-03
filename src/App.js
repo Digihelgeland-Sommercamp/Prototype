@@ -27,8 +27,8 @@ import Portal from './pages/Portal/Portal';
 
 const page = atom({
   key: "page",
-  // default: PAGE_POINTER.login
-  default: PAGE_POINTER.household
+  default: PAGE_POINTER.login
+  // default: PAGE_POINTER.household
 
 });
 const lastPage = atom({
