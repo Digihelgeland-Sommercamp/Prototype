@@ -12,6 +12,7 @@ import Form from '../../components/Form/Form.js';
 import styles from './Kids.module.css'
 import AddChildren from '../../components/AddChildren/AddChildren.js';
 import CheckBoxGroup from '../../components/checkBoxField/CheckBoxGroup.js';
+import ErrorBlob from '../../components/Form/ErrorBlob.js';
 
 
 const page = selector({
@@ -25,6 +26,9 @@ const lastPage = selector({
 export default function Kids(props) {
     const [currentPage, setPage] = useRecoilState(page)
     const [previousPage, setLastPage] = useRecoilState(lastPage)
+
+    const [formError, setFormError] = useState(false)
+    const [showError, setShowError] = useState(false)
 
     const [addingChild, setAddingChild] = useState(false)
     const [newChild, setNewChild] = useState({ name: "", birth: "" })
@@ -87,16 +91,22 @@ export default function Kids(props) {
     }
 
     const handleAddChild = () => {
-        //TODO: check for faulty child
-        
-        let currentKids = kids
-        currentKids.push(newChild)
-        setKids(currentKids)
-        setAddingChild(false)
+        if(!formError){
+            let currentKids = kids
+            currentKids.push(newChild)
+            setKids(currentKids)
+            setAddingChild(false)
+            setShowError(false)                
+        }
+        else{
+            setShowError(true)
+        }
+                
     }
 
-    const handleFormChange = (newForm) => {
-        setForm(newForm) 
+    const handleFormChange = (newForm, error) => {
+        setForm(newForm)
+        setFormError(error)
         const personid = form.personidentifikator
         const childName = `${form.fornavn} ${form.etternavn}`
         const child = {
@@ -106,21 +116,6 @@ export default function Kids(props) {
         }
         setNewChild(child) 
     }
-
-    const formFields = [
-        {
-            id: "fornavn",
-            label: "Fornavn"
-        },
-        {
-            id: "etternavn",
-            label: "Etternavn"
-        },
-        {
-            id: "personidentifikator",
-            label: "Fødselsnummer / D-nummer"
-        }
-    ]
 
     function goToNextPage() {
         sessionStorage.setItem("children", JSON.stringify(selectedChildren)) // Only send in selected kids
@@ -148,7 +143,8 @@ export default function Kids(props) {
                 {addingChild 
                     ? 
                     <>
-                        <Form fields={formFields} handleFormChange={handleFormChange} />
+                        <Form handleFormChange={handleFormChange} />
+                        {showError && <ErrorBlob firstText="Feil navn eller fødselsnummer/D-nummer." secondText="Sjekk at du har skrevet riktig."/>}
                         <Button
                             variant='contained'
                             style={{ margin: "20px 0" }}
@@ -161,8 +157,8 @@ export default function Kids(props) {
                     <p className={styles.information}>Vi fant opplysninger om barn i Folkeregisteret. Hvilke barn vil du søke for?</p>
                     {/* {kids.map((kid, _) => {
                         return <Kid name={kid.name} born={kid.born} />
-                    })} */
-                    <CheckBoxGroup personList={kids} checkboxCallback={childrenCallback} selectedElements={selectedChildElements}/>}
+                    })} */}
+                    <CheckBoxGroup personList={kids} checkboxCallback={childrenCallback} selectedElements={selectedChildElements}/>
                     
                     {/* <Button variant="outlined" style={{ margin: "20px 0 50px 0" }} onClick={() => setAddingChild(true)}>Legg til barn</Button> */}
                     <AddChildren callback={() => setAddingChild(true)}/>
@@ -172,7 +168,9 @@ export default function Kids(props) {
                         variant='contained'
                         style={{ margin: "20px 0" }}
                         onClick={() => {
+                            setLastPage(currentPage)
                             goToNextPage();
+                            
                         }}>
                         Neste
                     </Button>
