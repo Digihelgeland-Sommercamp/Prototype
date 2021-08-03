@@ -10,8 +10,7 @@ import UploadItem from './UploadItem';
 function UploadArea() {
     const [open, setOpen] = useState(false);
     const [selectedFile, setSelectedFile] = useState();
-    const [itemList, setItemList] = useState({});
-    const [displayDivs, setDisplayDivs] = useState({});
+    const [itemList, setItemList] = useState([]);
     const [, forceUpdate] = useReducer(x => x + 1, 0);
     const [counter, setCounter] = useState(0)
 
@@ -21,20 +20,13 @@ function UploadArea() {
     };
 
     const deleteFile = (key) => { //gjør dette med for loops
-        console.log("deleteFile called");
-        console.log(itemList);
-
-        const list_of_items = {}; 
-        //const list_of_items = {...itemList};
-        const list_of_divs = {...displayDivs};
-        console.log("before");
-        console.log(Object.entries(list_of_items));
-        console.log("after");
-        console.log(Object.entries(list_of_items));
-        console.log("list_of_divs " + list_of_divs);
-        console.log("target key " + key);
-        //setItemList(list_of_items);
-        //setDisplayDivs(list_of_divs);
+        var temp_list = [];
+        for (var i = 0; i < itemList.length; i++) {
+            if (itemList[i][1][0] != key) {
+                temp_list.push(itemList[i]);
+            }
+        }
+        setItemList(temp_list);
     };
 
 
@@ -55,30 +47,23 @@ function UploadArea() {
         const counterKey = makeid(20);
         
 
-        //add file to list of items
-        const list_of_items = {...itemList};
-        list_of_items[counterKey] = event.target.files[0];
-        setItemList(list_of_items);
-
-        //add file to list display
-        const list_of_divs = {...displayDivs};
+        //add file to list of items and add file to list display
+        const list_of_items = [...itemList];
         const filename = event.target.files[0].name;
         const type = event.target.files[0].type;
         const size = event.target.files[0].size;
-        list_of_divs[counterKey] = <UploadItem key={counterKey} keykey={counterKey} filename={filename} type={type} size={size} deleteFile={() => deleteFile(counterKey)}/>
-        //const new_count = counter + 1;
-        //setCounter(new_count);
-        console.log("CounterKey: " + counterKey);
+        list_of_items.push([event.target.files[0], [counterKey, filename, type, size]]); 
+        setItemList(list_of_items);
 
-        setDisplayDivs(list_of_divs);
-        //clearInputFile(event.target);
+        clearInputFile(event.target);
     };
 
     const handleSubmission = () => { //må vurderes om denne logikken skal flyttes opp til en høyere komponent
         const formData = new FormData();
-        for (const [key, value] of Object.entries(itemList)){
-            formData.append('file'+key, value)
-        }
+
+        for (var i = 0; i<itemList.length; i++){
+            formData.append('file'+i, itemList[i][0]);
+        };
         axios({
             method: "post",
             url: "http://51.107.208.107/add_attachment",
@@ -98,17 +83,22 @@ function UploadArea() {
     };
 
     function ListRender() {
-        if (Object.keys(itemList).length === 0) {
-            console.log(displayDivs)
+        if (itemList.length === 0) {
+            console.log(itemList)
             return(
                 <p className="no-files-uploaded-text">Ingen filer er lastet opp</p>
             );
         }
         else {
-            console.log(Object.values(displayDivs));
+            console.log(itemList);
+            const displayDivs = []
+            for (var i = 0; i<itemList.length; i++){
+                displayDivs.push(<UploadItem key={itemList[i][1][0]} keykey={itemList[i][1][0]} filename={itemList[i][1][1]} type={itemList[i][1][2]} size={itemList[i][1][3]} deleteFile={deleteFile}/>);
+            };
+
             return(
                 <div>
-                    {Object.values(displayDivs)}
+                    {displayDivs}
                 </div>
             );
         };

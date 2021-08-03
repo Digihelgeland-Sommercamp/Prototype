@@ -4,7 +4,8 @@ import "./UploadItem.css";
 function UploadItem(props) {
     const [filename] = useState(props.filename);
     const [type] = useState(props.type);
-    const [size] = useState(props.size)
+    const [size] = useState(props.size);
+    const [keykey] = useState(props.keykey);
 
     function formatBytes(bytes, decimals = 2) {
         if (bytes === 0) return '0 Bytes';
@@ -29,11 +30,11 @@ function UploadItem(props) {
 
     function formatType(type) {
         return type.split("/")[1].toUpperCase()
-    }
+    };
 
     function delFile() {
-        props.deleteFile();
-    }
+        props.deleteFile(keykey);
+    };
 
 
 
