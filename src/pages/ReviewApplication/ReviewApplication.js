@@ -20,14 +20,18 @@ const page = selector({
     key: 'lastPage', 
   });
 
-
+  const currentSituation = selector({
+      key: 'situation',
+  })
 
 function ReviewApplication(props) {
 
     const [state, setState] = useRecoilState(page);
     const [, setLastPage] = useRecoilState(lastPage)
+    const [situation, ] = useRecoilState(currentSituation)
     const [shouldBeNotified, setShouldBeNotified] = useState(null)
 
+    console.log(situation);
     const setNextPage = (page) => {
         setLastPage(state);
         setState(page);
@@ -164,7 +168,9 @@ function ReviewApplication(props) {
         let url = "http://51.107.208.107/submit_application"
 
         let partner = sessionStorage.getItem("partner") ? JSON.parse(sessionStorage.getItem("partner")) : null;
-        let hasPartner = partner !== null
+        let hasPartner = partner !== null;
+        let stableIncome = situation === "stable-income";
+
         let data = {
             "navn": {
                 "etternavn": "IkkeAutoGenerert",
@@ -190,8 +196,8 @@ function ReviewApplication(props) {
                 }
             ],
             "flagg": {
-                "varig_nedgang_samlet_inntekt": false, // TODO: Make these dynamic
-                "mistet_jobb": false,
+                "varig_nedgang_samlet_inntekt": !stableIncome, 
+                "mistet_jobb": false, // TODO: Make these dynamic
                 "samlivsbrudd": false
             }
         }
