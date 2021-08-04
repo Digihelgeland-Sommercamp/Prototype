@@ -158,9 +158,9 @@ export default function Household() {
 
     const info = {
         linkText: "Hvem bor du sammen med?",
-        modalTitle: "",
-        modalTextBody: "",
-        modalButtonText: ""
+        modalTitle: "Husholdning",
+        modalTextBody: "Husholdning er deg og din ektefelle, registrerte partner eller samboer. Samboere med felles barn regnes som en husholdning. Dersom du og din samboer ikke har felles barn vil dere regnes som en husholdning hvis dere har bodd sammen i minst 12 av de siste 18 månedene.",
+        modalButtonText: "OK"
     }
 
     return (

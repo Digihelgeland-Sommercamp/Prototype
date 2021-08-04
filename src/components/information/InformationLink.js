@@ -30,16 +30,17 @@ function InformationLink(props) {
             </div>
             
             <InformationModal shouldBeVisible={shouldShowInformation} 
-            textBody={modalTextBody} 
-            toggleVisible={toggleInformation}
-            title={modalTitle}
-            buttonText={modalButtonText}/>
+                textBody={modalTextBody} 
+                toggleVisible={toggleInformation}
+                title={modalTitle}
+                buttonText={modalButtonText}/>
         </div>
     );
 }
 
 InformationLink.defaultProps = {
-    iconOnly: false
+    iconOnly: false,
+    modalButtonText: "OK"
 }
 
 export default InformationLink;

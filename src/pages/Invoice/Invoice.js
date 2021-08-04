@@ -11,6 +11,7 @@ import styles from './Invoice.module.css'
 import RadioBoxGroup from '../../components/radioBox/RadioBoxGroup.js';
 import InfoButtonText from '../../components/InfoButtonText/InfoButtonText.js';
 import NextButton from '../../components/NextButton/NextButton.js';
+import InformationLink from '../../components/information/InformationLink.js';
 
 const page = selector({
     key: 'page', 
@@ -35,6 +36,13 @@ export default function Invoice(props) {
         setNoClick(false)
     }
 
+    const info = {
+        text: "Hva menes med husholdning?",
+        modalTitle: "Husholdning",
+        modalTextBody: "Husholdning er deg og din ektefelle, registrerte partner eller samboer. Samboere med felles barn regnes som en husholdning. Dersom du og din samboer ikke har felles barn vil dere regnes som en husholdning hvis dere har bodd sammen i minst 12 av de siste 18 månedene.",
+        modalButtonText: "OK"
+    }
+
     return (
         <>
             <ProgressBar
@@ -44,7 +52,11 @@ export default function Invoice(props) {
                 <h1>Fakturering</h1>
                 <p>Hvem i husholdningen din blir fakturert av barnehagen eller SFO?</p>
                 <RadioBoxGroup radioTextList={textForRadioButtons} radioGroupCallback={handler}/>
-                <InfoButtonText text="Hva menes med husholdning?"/>
+                <InformationLink 
+                    linkText={info.text}
+                    modalTitle={info.modalTitle}
+                    modalTextBody={info.modalTextBody}
+                    modalButtonText={info.modalButtonText}/>
                 <NextButton 
                     isClickable={!noClick}
                     callback={() => changePage(PAGE_POINTER.situation)}/>
