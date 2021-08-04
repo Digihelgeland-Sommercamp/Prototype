@@ -16,7 +16,7 @@ export default function OverviewApplication(props) {
     return (
         <div>
             <BackButton />
-            <h1 className={styles.title}>{applicationData.applicationName}</h1>
+            <h1 className={styles.title}>{"Søknad om redusert foreldrebetaling"}</h1>
             <h2 className={styles.status}>{applicationData.status}</h2>
             <button className={styles.action}>{applicationData.action}</button>
             <ProgressBar filled={applicationData.filled}/>

@@ -9,6 +9,7 @@ import styles from './Portal.module.css'
 import { Button } from '@material-ui/core';
 import InformationLink from '../../components/information/InformationLink';
 import axios from 'axios';
+import NextButton from '../../components/NextButton/NextButton';
 
 const overviewOfApplication = atom({
     key: "overviewOfApplication",
@@ -123,7 +124,7 @@ export default function Portal(props) {
         let tempActiveApplications = [];
         let tempOldApplications = [];
         const applications = JSON.parse(applicationsToSave);
-
+        console.log(applications)
         for(let i=0; i<applications.length; i++)
         {
             if(applications[i]["status"] !== "behandlet" && applications[i]["status"] !== null)
@@ -169,10 +170,17 @@ export default function Portal(props) {
 
     return (
         <div className={styles.container}>
+
             <div className={styles.titleArea}>
                 <h2 className={styles.title}>Du er logget inn som <span className={styles.name}>{props.name}</span></h2>
                 <button className={styles.logout}>Logg ut</button>
             </div>
+
+            <NextButton isClickable={true} text={"Start ny søknad"} callback={()=>{
+                                setLastPage(currentPage)
+                                setPage(PAGE_POINTER.invoice)
+            }} />
+
             <h2 className={styles.minorHeading}>Dine søknader</h2>
             <h5>Aktive</h5>
             {activeApplications.map((application, index) => {
@@ -180,11 +188,12 @@ export default function Portal(props) {
                     <ApplicationExcerpt
                         applicationName={"Søknad om redusert foreldrebetaling"}
                         date={"10.10.2019"} // TODO Add the date in the backend
-                        changeOrCheck={false}
+                        changeOrCheck={true}
                         changedDate={"11.10.2019"} // TODO Retrieve from statushistorikk
                         excerptClicked={() => excerptClicked("new", index)}
                         arr="new"
                         index={index}
+                        status={application["status"]}
                     />
                 )
             })}
@@ -206,14 +215,10 @@ export default function Portal(props) {
                         excerptClicked={() => excerptClicked("old", index)}
                         arr="old"
                         index={index}
+                        status={application["status"]}
                     />
                         )
             })}
-
-            <Button onClick={() => {
-                setLastPage(currentPage)
-                setPage(PAGE_POINTER.invoice)
-            }}>Send ny søknad</Button>
  
             <h2 className={styles.minorHeading}>Ofte stilte spørsmål</h2>
             {questions.map((question, _) => {
