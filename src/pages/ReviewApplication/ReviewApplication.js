@@ -2,7 +2,7 @@ import { useState } from "react";
 import Edit from "../../components/Edit/Edit";
 import styles from './ReviewApplication.module.css'
 
-import { selector, useRecoilState } from 'recoil';
+import { selector, useRecoilState, useRecoilValue } from 'recoil';
 
 import { PAGE_POINTER } from '../../pagePointer.js';
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
@@ -24,12 +24,19 @@ const page = selector({
       key: 'situation',
   })
 
+
+const attachmentList = selector({
+    key: "attachmentList"
+})
+  
+
 function ReviewApplication(props) {
 
     const [state, setState] = useRecoilState(page);
     const [, setLastPage] = useRecoilState(lastPage)
     const [situation, ] = useRecoilState(currentSituation)
     const [shouldBeNotified, setShouldBeNotified] = useState(null)
+    const [itemList] = useRecoilState(attachmentList)
 
     console.log(situation);
     const setNextPage = (page) => {
@@ -165,7 +172,8 @@ function ReviewApplication(props) {
 
     const sendApplication = () => {
         if(!canSendApplication()) return false;
-        let url = "http://51.107.208.107/submit_application"
+        let url = "http://51.107.208.107/submit_application";
+        let attachmentsUrl = "http://51.107.208.107/add_attachment";
 
         let partner = sessionStorage.getItem("partner") ? JSON.parse(sessionStorage.getItem("partner")) : null;
         let hasPartner = partner !== null;
@@ -202,14 +210,35 @@ function ReviewApplication(props) {
             }
         }
 
+        const vedleggListe = itemList;
+        if (vedleggListe != null && vedleggListe.length > 0) {
+            const formData = new FormData();
+            for (var i = 0; i<vedleggListe.length; i++){
+                formData.append('file'+i, vedleggListe[i][0]);
+            };
+            console.log(formData)
+            axios({
+                method: "post",
+                url: attachmentsUrl,
+                data: formData,
+                headers: {"Content-Type": "multipart/form-data"}
+            })
+            .then(function (response) {
+                data["vedlegg"] = JSON.parse(response.data);
+            })
+            .catch(function (response) {
+                console.log(response)
+            });
+        }
+
         axios.post(url, data)
 
         return true; // Optionally just go to next page directly
     }
 
     const canSendApplication = () => {
-        if(shouldBeNotified === null) return false;
-        if(!sessionStorage.getItem("children") || JSON.parse(sessionStorage.getItem("children")).length<1) return false;
+        //if(shouldBeNotified === null) return false;
+        //if(!sessionStorage.getItem("children") || JSON.parse(sessionStorage.getItem("children")).length<1) return false;
 
         return true;
     }

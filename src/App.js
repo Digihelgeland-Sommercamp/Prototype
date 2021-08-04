@@ -27,7 +27,7 @@ import Portal from './pages/Portal/Portal';
 
 const page = atom({
   key: "page",
-  default: PAGE_POINTER.login
+  default: PAGE_POINTER.income
 });
 
 const lastPage = atom({
@@ -38,6 +38,11 @@ const lastPage = atom({
 const situation = atom({
   key: "situation",
   default: ""
+})
+
+const attachmentList = atom({
+  key: "attachmentList",
+  default: []
 })
 
 

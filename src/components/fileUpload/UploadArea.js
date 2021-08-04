@@ -7,10 +7,21 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import UploadItem from './UploadItem';
 
+import {
+    selector,
+    useRecoilState,
+  } from 'recoil';
+
+const attachmentList = selector({
+    key: "attachmentList"
+})
+
+
 function UploadArea() {
     const [open, setOpen] = useState(false);
     const [selectedFile, setSelectedFile] = useState();
-    const [itemList, setItemList] = useState(sessionStorage.getItem('vedlegg') ? JSON.parse(sessionStorage.getItem('vedlegg')) : []);
+    //const [itemList, setItemList] = useState(sessionStorage.getItem('vedlegg') ? JSON.parse(sessionStorage.getItem('vedlegg')) : []);
+    const [itemList, setItemList] = useRecoilState(attachmentList)
     const [, forceUpdate] = useReducer(x => x + 1, 0);
     const [counter, setCounter] = useState(0)
 
@@ -26,7 +37,7 @@ function UploadArea() {
                 temp_list.push(itemList[i]);
             }
         }
-        sessionStorage.setItem('vedlegg', JSON.stringify(temp_list));
+        //sessionStorage.setItem('vedlegg', JSON.stringify(temp_list));
         setItemList(temp_list);
     };
 
@@ -42,7 +53,7 @@ function UploadArea() {
        return result;
     }
 
-    const changeHandler = (event) => {
+    const changeHandler = async (event) => {
         //set a selected file
         setSelectedFile(event.target.files[0]);
         const counterKey = makeid(20);
@@ -54,15 +65,10 @@ function UploadArea() {
         const type = event.target.files[0].type;
         const size = event.target.files[0].size;
         list_of_items.push([event.target.files[0], [counterKey, filename, type, size]]); 
-        setItemList(list_of_items);
+        await setItemList(list_of_items);
+        console.log("List of items: " + list_of_items);
+        console.log("ItemList: " + itemList);
 
-        console.log(list_of_items);
-        console.log(itemList);
-
-        sessionStorage.setItem('vedlegg', JSON.stringify(list_of_items));
-
-        const sjekk = sessionStorage.getItem('vedlegg') ? JSON.parse(sessionStorage.getItem('vedlegg')) : null;
-        console.log(sjekk)
 
         clearInputFile(event.target);
     };
@@ -132,6 +138,7 @@ function UploadArea() {
                 <div className="list-wrapper">
                     <ListRender /> 
                 </div>
+                <button onClick={handleSubmission}>upload</button>
             </div>
             
         </div>

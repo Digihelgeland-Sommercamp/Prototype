@@ -4,27 +4,33 @@ import styles from './IncomeArea.module.css'
 // import ApplicationPageTitle from '../applicationPage/ApplicationPageTitle';
 import InformationBox from '../information/InformationBox';
 import InformationTitle from '../information/InformationTitle';
+import { selector, useRecoilState, useRecoilValue } from 'recoil';
+
+const attachmentList = selector({
+    key: "attachmentList"
+})
 
 function IncomeArea(props) {
     const [incomeTitleText, setIncomeTitleText] = useState(props.incomeTitleText)
     const [incomeTextBody, setIncomeTextBody] = useState(props.incomeTextBody)
     const [applicants, setApplicants] = useState(props.applicants)
+    const [itemList] = useRecoilState(attachmentList)
 
     function renderAttachments() {
         if (props.showAttachments) {
-            const sjekk = sessionStorage.getItem('vedlegg') ? JSON.parse(sessionStorage.getItem('vedlegg')) : null;
             const returner = [];
-            if (sjekk != null && sjekk.length > 0) {
+            console.log("itemList later: " + itemList)
+            if (itemList.length > 0) {
                 returner.push(<div className={styles.attachmentTitle}>Vedlegg:</div>);
             }
             else {
                 return(<div className={styles.attachmentText}>Ingen vedlegg er lagt til</div>);
             };
-            for (var i = 0; i < sjekk.length; i++) {
-                const name = sjekk[i][1][1];
+            for (var i = 0; i < itemList.length; i++) {
+                const name = itemList[i][1][1];
                 let simplified = name;
                 if (name.length > 20) {
-                    simplified = name.slice(0,20) + " ... ." + sjekk[i][1][2].split("/")[1];
+                    simplified = name.slice(0,20) + " ... ." + itemList[i][1][2].split("/")[1];
                 }
                 returner.push(<li className={styles.attachmentList}>{simplified}</li>);
             }
