@@ -23,7 +23,6 @@ const lastPage = selector({
     key: 'lastPage',
 });
 
-const applicantIdentifier = "09838197571"
 
 const radioTextList = [
     "Ektefelle / Registrert partner",
@@ -59,13 +58,14 @@ export default function Household() {
     const saveApplicant = (applicantToSave) => {
          setApplicant(applicantToSave);
          sessionStorage.setItem("applicant", JSON.stringify(applicantToSave));
-         sessionStorage.setItem("applicantIdentifier", applicantIdentifier);
          console.log(applicantToSave);
     } 
     
     // Get the applicant from hub
     // TODO: Move this to login
     useEffect(() => {
+        let applicantIdentifier = sessionStorage.getItem("applicantIdentifier");
+
         let url = "http://51.107.208.107/get_applicant/"+applicantIdentifier;
         axios.get(url).then((response) => {
             saveApplicant(response.data); 
@@ -93,19 +93,12 @@ export default function Household() {
     }
 
     function fetchPartner() {
-        //TODO: Fetch partner from folkreg
-
         if(partner === "")
         {
-            // let tempPartner = {
-            //     "fornavn": "Kari",
-            //     "etternavn": "Nordmann",
-            //     "personidentifikator": "23568945586" 
-            //     };
+            let applicantIdentifier = sessionStorage.getItem("applicantIdentifier");
             let url = "http://51.107.208.107/get_partner/"+applicantIdentifier;
             axios.get(url).then((response) => {savePartner(response.data);})
         }
-        // return partner['fornavn'] + " " + partner["etternavn"];
     }
 
     const handleYesNoClick = () => {
