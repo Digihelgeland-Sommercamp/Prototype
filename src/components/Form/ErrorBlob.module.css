@@ -1,0 +1,4 @@
+.container {
+    background: var(--red_error);
+    padding: 20px;
+}

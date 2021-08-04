@@ -25,13 +25,16 @@ function CheckBoxGroup(props) {
         props.checkboxCallback(list);
     }
 
+    
     for(let i=0; i<personList.length; i++) {
+        let mellomnavn = personList[i]["navn"]["mellomnavn"] ? personList[i]["navn"]["mellomnavn"]+" " : ""
+
         checkboxes[i] = <CheckBoxField key={"checkbox"+i} 
         identifier={i} 
-        name={personList[i]["name"]} 
-        birth={personList[i]["birth"]}
+        name={personList[i]["navn"]["fornavn"] + " " +mellomnavn + personList[i]["navn"]["etternavn"]} 
+        birth={personList[i]["foedsel"]}
         checked={selectedElements[i]} 
-        onClickCheckbox={onClickCheckbox} />
+        onClickCheckbox={onClickCheckbox} />;
     }
 
     // if(props.checked && props.checked.length > 0 && (!isInitialized))

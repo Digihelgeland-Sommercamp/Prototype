@@ -12,6 +12,7 @@ import Form from '../../components/Form/Form';
 import styles from './Household.module.css'
 import InformationLink from '../../components/information/InformationLink';
 import axios from 'axios';
+import ErrorBlob from '../../components/Form/ErrorBlob';
 
 
 const page = selector({
@@ -36,8 +37,10 @@ export default function Household() {
     const [previousPage, setLastPage] = useRecoilState(lastPage)
     
     const [notClicked, setNotClicked] = useState(true)
-    
-    const [partner, setPartner] = useState("")
+    const [formError, setFormError] = useState(false)
+    const [showError, setShowError] = useState(false)
+
+    const [partner, setPartner] = useState({})
     const [yesNo, setYesNo] = useState(true)
     const [askQuestion, setAskQuestion] = useState(false)
     const [addPartnerPage, setAddPartner] = useState(false)
@@ -55,25 +58,20 @@ export default function Household() {
 
     const saveApplicant = (applicantToSave) => {
          setApplicant(applicantToSave);
+         sessionStorage.setItem("applicant", JSON.stringify(applicantToSave));
+         sessionStorage.setItem("applicantIdentifier", applicantIdentifier);
          console.log(applicantToSave);
     } 
-
-// Get applicant, then get partner, then get kids
-    // const fetchApplicant = (identifier) => {
-    //     let url = "http://51.107.208.107/get_applicant/"+identifier;
-    //     axios.get(url).then((response) => {saveApplicant(response.data)})
-    // }
     
-
+    // Get the applicant from hub
+    // TODO: Move this to login
     useEffect(() => {
         let url = "http://51.107.208.107/get_applicant/"+applicantIdentifier;
-        axios.get(url).then((response) => {saveApplicant(response.data); fetchPartner()})
+        axios.get(url).then((response) => {
+            saveApplicant(response.data); 
+            fetchPartner()
+        })
     }, [])
-
-    // applicant !== null ? fetchApplicant("09838197571") : ()=>{}
-    // if(!applicant)
-    //     fetchApplicant("09838197571")
-    // console.log(applicant);
 
     const yesNoList = [
         "Ja",
@@ -122,12 +120,9 @@ export default function Household() {
 
         }
     }
-    function addPartner(){
-
-        // console.log(partnerDict);
-    }
 
     function goToNextPage() {
+
         let partnerDict = {
             "partner": {
                 partner
@@ -140,26 +135,16 @@ export default function Household() {
         previousPage === PAGE_POINTER.reviewApplication ? 
             setPage(PAGE_POINTER.reviewApplication) : 
             setPage(PAGE_POINTER.kids);
+    
+        
     }
 
-    const handleFormChange = (form) => {
+    const handleFormChange = (form, formError) => {
+        setFormError(formError)
         setPartner(form)
     }
 
-    const formFields = [
-        {
-            id: "fornavn",
-            label: "Fornavn"
-        },
-        {
-            id: "etternavn",
-            label: "Etternavn"
-        },
-        {
-            id: "personidentifikator",
-            label: "Fødselsnummer / D-nummer"
-        }
-    ]
+    
 
     const info = {
         linkText: "Hvem bor du sammen med?",
@@ -219,14 +204,19 @@ export default function Household() {
                 {addPartnerPage &&
                     <>
                         <p>Vi fant ingen ektefelle eller registrert partner i Folkeregisteret.</p>
-                        <Form fields={formFields} handleFormChange={handleFormChange} />
+                        <Form handleFormChange={handleFormChange} />
+                        {showError && <ErrorBlob firstText="Feil navn eller fødselsnummer/D-nummer." secondText="Sjekk at du har skrevet riktig."/>}
                         <Button
                             variant='contained'
                             style={{ margin: "20px 0", width:"100%" }}
                             onClick={() => {
-                                addPartner()
-                                setLastPage(currentPage)
-                                goToNextPage();
+                                if(!formError){
+                                    setLastPage(currentPage)
+                                    goToNextPage();
+                                }
+                                else {
+                                   setShowError(true) 
+                                }
                             }}>
                             Legg til
                         </Button>
