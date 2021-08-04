@@ -1,0 +1,41 @@
+.item-wrapper {
+    display: grid;
+    /*grid-template: "a b d"1fr
+                    "a c d"1fr / 15% 50% 30%;*/
+    grid-template: 
+                "a b d" 25px
+                "a c d" 25px / 15% 50% 30%;
+    background-color: lightgray;
+    padding: 2%;
+    grid-gap: 2%;
+    font-size: 16px;
+    margin-bottom: 2%;
+}
+
+.file-type-box {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    grid-area: a;
+    background-color: gray;
+    font-size: 14px;
+}
+
+.file-name-box {
+    grid-area: b;
+    overflow-x: hidden;
+    overflow: hidden;
+}
+
+.file-size-box {
+    grid-area: c;
+}
+
+.file-remove-box {
+    grid-area: d;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    text-decoration: underline;
+}
+
