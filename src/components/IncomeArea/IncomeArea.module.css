@@ -25,3 +25,26 @@
     border-style: solid;
     border-color: darkgray;
 }
+
+
+.attachmentTitle {
+    margin-left: 7%;
+    margin-bottom: 20px;
+    margin-top: 7%;
+    font-weight: bold;
+}
+
+.attachmentText {
+    margin: 3% 0 4% 7%;
+    white-space: pre-line;
+    margin-top: 7%;
+    font-size: 16px;
+    font-style: italic;
+}
+
+.attachmentList {
+    list-style-type: disc;
+    margin: 0% 0 5px 10%;
+    list-style-position: inside;
+    font-weight: normal;
+}

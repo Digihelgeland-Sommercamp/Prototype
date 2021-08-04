@@ -6,6 +6,7 @@ import { PAGE_POINTER } from '../../pagePointer';
 import { Button } from '@material-ui/core'
 import InformationBox from '../../components/InformationBox/InformationBox'
 import ProgressBar from '../../components/ProgressBar/ProgressBar'
+import UploadArea from '../../components/fileUpload/UploadArea'
 
 import styles from './Income.module.css'
 
@@ -64,13 +65,7 @@ export default function Income() {
                         changePage(PAGE_POINTER.reviewApplication)
                     }} */}
 
-                <div className={styles.button}>
-                    <Button style={{
-                        padding: "20px",
-                        border: "1px solid grey",
-                        width: "100%"
-                    }}>Last opp dokumentasjon</Button>
-                </div>
+                <UploadArea />
 
                 <div className={styles.button}>
                     <Button

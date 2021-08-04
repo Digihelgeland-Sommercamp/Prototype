@@ -10,7 +10,7 @@ import UploadItem from './UploadItem';
 function UploadArea() {
     const [open, setOpen] = useState(false);
     const [selectedFile, setSelectedFile] = useState();
-    const [itemList, setItemList] = useState([]);
+    const [itemList, setItemList] = useState(sessionStorage.getItem('vedlegg') ? JSON.parse(sessionStorage.getItem('vedlegg')) : []);
     const [, forceUpdate] = useReducer(x => x + 1, 0);
     const [counter, setCounter] = useState(0)
 
@@ -26,6 +26,7 @@ function UploadArea() {
                 temp_list.push(itemList[i]);
             }
         }
+        sessionStorage.setItem('vedlegg', JSON.stringify(temp_list));
         setItemList(temp_list);
     };
 
@@ -54,6 +55,14 @@ function UploadArea() {
         const size = event.target.files[0].size;
         list_of_items.push([event.target.files[0], [counterKey, filename, type, size]]); 
         setItemList(list_of_items);
+
+        console.log(list_of_items);
+        console.log(itemList);
+
+        sessionStorage.setItem('vedlegg', JSON.stringify(list_of_items));
+
+        const sjekk = sessionStorage.getItem('vedlegg') ? JSON.parse(sessionStorage.getItem('vedlegg')) : null;
+        console.log(sjekk)
 
         clearInputFile(event.target);
     };
@@ -84,13 +93,11 @@ function UploadArea() {
 
     function ListRender() {
         if (itemList.length === 0) {
-            console.log(itemList)
             return(
                 <p className="no-files-uploaded-text">Ingen filer er lastet opp</p>
             );
         }
         else {
-            console.log(itemList);
             const displayDivs = []
             for (var i = 0; i<itemList.length; i++){
                 displayDivs.push(<UploadItem key={itemList[i][1][0]} keykey={itemList[i][1][0]} filename={itemList[i][1][1]} type={itemList[i][1][2]} size={itemList[i][1][3]} deleteFile={deleteFile}/>);

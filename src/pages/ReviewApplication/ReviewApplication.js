@@ -113,7 +113,7 @@ function ReviewApplication(props) {
             applicants.push(partner["fornavn"]+" "+partner["etternavn"]);
         return(
         <>
-            <IncomeArea applicants={applicants} />
+            <IncomeArea applicants={applicants} showAttachments={true} />
         </>
         );
     }
