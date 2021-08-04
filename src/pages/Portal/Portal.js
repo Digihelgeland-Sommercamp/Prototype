@@ -8,6 +8,7 @@ import ApplicationExcerpt from '../../components/ApplicationExcerpt/ApplicationE
 import styles from './Portal.module.css'
 import { Button } from '@material-ui/core';
 import InformationLink from '../../components/information/InformationLink';
+import NextButton from '../../components/NextButton/NextButton';
 
 const overviewOfApplication = atom({
     key: "overviewOfApplication",
@@ -134,6 +135,11 @@ export default function Portal(props) {
         }        
     ]
 
+    const handleNewApplication = () => {
+        setLastPage(currentPage)
+        setPage(PAGE_POINTER.invoice)
+    }
+
     return (
         <div className={styles.container}>
             <div className={styles.titleArea}>
@@ -168,10 +174,10 @@ export default function Portal(props) {
                         status={application.status}/>)
             })}
 
-            <Button onClick={() => {
-                setLastPage(currentPage)
-                setPage(PAGE_POINTER.invoice)
-            }}>Send ny søknad</Button>
+            <NextButton 
+                text="Send ny søknad"
+                isClickable
+                callback={handleNewApplication}/>
  
             <h2 className={styles.minorHeading}>Ofte stilte spørsmål</h2>
             {questions.map((question, _) => {

@@ -8,6 +8,7 @@ export default function Form(props) {
         "personidentifikator": ""
     })
 
+
     const formFields = [
         {
             id: "fornavn",

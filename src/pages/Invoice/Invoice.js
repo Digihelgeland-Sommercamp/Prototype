@@ -10,6 +10,7 @@ import ProgressBar from '../../components/ProgressBar/ProgressBar'
 import styles from './Invoice.module.css'
 import RadioBoxGroup from '../../components/radioBox/RadioBoxGroup.js';
 import InfoButtonText from '../../components/InfoButtonText/InfoButtonText.js';
+import NextButton from '../../components/NextButton/NextButton.js';
 
 const page = selector({
     key: 'page', 
@@ -44,14 +45,9 @@ export default function Invoice(props) {
                 <p>Hvem i husholdningen din blir fakturert av barnehagen eller SFO?</p>
                 <RadioBoxGroup radioTextList={textForRadioButtons} radioGroupCallback={handler}/>
                 <InfoButtonText text="Hva menes med husholdning?"/>
-                <Button
-                    style={{width:"100%"}}
-                    variant='contained'
-                    disabled={noClick}
-                    className={styles.nextButton}
-                    onClick={() => changePage(PAGE_POINTER.situation)}>
-                    Neste
-                </Button>
+                <NextButton 
+                    isClickable={!noClick}
+                    callback={() => changePage(PAGE_POINTER.situation)}/>
             </div>
         </>
     );
