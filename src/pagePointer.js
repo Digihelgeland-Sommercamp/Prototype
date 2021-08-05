@@ -8,5 +8,6 @@ export const PAGE_POINTER = {
     applicationOverview: "applicationOverview",
     portal: "portal",
     reviewApplication: "reviewApplication",
-    invoice: "invoice"
+    invoice: "invoice",
+    receipt: "receipt"
 }
