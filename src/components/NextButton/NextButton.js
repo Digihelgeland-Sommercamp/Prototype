@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './NextButton.module.css';
 
 function NextButton(props) {

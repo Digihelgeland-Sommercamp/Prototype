@@ -46,9 +46,9 @@ export default function Household() {
     const [addPartnerPage, setAddPartner] = useState(false)
 
     const [chosenYesNo, setChosenYesNo] = useState("")
-    const [answer, setAnswer] = useState("")
+    const [, setAnswer] = useState("")
 
-    const [applicant, setApplicant] = useState(null)
+    const [, setApplicant] = useState(null)
 
 
     const radioGroupCallback = (id) => {
@@ -57,9 +57,9 @@ export default function Household() {
     }
 
     const saveApplicant = (applicantToSave) => {
-         setApplicant(applicantToSave);
-         sessionStorage.setItem("applicant", JSON.stringify(applicantToSave));
-         console.log(applicantToSave);
+        setApplicant(applicantToSave);
+        sessionStorage.setItem("applicant", JSON.stringify(applicantToSave));
+        console.log(applicantToSave);
     } 
     
     // Get the applicant from hub
@@ -116,12 +116,6 @@ export default function Household() {
     }
 
     function goToNextPage() {
-
-        let partnerDict = {
-            "partner": {
-                partner
-            }
-        }
 
         sessionStorage.setItem("partner", JSON.stringify(partner));
         console.log(sessionStorage.getItem("partner"));

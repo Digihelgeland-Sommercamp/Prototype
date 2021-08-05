@@ -39,3 +39,9 @@
     text-decoration: underline;
 }
 
+.file-remove-button {
+    background:none;
+    border:none;
+    text-decoration: none;
+    font: inherit;
+}

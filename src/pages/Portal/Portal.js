@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { atom, selector, useRecoilState, useRecoilValue } from 'recoil'
+import { atom, selector, useRecoilState } from 'recoil'
 
 import { PAGE_POINTER } from '../../pagePointer';
 
 import ApplicationExcerpt from '../../components/ApplicationExcerpt/ApplicationExcerpt'
 
 import styles from './Portal.module.css'
-import { Button } from '@material-ui/core';
 import InformationLink from '../../components/information/InformationLink';
 import axios from 'axios';
 import NextButton from '../../components/NextButton/NextButton';
@@ -191,6 +190,7 @@ export default function Portal(props) {
             {activeApplications.map((application, index) => {
                 return (
                     <ApplicationExcerpt
+                        key={index}
                         applicationName={"Søknad om redusert foreldrebetaling"}
                         date={application["dato_siste_endring"]} // TODO Add the date in the backend
                         changeOrCheck={true}
@@ -206,6 +206,7 @@ export default function Portal(props) {
             {oldApplications.map((application, index) => {
                 return (
                     <ApplicationExcerpt
+                        key={index}
                         // applicationName={application.applicationName}
                         // date={application.date}
                         // changeOrCheck={application.changeOrCheck}
@@ -226,9 +227,9 @@ export default function Portal(props) {
             })}
  
             <h2 className={styles.minorHeading}>Ofte stilte spørsmål</h2>
-            {questions.map((question, _) => {
+            {questions.map((question, i) => {
                 return (
-                    <div className={styles.spacer}>
+                    <div key={i} className={styles.spacer}>
                         <InformationLink 
                             linkText={question.text}
                             modalTitle={question.modalTitle}

@@ -1,28 +1,18 @@
 import './UploadArea.css';
 import axios from 'axios';
-import React, { useState, useReducer } from 'react';
-import { Button, createGenerateClassName } from '@material-ui/core';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+import React, { useState } from 'react';
 import UploadItem from './UploadItem';
 
 function UploadArea() {
-    const [open, setOpen] = useState(false);
     const [selectedFile, setSelectedFile] = useState();
     const [itemList, setItemList] = useState(sessionStorage.getItem('vedlegg') ? JSON.parse(sessionStorage.getItem('vedlegg')) : []);
-    const [, forceUpdate] = useReducer(x => x + 1, 0);
-    const [counter, setCounter] = useState(0)
 
 
-    const handleClick = () => {
-        setOpen(! open);
-    };
 
     const deleteFile = (key) => { //gjør dette med for loops
         var temp_list = [];
         for (var i = 0; i < itemList.length; i++) {
-            if (itemList[i][1][0] != key) {
+            if (itemList[i][1][0] !== key) {
                 temp_list.push(itemList[i]);
             }
         }
@@ -123,9 +113,7 @@ function UploadArea() {
 
     return (
         <div className="upload-area-wrapper">
-            <div className="upload-clickable" onClick={routeUpload}>
-                <a>Last opp dokumentasjon</a>
-            </div>
+            <button className="upload-clickable" onClick={routeUpload}>Last opp dokumentasjon</button>
             <div className="uploaded-files-area">
                 <p className="uploaded-files-title">Opplastede filer</p>
                 <input id="inputSelectFile" hidden type="file" name="file" onChange={changeHandler} />

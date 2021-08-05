@@ -8,7 +8,7 @@ import { useReducer } from 'react';
                                   radio box as argument. The ID corresponds to the elements in radioTextList*/
 function RadioBoxGroup(props) {
 
-    const [radioTextList, ] = useState(props.radioTextList)
+    const radioTextList = props.radioTextList
     const [selectedList, setSelectedList] = useState(new Array(radioTextList.length).fill(false));
     const [, forceUpdate] = useReducer(x => x + 1, 0);
 

@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
 import './AddPartnerPage.css'
-import RadioBox from '../radioBox/RadioBoxGroup';
-import { useReducer } from 'react';
-import RadioBoxGroup from '../radioBox/RadioBoxGroup';
-import CheckBoxField from '../checkBoxField/CheckBoxField';
 import CheckBoxGroup from '../checkBoxField/CheckBoxGroup';
 
 const radioTextList = [

@@ -1,14 +1,11 @@
 import { useState } from 'react';
 import styles from './IncomeArea.module.css'
-// import '../applicationPage/ApplicationPageTitle'
-// import ApplicationPageTitle from '../applicationPage/ApplicationPageTitle';
-import InformationBox from '../information/InformationBox';
 import InformationTitle from '../information/InformationTitle';
 
 function IncomeArea(props) {
-    const [incomeTitleText, setIncomeTitleText] = useState(props.incomeTitleText)
-    const [incomeTextBody, setIncomeTextBody] = useState(props.incomeTextBody)
-    const [applicants, setApplicants] = useState(props.applicants)
+    const [incomeTitleText, ] = useState(props.incomeTitleText)
+    const [incomeTextBody, ] = useState(props.incomeTextBody)
+    const [applicants, ] = useState(props.applicants)
 
     function renderAttachments() {
         if (props.showAttachments) {
@@ -41,14 +38,12 @@ function IncomeArea(props) {
             <div className={styles.container}>
                 
                 <div className={styles.text}> {incomeTextBody} </div>
-                {applicants.map((value, index) => {
-                    return <li className={styles.applicants}>{value}</li>
+                {applicants.map((value, i) => {
+                    return <li key={i} className={styles.applicants}>{value}</li>
                 })}
                 {renderAttachments()}
                 <div style={{marginBottom: "15px"}}></div>
-            </div>
-            <InformationBox />
-            
+            </div>           
         </div>
     );
 }

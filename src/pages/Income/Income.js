@@ -3,7 +3,6 @@ import { selector, useRecoilState } from 'recoil'
 
 import { PAGE_POINTER } from '../../pagePointer';
 
-import { Button } from '@material-ui/core'
 import InformationBox from '../../components/information/InformationBox'
 import ProgressBar from '../../components/ProgressBar/ProgressBar'
 import UploadArea from '../../components/fileUpload/UploadArea'
@@ -42,9 +41,9 @@ export default function Income() {
                     <p >Vi beregner anslått inntekt i år basert på siste oppdaterte skatteopplysninger.</p>
                     <p >Søknaden blir behandlet på bakgrunn av inntekten til:</p>
                     <ul>
-                        {mockPeople.map((person, _) => {
+                        {mockPeople.map((person, i) => {
                             return (
-                                <li>{person.name}</li>
+                                <li key={i}>{person.name}</li>
                             )
                         })}
                     </ul>
