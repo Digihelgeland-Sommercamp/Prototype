@@ -127,7 +127,10 @@ export default function Portal(props) {
         console.log(applications)
         for(let i=0; i<applications.length; i++)
         {
-            if(applications[i]["status"] !== "behandlet" && applications[i]["status"] !== null)
+            if(applications[i]["status"] === null || typeof applications[i]["dato_siste_endring"] === "undefined")
+                continue;
+
+            if(applications[i]["status"] !== "behandlet")
                 tempActiveApplications.push(applications[i]);
             else
                 tempOldApplications.push(applications[i]);
@@ -187,7 +190,7 @@ export default function Portal(props) {
                 return (
                     <ApplicationExcerpt
                         applicationName={"Søknad om redusert foreldrebetaling"}
-                        date={"10.10.2019"} // TODO Add the date in the backend
+                        date={application["dato_siste_endring"]} // TODO Add the date in the backend
                         changeOrCheck={true}
                         changedDate={"11.10.2019"} // TODO Retrieve from statushistorikk
                         excerptClicked={() => excerptClicked("new", index)}
