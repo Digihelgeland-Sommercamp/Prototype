@@ -143,7 +143,10 @@ export default function Portal(props) {
     }
 
     useEffect(() => {
-        
+        axios.get("http://51.107.208.107/get_applicant/"+applicantIdentifier).then(
+            (response) => {sessionStorage.setItem("applicant", JSON.stringify(response.data))}
+        )
+
         axios.get("http://51.107.208.107/get_all_applications/"+applicantIdentifier).then(
             (response) => {saveAllApplications(response.data)}
         )

@@ -29,8 +29,14 @@ export default function Income() {
 
     //TODO: Change to incomepeople set earlier in the progress
     //const currentIncomePeople = useRecoilValue(incomePeople)
-    const mockPeople = [{ name: "Ola Normann" }, { name: "Kari Normann" }]
+    // const mockPeople = [{ name: "Ola Normann" }, { name: "Kari Normann" }]
+    const partner = sessionStorage.getItem("partner") ? JSON.parse(sessionStorage.getItem("partner")) : null
+    const applicant = sessionStorage.getItem("applicant") ? JSON.parse(sessionStorage.getItem("applicant")) : null
 
+    const getName = (person) => {
+        let mellomnavn = typeof person["navn"] !=="undefined" ? person["navn"]["mellomnavn"] + " " : "";
+        return person["navn"]["fornavn"] + " " + mellomnavn + person["navn"]["etternavn"];
+    }
 
     return (
         <>
@@ -42,11 +48,13 @@ export default function Income() {
                     <p >Vi beregner anslått inntekt i år basert på siste oppdaterte skatteopplysninger.</p>
                     <p >Søknaden blir behandlet på bakgrunn av inntekten til:</p>
                     <ul>
-                        {mockPeople.map((person, _) => {
+                        {/* {mockPeople.map((person, _) => {
                             return (
                                 <li>{person.name}</li>
                             )
-                        })}
+                        })} */}
+                        <li>{getName(applicant)}</li>
+                        <li>{getName(partner)}</li>
                     </ul>
                 </div>
 
