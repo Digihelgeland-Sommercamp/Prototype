@@ -20,13 +20,14 @@ import Household from './pages/Household/Household';
 import ReviewApplication from './pages/ReviewApplication/ReviewApplication';
 import Invoice from './pages/Invoice/Invoice';
 import Portal from './pages/Portal/Portal';
+import Receipt from './pages/Receipt/Reicept'
 
 
 
 const page = atom({
   key: "page",
-  // default: PAGE_POINTER.login
-  default: PAGE_POINTER.portal
+  default: PAGE_POINTER.login
+  // default: PAGE_POINTER.receipt
 });
 
 const lastPage = atom({
@@ -74,6 +75,8 @@ function Router() {
       return <ReviewApplication />
     case PAGE_POINTER.invoice: 
       return <Invoice />
+    case PAGE_POINTER.receipt:
+      return <Receipt />
     default:
       return (
         <div className="App">

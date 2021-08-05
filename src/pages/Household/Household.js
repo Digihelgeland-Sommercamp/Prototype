@@ -89,12 +89,12 @@ export default function Household() {
             "etternavn": partnerToSave["navn"]["etternavn"],
             "personidentifikator": partnerToSave["identifikasjonsnummer"]["foedselsEllerDNummer"]
         }
-
+        console.log(partnerToSave)
         setPartner(tempPartner)
     }
 
     function fetchPartner() {
-        if(partner === "")
+        if(typeof partner["personidentifikator"] === "undefined")
         {
             let applicantIdentifier = sessionStorage.getItem("applicantIdentifier");
             let url = "http://51.107.208.107/get_partner/"+applicantIdentifier;

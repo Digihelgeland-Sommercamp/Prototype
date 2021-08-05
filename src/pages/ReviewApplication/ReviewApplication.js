@@ -163,6 +163,11 @@ function ReviewApplication() {
         return childrenToSend;
     }
 
+    const goToNextPage = () => {
+        setLastPage(state);
+        setState(PAGE_POINTER.receipt)
+    }
+
     const sendApplication = () => {
         if(!canSendApplication()) return false;
         let url = "http://51.107.208.107/submit_application"
@@ -204,7 +209,7 @@ function ReviewApplication() {
 
         axios.post(url, data)
 
-        return true; // Optionally just go to next page directly
+        goToNextPage();
     }
 
     const canSendApplication = () => {
