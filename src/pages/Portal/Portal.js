@@ -171,6 +171,11 @@ export default function Portal(props) {
         }        
     ]
 
+    const handleNewApplication = () => {
+        setLastPage(currentPage)
+        setPage(PAGE_POINTER.invoice)
+    }
+
     return (
         <div className={styles.container}>
 
@@ -179,10 +184,7 @@ export default function Portal(props) {
                 <button className={styles.logout}>Logg ut</button>
             </div>
 
-            <NextButton isClickable={true} text={"Start ny søknad"} callback={()=>{
-                                setLastPage(currentPage)
-                                setPage(PAGE_POINTER.invoice)
-            }} />
+            <NextButton isClickable={true} text={"Start ny søknad"} callback={handleNewApplication} />
 
             <h2 className={styles.minorHeading}>Dine søknader</h2>
             <h5>Aktive</h5>

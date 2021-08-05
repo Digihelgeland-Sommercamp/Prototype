@@ -2,7 +2,6 @@ import React from 'react';
 import { selector, useRecoilState } from 'recoil';
 
 import { FormControl, RadioGroup, FormControlLabel, Radio } from '@material-ui/core'
-import InfoButtonText from '../InfoButtonText/InfoButtonText';
 
 import styles from './IntroductionRadioButtons.module.css'
 import InformationLink from '../information/InformationLink';
@@ -39,9 +38,9 @@ export default function IntrodctionRadioButtons(props) {
                         <div className={styles.link}>
                             <InformationLink 
                                 linkText="Hva menes med stabil inntekt?"
-                                modalTitle=""
-                                modalTextBody=""
-                                modalButtoText=""/>
+                                modalTitle="Stabil inntekt"
+                                modalTextBody="Husholdningens samlede inntekt har ikke eller i svært liten grad endret seg siden siste skattemelding/-oppgjør. "
+                                modalButtoText="OK"/>
                         </div>
                         
                     </div>
@@ -54,9 +53,10 @@ export default function IntrodctionRadioButtons(props) {
                         <div className={styles.link}>
                             <InformationLink 
                                     linkText="Hva menes med varig endring?"
-                                    modalTitle=""
-                                    modalTextBody=""
-                                    modalButtoText=""/>
+                                    modalTitle="Varig nedgang"
+                                    modalTextBody="Husholdningens samlede inntekt har gått ned slik at siste skattemelding/-oppgjør ikke samsvarer med husholdningens nåværende inntekt. 
+                                        \n\nUlike årsaker kan for eksempel være dødsfall, samlivsbrudd eller tap av arbeidsinntekt."
+                                    modalButtoText="OK"/>
                         </div>
                     </div>
                     

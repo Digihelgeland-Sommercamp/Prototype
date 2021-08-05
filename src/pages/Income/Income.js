@@ -9,6 +9,7 @@ import ProgressBar from '../../components/ProgressBar/ProgressBar'
 import UploadArea from '../../components/fileUpload/UploadArea'
 
 import styles from './Income.module.css'
+import NextButton from '../../components/NextButton/NextButton';
 
 // const incomePeople = atom({
 //     key: "incomePeople",
@@ -49,35 +50,19 @@ export default function Income() {
                     </ul>
                 </div>
 
-
-
                 <InformationBox
                     text="Dersom noen i husholdningen hatt nedgang i inntekt siden forrige skattemelding,
                     må dette dokumenteres."
                     link="Liste over gyldig dokumentasjon" />
-
-            {/* <div className={styles.button}> */}
-                {/* <Button style={{
-                        background: "whitesmoke"
-                    }}
-                    onClick={() => {
-                        setLastPage(currentPage)
-                        changePage(PAGE_POINTER.reviewApplication)
-                    }} */}
-
+                    
                 <UploadArea />
 
-                <div className={styles.button}>
-                    <Button
-                        variant='contained'
-                        style={{background: "whitesmoke",  width:"100%" }}
-                        onClick={() => {
-                            setLastPage(currentPage)
-                            changePage(PAGE_POINTER.reviewApplication)
-                        }}
-                    >Neste</Button>
-                </div>
-
+                <NextButton 
+                    isClickable
+                    callback={() => {
+                        setLastPage(currentPage)
+                        changePage(PAGE_POINTER.reviewApplication)
+                    }}/>
             </div>
         </>
     )

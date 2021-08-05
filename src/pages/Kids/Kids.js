@@ -14,6 +14,7 @@ import AddChildren from '../../components/AddChildren/AddChildren.js';
 import CheckBoxGroup from '../../components/checkBoxField/CheckBoxGroup.js';
 import ErrorBlob from '../../components/Form/ErrorBlob.js';
 import axios from 'axios';
+import NextButton from '../../components/NextButton/NextButton.js';
 
 
 const page = selector({
@@ -28,7 +29,7 @@ export default function Kids(props) {
     const [currentPage, setPage] = useRecoilState(page)
     const [previousPage, setLastPage] = useRecoilState(lastPage)
 
-    const [formError, setFormError] = useState(false)
+    const [formError, setFormError] = useState(true)
     const [showError, setShowError] = useState(false)
 
     const [addingChild, setAddingChild] = useState(false)
@@ -170,12 +171,10 @@ export default function Kids(props) {
                     <>
                         <Form handleFormChange={handleFormChange} />
                         {showError && <ErrorBlob firstText="Feil navn eller fødselsnummer/D-nummer." secondText="Sjekk at du har skrevet riktig."/>}
-                        <Button
-                            variant='contained'
-                            style={{ margin: "20px 0" }}
-                            onClick={handleAddChild}>
-                            Legg til
-                        </Button>
+                        <NextButton 
+                            text="Legg til"
+                            isClickable
+                            callback={handleAddChild}/>
                     </>
                     :
                     <>
@@ -189,16 +188,12 @@ export default function Kids(props) {
                     <AddChildren callback={() => setAddingChild(true)}/>
                     <InformationBox
                         text="Barn det søkes for må være registrert på samme adresse som forelder som søker." />
-                    <Button
-                        variant='contained'
-                        style={{ margin: "20px 0" }}
-                        onClick={() => {
+                    <NextButton 
+                        isClickable
+                        callback={() => {
                             setLastPage(currentPage)
                             goToNextPage();
-                            
-                        }}>
-                        Neste
-                    </Button>
+                        }}/>
                 </>
                 }
 

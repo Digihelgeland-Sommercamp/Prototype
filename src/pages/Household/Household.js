@@ -4,15 +4,14 @@ import { selector, useRecoilState } from 'recoil'
 import { PAGE_POINTER } from '../../pagePointer';
 
 import ProgressBar from '../../components/ProgressBar/ProgressBar';
-import { Button } from '@material-ui/core';
 import RadioBoxGroup from '../../components/radioBox/RadioBoxGroup';
-import InfoButtonText from '../../components/InfoButtonText/InfoButtonText';
 import Form from '../../components/Form/Form';
 
 import styles from './Household.module.css'
 import InformationLink from '../../components/information/InformationLink';
 import axios from 'axios';
 import ErrorBlob from '../../components/Form/ErrorBlob';
+import NextButton from '../../components/NextButton/NextButton';
 
 
 const page = selector({
@@ -31,12 +30,14 @@ const radioTextList = [
     "Enslig"
 ]
 
+
+
 export default function Household() {
     const [currentPage, setPage] = useRecoilState(page)
     const [previousPage, setLastPage] = useRecoilState(lastPage)
     
     const [notClicked, setNotClicked] = useState(true)
-    const [formError, setFormError] = useState(false)
+    const [formError, setFormError] = useState(true)
     const [showError, setShowError] = useState(false)
 
     const [partner, setPartner] = useState({})
@@ -137,13 +138,22 @@ export default function Household() {
         setPartner(form)
     }
 
+    const handleAddPartner = () => {
+        if(!formError){
+            setLastPage(currentPage)
+            goToNextPage();
+        }
+        else {
+            setShowError(true) 
+        }
+    }
     
 
     const info = {
         linkText: "Hvem bor du sammen med?",
-        modalTitle: "",
-        modalTextBody: "",
-        modalButtonText: ""
+        modalTitle: "Husholdning",
+        modalTextBody: "Husholdning er deg og din ektefelle, registrerte partner eller samboer. Samboere med felles barn regnes som en husholdning. Dersom du og din samboer ikke har felles barn vil dere regnes som en husholdning hvis dere har bodd sammen i minst 12 av de siste 18 månedene.",
+        modalButtonText: "OK"
     }
 
     return (
@@ -162,13 +172,9 @@ export default function Household() {
                             radioTextList={yesNoList}
                             radioGroupCallback={yesNoRadioGroupCallback}
                         />
-                        <Button
-                            disabled={notClicked}
-                            variant='contained'
-                            style={{ margin: "20px 0", width:"100%" }}
-                            onClick={handleYesNoClick}>
-                            Neste
-                        </Button>
+                        <NextButton 
+                            isClickable={!notClicked}
+                            callback={handleYesNoClick}/>
                     </>
                 }
                 {askQuestion &&
@@ -182,16 +188,12 @@ export default function Household() {
                             radioTextList={radioTextList}
                             radioGroupCallback={radioGroupCallback}
                         />
-                        <Button
-                            disabled={notClicked}
-                            variant='contained'
-                            style={{ margin: "20px 0", width:"100%" }}
-                            onClick={() => {
+                        <NextButton 
+                            isClickable={!notClicked}
+                            callback={() => {
                                 setAskQuestion(false)
                                 setAddPartner(true)
-                            }}>
-                            Neste
-                        </Button>
+                            }}/>
                     </>
                 }
                 {addPartnerPage &&
@@ -199,20 +201,10 @@ export default function Household() {
                         <p>Vi fant ingen ektefelle eller registrert partner i Folkeregisteret.</p>
                         <Form handleFormChange={handleFormChange} />
                         {showError && <ErrorBlob firstText="Feil navn eller fødselsnummer/D-nummer." secondText="Sjekk at du har skrevet riktig."/>}
-                        <Button
-                            variant='contained'
-                            style={{ margin: "20px 0", width:"100%" }}
-                            onClick={() => {
-                                if(!formError){
-                                    setLastPage(currentPage)
-                                    goToNextPage();
-                                }
-                                else {
-                                   setShowError(true) 
-                                }
-                            }}>
-                            Legg til
-                        </Button>
+                        <NextButton 
+                            text="Legg til"
+                            isClickable={!notClicked}
+                            callback={handleAddPartner}/>
                     </>
                 }
 
