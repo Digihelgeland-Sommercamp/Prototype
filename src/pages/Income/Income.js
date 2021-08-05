@@ -4,7 +4,7 @@ import { selector, useRecoilState } from 'recoil'
 import { PAGE_POINTER } from '../../pagePointer';
 
 import { Button } from '@material-ui/core'
-// import InformationBox from '../../components/InformationBox/InformationBox'
+import InformationBox from '../../components/information/InformationBox'
 import ProgressBar from '../../components/ProgressBar/ProgressBar'
 import UploadArea from '../../components/fileUpload/UploadArea'
 
@@ -50,10 +50,10 @@ export default function Income() {
                     </ul>
                 </div>
 
-                {/* <InformationBox
+                <InformationBox
                     text="Dersom noen i husholdningen hatt nedgang i inntekt siden forrige skattemelding,
                     må dette dokumenteres."
-                    link="Liste over gyldig dokumentasjon" /> */}
+                    link="Liste over gyldig dokumentasjon" />
                     
                 <UploadArea />
 

@@ -4,7 +4,8 @@ import { selector, useRecoilState } from 'recoil'
 import { PAGE_POINTER } from '../../pagePointer.js';
 
 import { Button } from '@material-ui/core'
-// import InformationBox from '../../components/InformationBox/InformationBox'
+// import InformationBox from '../../components/Information/InformationBox'
+import InformationBox from '../../components/information/InformationBox'
 import ProgressBar from '../../components/ProgressBar/ProgressBar'
 import Kid from './Kid'
 import Form from '../../components/Form/Form.js';
@@ -186,14 +187,17 @@ export default function Kids(props) {
                     
                     {/* <Button variant="outlined" style={{ margin: "20px 0 50px 0" }} onClick={() => setAddingChild(true)}>Legg til barn</Button> */}
                     <AddChildren callback={() => setAddingChild(true)}/>
-                    {/* <InformationBox
-                        text="Barn det søkes for må være registrert på samme adresse som forelder som søker." /> */}
+                    <div style={{marginTop: "50px"}}/>
+                    <InformationBox
+                        text="Barn det søkes for må være registrert på samme adresse som forelder som søker." />
+                    <div style={{marginTop: "50px"}}/>
+
                     <NextButton 
                         isClickable
                         callback={() => {
                             setLastPage(currentPage)
                             goToNextPage();
-                        }}/>
+                        }}/> {/*TODO Make this appear at the bottom. Do the same for similar pages */}
                 </>
                 }
 
