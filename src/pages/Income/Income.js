@@ -30,12 +30,18 @@ export default function Income() {
     //TODO: Change to incomepeople set earlier in the progress
     //const currentIncomePeople = useRecoilValue(incomePeople)
     // const mockPeople = [{ name: "Ola Normann" }, { name: "Kari Normann" }]
-    const partner = sessionStorage.getItem("partner") ? JSON.parse(sessionStorage.getItem("partner")) : null
+    const partner = sessionStorage.getItem("partner") ? JSON.parse(sessionStorage.getItem("partner")) : null;
     const applicant = sessionStorage.getItem("applicant") ? JSON.parse(sessionStorage.getItem("applicant")) : null
 
+    console.log(partner)
     const getName = (person) => {
-        let mellomnavn = typeof person["navn"] !=="undefined" ? person["navn"]["mellomnavn"] + " " : "";
-        return person["navn"]["fornavn"] + " " + mellomnavn + person["navn"]["etternavn"];
+        let fornavn = typeof person["navn"] !=="undefined" && person["navn"]["fornavn"]
+                        ? person["navn"]["fornavn"] : "";
+        let mellomnavn = typeof person["navn"] !=="undefined" && person["navn"]["mellomnavn"] !== null 
+                        ? person["navn"]["mellomnavn"] + " " : "";
+        let etternavn = typeof person["navn"] !=="undefined" && person["navn"]["etternavn"] !== null
+                        ? person["navn"]["etternavn"] : "";
+        return fornavn + " " + mellomnavn + etternavn;
     }
 
     return (

@@ -84,13 +84,13 @@ export default function Household() {
     }
 
     const savePartner = (partnerToSave) => {
-        let tempPartner = {
-            "fornavn": partnerToSave["navn"]["fornavn"],
-            "etternavn": partnerToSave["navn"]["etternavn"],
-            "personidentifikator": partnerToSave["identifikasjonsnummer"]["foedselsEllerDNummer"]
-        }
+
+        // let tempPartner = {
+        //     navn: partnerToSave["navn"],
+        //     "personidentifikator": partnerToSave["identifikasjonsnummer"]["foedselsEllerDNummer"]
+        // }
         console.log(partnerToSave)
-        setPartner(tempPartner)
+        setPartner(partnerToSave)
     }
 
     function fetchPartner() {
@@ -156,6 +156,15 @@ export default function Household() {
         modalButtonText: "OK"
     }
 
+    const getPartnerName = () => {
+        let fornavn = typeof partner["navn"] !=="undefined" && partner["navn"]["fornavn"]
+                ? partner["navn"]["fornavn"] : "";
+        let mellomnavn = typeof partner["navn"] !=="undefined" && partner["navn"]["mellomnavn"] !== null 
+                ? partner["navn"]["mellomnavn"] + " " : "";
+        let etternavn = typeof partner["navn"] !=="undefined" && partner["navn"]["etternavn"] !== null
+                ? partner["navn"]["etternavn"] : "";
+        return fornavn + " " + mellomnavn + etternavn;
+    }
     return (
         <>
             <ProgressBar filled={3} elements={[{}, {}, {}, {}, {}, {}]} />
@@ -165,7 +174,7 @@ export default function Household() {
                     <>
                         <h4 className={styles.question}>
                             Stemmer det at du er gift og bor sammen med <span className={styles.partner}>
-                                {partner["fornavn"] + " " + partner["etternavn"]}</span>
+                                {getPartnerName()}</span>
                         </h4>
                         
                         <RadioBoxGroup

@@ -47,7 +47,7 @@ function IncomeArea(props) {
                 {renderAttachments()}
                 <div style={{marginBottom: "15px"}}></div>
             </div>
-            <InformationBox />
+            {/* <InformationBox /> */}
             
         </div>
     );
