@@ -1,0 +1,13 @@
+.container {
+    padding: 20px;
+}
+
+.question {
+    font-weight: normal;
+}
+
+.partner {
+    font-weight: bold;
+    display: block;
+    margin: 3px 0 ;
+}

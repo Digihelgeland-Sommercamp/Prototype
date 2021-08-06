@@ -1,0 +1,57 @@
+
+.container {
+    display: grid;
+    margin: 20px 0;
+    padding: 10px;
+    grid-template:  "a a a" 1fr
+                    "b b b" 1fr
+                    "c c d" 1fr / 1fr 1fr 1fr;
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    grid-area: b;
+}
+
+.new {
+    background:var(--blue_bg);
+}
+
+.old {
+    background: whitesmoke;
+}
+
+.applicationName {
+    width: 100%;
+    padding:5px;
+    font-size: 16px;
+    font-weight: 700;
+    grid-area: a;
+}
+
+.date {
+    width: 100%;
+    padding:5px;
+    font-size: 14px;
+    /* font-style: italic; */
+}
+
+.extra {
+    padding: 5px;
+    margin: 0px;
+}
+
+.status{
+    padding: 5px;
+    grid-area: c;
+}
+
+.link {
+    text-decoration: underline;
+    background: none;
+    color: var(--info_blue);
+    border:none;
+    grid-area: d;
+}

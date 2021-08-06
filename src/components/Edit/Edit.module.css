@@ -1,0 +1,8 @@
+.container {
+    display: flex;
+}
+
+.text {
+    font-weight: 700;
+    text-decoration: underline;
+}

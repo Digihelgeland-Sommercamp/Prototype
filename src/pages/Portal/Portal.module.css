@@ -1,0 +1,39 @@
+.container {
+    padding: 20px;
+}
+
+.titleArea {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: 
+        "title logout"
+        "name logout";
+    margin: 50px 0;
+}
+
+.title {
+    grid-area: title;
+    font-weight: normal;
+}
+
+.name {
+    grid-area: name;
+    display: block;
+    font-weight: bold;
+}
+
+.logout {
+    grid-area: logout;
+    border: none;
+    background: none;
+    text-decoration: underline;
+}
+
+.minorHeading {
+    margin-top: 50px
+}
+
+.spacer {
+    margin:25px 0;
+}
