@@ -3,11 +3,8 @@ import { selector, useRecoilState } from 'recoil'
 
 import { PAGE_POINTER } from '../../pagePointer.js';
 
-import { Button } from '@material-ui/core'
-// import InformationBox from '../../components/Information/InformationBox'
 import InformationBox from '../../components/information/InformationBox'
 import ProgressBar from '../../components/ProgressBar/ProgressBar'
-import Kid from './Kid'
 import Form from '../../components/Form/Form.js';
 
 import styles from './Kids.module.css'
@@ -26,7 +23,7 @@ const lastPage = selector({
 })
 
 
-export default function Kids(props) {
+export default function Kids() {
     const [currentPage, setPage] = useRecoilState(page)
     const [previousPage, setLastPage] = useRecoilState(lastPage)
 
@@ -131,7 +128,6 @@ export default function Kids(props) {
         setForm(newForm)
         setFormError(error)
         const personid = form.personidentifikator
-        const childName = `${form.fornavn} ${form.etternavn}`
         const child = {
             navn: {
             fornavn: form.fornavn,

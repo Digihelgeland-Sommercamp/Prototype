@@ -6,8 +6,6 @@ function InformationModal(props) {
     const [textBody,] = useState(props.textBody);
     const [buttonText,] = useState(props.buttonText)
 
-    console.log(textBody)
-
     const modal = () => {
         return(
             <div className={styles.modal}>

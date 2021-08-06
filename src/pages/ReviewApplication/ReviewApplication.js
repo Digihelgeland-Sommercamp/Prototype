@@ -24,7 +24,7 @@ const page = selector({
       key: 'situation',
   })
 
-function ReviewApplication(props) {
+function ReviewApplication() {
 
     const [state, setState] = useRecoilState(page);
     const [, setLastPage] = useRecoilState(lastPage)
@@ -95,7 +95,7 @@ function ReviewApplication(props) {
             let mellomnavn = childrenList[i]["navn"]["mellomnavn"] ? childrenList[i]["navn"]["mellomnavn"]+" " : ""
             let childName = childrenList[i]["navn"]["fornavn"] + " " + mellomnavn + childrenList[i]["navn"]["etternavn"]
 
-            let applicant = <Applicant applicantName={childName} 
+            let applicant = <Applicant key={i} applicantName={childName} 
                             identifier={childrenList[i]["foedsel"]} />;
             applicantList.push(applicant);
         }
@@ -116,9 +116,9 @@ function ReviewApplication(props) {
                 <div style={{marginBottom: "10px"}}></div>
 
 
-            <div className={styles.container}>
-                <Edit callback={()=>setNextPage(PAGE_POINTER.kids)}/>
-            </div>
+                <div className={styles.container}>
+                    <Edit callback={()=>setNextPage(PAGE_POINTER.kids)}/>
+                </div>
             </>
         )
     }

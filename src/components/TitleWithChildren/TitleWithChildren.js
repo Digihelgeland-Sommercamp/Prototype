@@ -1,7 +1,6 @@
 import React from 'react'
 
 // Components
-import InfoButtonText from '../InfoButtonText/InfoButtonText'
 import PersonWithId from './PersonWithId'
 
 // Style
@@ -12,7 +11,6 @@ function TitleWithChildren(props) {
         <div style={{padding:props.padding}}> 
             <div style={{display:"flex"}}>
                 <h1 className={styles.title} style={{fontSize:props.titleFontSize}}>{props.title}</h1>
-                <InfoButtonText />
             </div>
             
             {props.people.map((person, i) => {

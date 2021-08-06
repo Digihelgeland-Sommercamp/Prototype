@@ -8,6 +8,7 @@ export default function ProgressBar(props) {
         <div className={styles.container}>
             {props.elements.map((element, i) => {
                 return <ProgressBarElement
+                    key={i}
                     num={i+1} 
                     fill={i<props.filled}
                     text={element.text}

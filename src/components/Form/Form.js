@@ -1,4 +1,4 @@
-import { Input, TextField } from '@material-ui/core'
+import { TextField } from '@material-ui/core'
 import React, { useState } from 'react'
 
 export default function Form(props) {
@@ -60,8 +60,9 @@ export default function Form(props) {
         <div>
             <form noValidate autoComplete="off" style={{padding: "5px"}}>
                 {
-                    formFields.map((field, _) => {
-                        return <TextField 
+                    formFields.map((field, i) => {
+                        return <TextField
+                            key={i} 
                             fullWidth
                             id={field.id}
                             label={field.label}

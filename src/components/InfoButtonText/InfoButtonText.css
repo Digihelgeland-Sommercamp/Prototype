@@ -1,9 +1,0 @@
-.info_wrapper {
-    display:flex;
-    align-items:center;
-}
-
-.info_text {
-    text-decoration: underline;
-    margin-left: 15px;
-}

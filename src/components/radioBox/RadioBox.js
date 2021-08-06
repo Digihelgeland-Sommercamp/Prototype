@@ -1,12 +1,11 @@
-import { useState } from 'react';
 import React from 'react'
 import styles from './RadioBox.module.css'
 import { Radio } from '@material-ui/core'
 
 
 function RadioBox(props) {
-    const [radioText, setRadioText] = useState(props.radioText);
-    const [identifier, setIdentifier] = useState(props.identifier)
+    const  radioText = props.radioText
+    const identifier = props.identifier
 
     const handleChange = (event) => {
         props.onClickRadioButton(identifier)

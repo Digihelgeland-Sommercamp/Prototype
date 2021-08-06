@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 
 import { PAGE_POINTER } from '../../pagePointer.js';
 
-import { Button } from '@material-ui/core'
-import { useRecoilState, selector, useRecoilValue } from 'recoil'
+import { useRecoilState, selector } from 'recoil'
 import IntrodctionRadioButtons from '../../components/IntroductionRadioButtons/IntroductionRadioButtons'
 import ProgressBar from '../../components/ProgressBar/ProgressBar'
 

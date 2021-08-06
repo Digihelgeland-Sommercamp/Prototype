@@ -1,4 +1,3 @@
-import { useState } from "react";
 import InformationLink from "./InformationLink";
 import styles from './InformationTitle.module.css'
 

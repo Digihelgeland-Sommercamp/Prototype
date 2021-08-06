@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 import CheckBoxField from './CheckBoxField';
-import styles from './CheckBoxGroup.module.css';
-
-var isInitialized = false;
 
 /* Creates a list of checkboxes. Creates one box per element in personList
 @param personList is a list of json objects in the format {"name": "navn navnesen", "birth": "17.05.1984"}
@@ -10,7 +7,7 @@ var isInitialized = false;
                         the element in personList at the same index.
  */
 function CheckBoxGroup(props) {
-    const [personList, ] = useState(props.personList);
+    const personList = props.personList
     const [selectedElements, setSelectedElements] = useState(
         (props.selectedElements && props.selectedElements.length === personList.length) ?
         props.selectedElements : new Array(personList.length).fill(false));

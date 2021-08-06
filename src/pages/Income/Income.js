@@ -3,7 +3,6 @@ import { selector, useRecoilState } from 'recoil'
 
 import { PAGE_POINTER } from '../../pagePointer';
 
-import { Button } from '@material-ui/core'
 import InformationBox from '../../components/information/InformationBox'
 import ProgressBar from '../../components/ProgressBar/ProgressBar'
 import UploadArea from '../../components/fileUpload/UploadArea'
@@ -27,9 +26,7 @@ export default function Income() {
     const [currentPage, changePage] = useRecoilState(page)
     const [, setLastPage] = useRecoilState(lastPage)
 
-    //TODO: Change to incomepeople set earlier in the progress
-    //const currentIncomePeople = useRecoilValue(incomePeople)
-    // const mockPeople = [{ name: "Ola Normann" }, { name: "Kari Normann" }]
+
     const partner = sessionStorage.getItem("partner") ? JSON.parse(sessionStorage.getItem("partner")) : null;
     const applicant = sessionStorage.getItem("applicant") ? JSON.parse(sessionStorage.getItem("applicant")) : null
 
@@ -56,7 +53,7 @@ export default function Income() {
                     <ul>
                         {/* {mockPeople.map((person, _) => {
                             return (
-                                <li>{person.name}</li>
+                                <li key={i}>{person.name}</li>
                             )
                         })} */}
                         <li>{getName(applicant)}</li>
