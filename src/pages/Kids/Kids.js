@@ -37,20 +37,7 @@ export default function Kids() {
     const [selectedChildren, setSelectedChildren] = useState([]); // List of the selected kids objects
         
     //TODO: Get kids from userID
-    const [kids, setKids] = useState(sessionStorage.getItem("kids") ? JSON.parse(sessionStorage.getItem("kids")) :
-    [
-        // {
-        //     "name": "Karl Morten",
-        //     "birth": "20.05.2015",
-        //     "personidentifikator": "154623958774"
-        // },
-        // {
-        //     "name": "Karl Karlsrud",
-        //     "birth": "20.05.2015",
-        //     "personidentifikator": "19586325477"
-        // }
-    ])
-    // List of bools corresponding to selectedChildren
+    const [kids, setKids] = useState(sessionStorage.getItem("kids") ? JSON.parse(sessionStorage.getItem("kids")) : [])
     const [selectedChildElements, setSelectedChildElements] = useState([]) 
     
     const saveChildren = (childrenToSave) => {
@@ -62,6 +49,7 @@ export default function Kids() {
 
     useEffect(() => {
         let applicantIdentifier = sessionStorage.getItem("applicantIdentifier");
+        console.log("Checking if kids already exists")
 
         console.log(sessionStorage.getItem("kids"))
         if(sessionStorage.getItem("kids") || !applicantIdentifier)
@@ -92,7 +80,6 @@ export default function Kids() {
                 }
             }
         }
-        // setSelectedChildren(tempSelectedChildren);
         childrenCallback(tempSelectedChildElements);
     }
 
@@ -152,9 +139,9 @@ export default function Kids() {
             setPage(PAGE_POINTER.income);
     }
 
+
     if(previousPage === PAGE_POINTER.reviewApplication && selectedChildElements.length === 0)
         findSelectedKids();
-    // sessionStorage.setItem("kids", []);
     return (
         <>
             <ProgressBar
