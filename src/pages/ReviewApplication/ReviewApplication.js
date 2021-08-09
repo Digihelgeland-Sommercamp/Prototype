@@ -202,12 +202,15 @@ function ReviewApplication() {
         let hasPartner = partner !== null;
         let stableIncome = situation === "stable-income";
         let applicantID = sessionStorage.getItem("applicantIdentifier")
-
+        console.log(applicant)
 
         console.log(applicant)
         let data = {
             "navn": applicant["navn"],
-            "identifikasjonsnummer": applicantID,
+            "identifikasjonsnummer": {
+                "foedselsEllerDNummer": applicantID,
+                "identifikatortype": "foedselsnummer" // TODO: Get the identifikasjonsnummer object from the backend instead
+            },
             "sivilstand": {
                 "har_samboer": hasPartner,
                 "relatert_person": partner["personidentifikator"],
