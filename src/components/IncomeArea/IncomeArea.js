@@ -12,7 +12,7 @@ function IncomeArea(props) {
             const sjekk = sessionStorage.getItem('vedlegg') ? JSON.parse(sessionStorage.getItem('vedlegg')) : null;
             const returner = [];
             if (sjekk != null && sjekk.length > 0) {
-                returner.push(<div className={styles.attachmentTitle}>Vedlegg:</div>);
+                returner.push(<div className={styles.attachmentTitle}>Dokumentasjon:</div>);
             }
             else {
                 return(<div className={styles.attachmentText}>Ingen vedlegg er lagt til</div>);

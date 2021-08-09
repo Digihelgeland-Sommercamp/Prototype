@@ -15,6 +15,7 @@ const page = selector({
     key: 'page', 
 });
 
+// TODO: Check for children here, if none is found show an error or something 
 export default function Invoice() {
     
     const [, changePage] = useRecoilState(page)
@@ -34,7 +35,7 @@ export default function Invoice() {
     const info = {
         text: "Hva menes med husholdning?",
         modalTitle: "Husholdning",
-        modalTextBody: "Husholdning er deg og din ektefelle, registrerte partner eller samboer. Samboere med felles barn regnes som en husholdning. Dersom du og din samboer ikke har felles barn vil dere regnes som en husholdning hvis dere har bodd sammen i minst 12 av de siste 18 månedene.",
+        modalTextBody: "Husholdning er deg og din ektefelle, registrerte partner eller samboer. Samboere med felles barn regnes som en husholdning. \n\nDersom du og din samboer ikke har felles barn vil dere regnes som en husholdning hvis dere har bodd sammen i minst 12 av de siste 18 månedene.",
         modalButtonText: "OK"
     }
 

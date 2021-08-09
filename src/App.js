@@ -26,8 +26,8 @@ import Receipt from './pages/Receipt/Reicept'
 
 const page = atom({
   key: "page",
-  default: PAGE_POINTER.login
-  // default: PAGE_POINTER.receipt
+  // default: PAGE_POINTER.login
+  default: PAGE_POINTER.household
 });
 
 const lastPage = atom({
@@ -51,6 +51,7 @@ function App() {
 
 }
 
+// TODO: Remove all console.log
 function Router() {
   const [state, setState] = useRecoilState(page);
   const currentSituaton = useRecoilValue(situation)

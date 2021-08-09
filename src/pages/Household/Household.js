@@ -24,13 +24,14 @@ const lastPage = selector({
 
 
 const radioTextList = [
-    "Ektefelle / Registrert partner",
+    "Enslig",
+    "Ektefelle/registrert partner",
     "Samboer med felles barn",
-    "Samboer uten felles barn",
-    "Enslig"
+    "Samboer uten felles barn"
 ]
 
-
+// TODO: Change the text based on if the applicant is married or not
+// TODO: The title "Husholdning" should not be the same where you choose if you're single and ready to mingle  
 
 export default function Household() {
     const [currentPage, setPage] = useRecoilState(page)
@@ -144,9 +145,9 @@ export default function Household() {
     
 
     const info = {
-        linkText: "Hvem bor du sammen med?",
+        linkText: "Hva er en husholdning?",
         modalTitle: "Husholdning",
-        modalTextBody: "Husholdning er deg og din ektefelle, registrerte partner eller samboer. Samboere med felles barn regnes som en husholdning. Dersom du og din samboer ikke har felles barn vil dere regnes som en husholdning hvis dere har bodd sammen i minst 12 av de siste 18 månedene.",
+        modalTextBody: "Husholdning er deg og din ektefelle, registrerte partner eller samboer. Samboere med felles barn regnes som en husholdning. \n\nDersom du og din samboer ikke har felles barn vil dere regnes som en husholdning hvis dere har bodd sammen i minst 12 av de siste 18 månedene.",
         modalButtonText: "OK"
     }
 
@@ -164,6 +165,7 @@ export default function Household() {
             <ProgressBar filled={3} elements={[{}, {}, {}, {}, {}, {}]} />
             <div className={styles.container}>
                 <h1 className={styles.title}>Husholdning</h1>
+                <div style={{margin: "10px"}}></div>
                 {yesNo &&
                     <>
                         <h4 className={styles.question}>
@@ -201,7 +203,7 @@ export default function Household() {
                 }
                 {addPartnerPage &&
                     <>
-                        <p>Vi fant ingen ektefelle eller registrert partner i Folkeregisteret.</p>
+                        <p>Dersom du har hatt samboer i minst 12 av de siste 18 månedene, legg til personen her.</p>
                         <Form handleFormChange={handleFormChange} />
                         {showError && <ErrorBlob firstText="Feil navn eller fødselsnummer/D-nummer." secondText="Sjekk at du har skrevet riktig."/>}
                         <NextButton 

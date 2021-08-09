@@ -48,7 +48,7 @@ export default function IntrodctionRadioButtons(props) {
                         <FormControlLabel 
                             value={secondValue}
                             control={<Radio color="default" />}
-                            label="Noen i husholdningen har en nylig, varig endring av sin inntekt." 
+                            label="Husholdningen har en varig endring i sin inntekt." 
                             className={styles.radioButton} />
                         <div className={styles.link}>
                             <InformationLink 

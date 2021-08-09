@@ -39,9 +39,7 @@ function Receipt() {
                         Brønnøy kommune bekrefter mottatt søknad 29/07/2021 kl. 18:45.
                         Referansenummer ABC123
                     </p>
-                    <p className={styles.text}>
-                        Du kan endre på søknaden frem til en saksbehandler åpner den.
-                    </p>
+
                     <p className={styles.text}>
                         Hvis du har spørsmål eller kommentarer kan du kontakte oss på denne
                         nettsiden, på tlf 12 34 56 78 eller e-post til e-post@kommune.no

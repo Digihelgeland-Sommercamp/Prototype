@@ -62,7 +62,7 @@ export default function Income() {
                 </div>
 
                 <InformationBox
-                    text="Dersom noen i husholdningen hatt nedgang i inntekt siden forrige skattemelding,
+                    text="Dersom noen i husholdningen har hatt nedgang i inntekt siden forrige skattemelding,
                     må dette dokumenteres."
                     link="Liste over gyldig dokumentasjon" />
                     

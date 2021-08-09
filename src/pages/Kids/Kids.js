@@ -182,11 +182,11 @@ export default function Kids() {
                     <CheckBoxGroup personList={kids} checkboxCallback={childrenCallback} selectedElements={selectedChildElements}/>
                     
                     {/* <Button variant="outlined" style={{ margin: "20px 0 50px 0" }} onClick={() => setAddingChild(true)}>Legg til barn</Button> */}
-                    <AddChildren callback={() => setAddingChild(true)}/>
+                    {/* <AddChildren callback={() => setAddingChild(true)}/> */}
                     <div style={{marginTop: "50px"}}/>
-                    <InformationBox
-                        text="Barn det søkes for må være registrert på samme adresse som forelder som søker." />
-                    <div style={{marginTop: "50px"}}/>
+                    {/* <InformationBox
+                        text="Barn det søkes for må være registrert på samme adresse som forelder som søker." /> */}
+                    {/* <div style={{marginTop: "50px"}}/> */}
 
                     <NextButton 
                         isClickable
