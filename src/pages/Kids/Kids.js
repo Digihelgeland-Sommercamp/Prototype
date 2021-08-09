@@ -63,7 +63,7 @@ export default function Kids() {
     useEffect(() => {
         let applicantIdentifier = sessionStorage.getItem("applicantIdentifier");
 
-        console.log(sessionStorage.getItem("kids"))
+        console.log(sessionStorage.getItem("kids"))            
         if(sessionStorage.getItem("kids") || !applicantIdentifier)
             return;
         console.log("Getting kids from hub")
@@ -176,9 +176,7 @@ export default function Kids() {
                     :
                     <>
                     <p className={styles.information}>Vi fant opplysninger om barn i Folkeregisteret. Hvilke barn vil du søke for?</p>
-                    {/* {kids.map((kid, _) => {
-                        return <Kid name={kid.name} born={kid.born} />
-                    })} */}
+                    
                     <CheckBoxGroup personList={kids} checkboxCallback={childrenCallback} selectedElements={selectedChildElements}/>
                     
                     {/* <Button variant="outlined" style={{ margin: "20px 0 50px 0" }} onClick={() => setAddingChild(true)}>Legg til barn</Button> */}

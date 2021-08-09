@@ -10,10 +10,6 @@ import UploadArea from '../../components/fileUpload/UploadArea'
 import styles from './Income.module.css'
 import NextButton from '../../components/NextButton/NextButton';
 
-// const incomePeople = atom({
-//     key: "incomePeople",
-//     default: []
-//   })
 const page = selector({
     key: "page"
 })
@@ -51,11 +47,6 @@ export default function Income() {
                     <p >Vi beregner anslått inntekt i år basert på siste oppdaterte skatteopplysninger.</p>
                     <p >Søknaden blir behandlet på bakgrunn av inntekten til:</p>
                     <ul>
-                        {/* {mockPeople.map((person, _) => {
-                            return (
-                                <li key={i}>{person.name}</li>
-                            )
-                        })} */}
                         <li>{getName(applicant)}</li>
                         <li>{getName(partner)}</li>
                     </ul>

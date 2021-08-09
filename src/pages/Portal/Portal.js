@@ -129,7 +129,7 @@ export default function Portal(props) {
             if(applications[i]["status"] === null || typeof applications[i]["dato_siste_endring"] === "undefined")
                 continue;
 
-            if(applications[i]["status"] !== "behandlet")
+            if(applications[i]["status"] !== "Behandlet")
                 tempActiveApplications.push(applications[i]);
             else
                 tempOldApplications.push(applications[i]);
