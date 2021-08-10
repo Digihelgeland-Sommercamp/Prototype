@@ -220,7 +220,7 @@ function ReviewApplication() {
         setState(PAGE_POINTER.receipt)
     }
 
-    const sendApplication = () => {
+    const sendApplication = async () => {
         if(!canSendApplication()) return false;
         let url = "http://51.107.208.107/submit_application";
         let attachmentsUrl = "http://51.107.208.107/add_attachment";
@@ -264,7 +264,7 @@ function ReviewApplication() {
             for (var i = 0; i<vedleggListe.length; i++){
                 formData.append('file'+i, vedleggListe[i][0]);
             };
-            axios({
+            await axios({
                 method: "post",
                 url: attachmentsUrl,
                 data: formData,
