@@ -24,17 +24,16 @@ jobs:
         node-version: '14.x'
 
     - name: npm install, build, and test
-      env: 
-        CI: false
       run: |
         npm install
         npm run build --if-present
+        npm run test --if-present
 
     - name: Run Azure webapp deploy action using publish profile credentials
       uses: azure/webapps-deploy@v2
       with:
         app-name: redusert
         slot-name: Production
-        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_74353889F81C41D3AE3CC337DD1CAA2D }}
+        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_16CF044549554BA5B5955BE2201DBD8B }}
         package: .
 
