@@ -123,7 +123,9 @@ export default function Portal(props) {
         let tempActiveApplications = [];
         let tempOldApplications = [];
         const applications = JSON.parse(applicationsToSave);
-        console.log(applicationsToSave)
+        applications.sort((a,b) => (a['dato_siste_endring'] < b['dato_siste_endring']) ? 1 : (b['dato_siste_endring'] < a['dato_siste_endring']) ? -1: 0)
+        
+
         for(let i=0; i<applications.length; i++)
         {
             if(applications[i]["status"] === null || typeof applications[i]["dato_siste_endring"] === "undefined")
@@ -218,7 +220,7 @@ export default function Portal(props) {
                         // index={index} 
                         // status={application.status}/>
                         applicationName={"Søknad om redusert foreldrebetaling"}
-                        date={"10.10.2019"} // TODO Add the date in the backend
+                        date={application["dato_siste_endring"]} // TODO Add the date in the backend
                         changeOrCheck={false}
                         changedDate={"11.10.2019"} // TODO Retrieve from statushistorikk
                         excerptClicked={() => excerptClicked("old", index)}

@@ -2,7 +2,7 @@ import { useState } from "react";
 import Edit from "../../components/Edit/Edit";
 import styles from './ReviewApplication.module.css'
 
-import { atom, selector, useRecoilState } from 'recoil';
+import { selector, useRecoilState } from 'recoil';
 
 import { PAGE_POINTER } from '../../pagePointer.js';
 import ProgressBar from "../../components/ProgressBar/ProgressBar";

@@ -101,6 +101,7 @@ export default function Household() {
             let url = "http://51.107.208.107/get_partner/"+applicantIdentifier;
             axios.get(url).then((response) => {savePartner(response.data);})
         }
+        
     }
 
     const handleYesNoClick = () => {
@@ -110,17 +111,17 @@ export default function Household() {
             setNotClicked(true)
         }
         else if (chosenYesNo === "Ja") {
-            setLastPage(currentPage)
             goToNextPage();
 
         }
     }
 
     function goToNextPage() {
-
+        
         sessionStorage.setItem("partner", JSON.stringify(partner));
         console.log(sessionStorage.getItem("partner"));
 
+        setLastPage(currentPage)
         previousPage === PAGE_POINTER.reviewApplication ? 
             setPage(PAGE_POINTER.reviewApplication) : 
             setPage(PAGE_POINTER.kids);
@@ -130,12 +131,23 @@ export default function Household() {
 
     const handleFormChange = (form, formError) => {
         setFormError(formError)
-        setPartner(form)
+        let newForm = {
+            "identifikasjonsnummer": {
+                "foedselsEllerDNummer": form.personidentifikator,
+                "identifikatortype": "foedselsnummer"
+            },
+            "navn": {
+                "etternavn": form.fornavn,
+                "forkortetNavn": `${form.fornavn} ${form.etternavn}`,
+                "fornavn": form.etternavn, 
+                "mellomnavn": "",
+            }
+        }
+        setPartner(newForm)
     }
 
     const handleAddPartner = () => {
         if(!formError){
-            setLastPage(currentPage)
             goToNextPage();
         }
         else {
