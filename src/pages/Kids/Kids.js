@@ -44,6 +44,8 @@ export default function Kids() {
     //TODO: Get kids from userID
     const [kids, setKids] = useState(sessionStorage.getItem("kids") ? JSON.parse(sessionStorage.getItem("kids")) : [])
     const [selectedChildElements, setSelectedChildElements] = useState([]) 
+
+    const [clickable, setClickable] = useState(false)
     
     const saveChildren = (childrenToSave) => {
         console.log("Saving children");
@@ -93,17 +95,23 @@ export default function Kids() {
     }
 
     const childrenCallback = (selectedElementList) => {
+        let flag = false
+
         // TODO: Make sure this does not add children prematurely
         let tempSelectedChildren = []
         for(let i=0; i<kids.length; i++)
         {
             console.log("Selected element list in kids: "+selectedElementList)
 
-            if(selectedElementList[i] === true)
+            if(selectedElementList[i] === true){
                 tempSelectedChildren.push(kids[i])
+                flag = true
+            } 
         }
         setSelectedChildren(tempSelectedChildren);
         setSelectedChildElements(selectedElementList);
+    
+        setClickable(flag)
     }
 
     const handleAddChild = () => {
@@ -161,7 +169,7 @@ export default function Kids() {
             <div className={styles.container}>
 
                 <h1 className={styles.title}>Barn</h1>
-                {addingChild 
+                {/* {addingChild 
                     ? 
                     <>
                         <Form handleFormChange={handleFormChange} />
@@ -170,28 +178,23 @@ export default function Kids() {
                             text="Legg til"
                             isClickable
                             callback={handleAddChild}/>
-                    </>
-                    :
-                    <>
-                    <p className={styles.information}>Vi fant opplysninger om barn i Folkeregisteret. Hvilke barn vil du søke for?</p>
+                    </> */}
                     
-                    <CheckBoxGroup personList={kids} checkboxCallback={childrenCallback} selectedElements={selectedChildElements}/>
-                    
-                    {/* <Button variant="outlined" style={{ margin: "20px 0 50px 0" }} onClick={() => setAddingChild(true)}>Legg til barn</Button> */}
-                    {/* <AddChildren callback={() => setAddingChild(true)}/> */}
-                    <div style={{marginTop: "50px"}}/>
-                    {/* <InformationBox
-                        text="Barn det søkes for må være registrert på samme adresse som forelder som søker." /> */}
-                    {/* <div style={{marginTop: "50px"}}/> */}
+                <p className={styles.information}>Vi fant opplysninger om barn i Folkeregisteret. Hvilke barn vil du søke for?</p>
+                
+                <CheckBoxGroup personList={kids} checkboxCallback={childrenCallback} selectedElements={selectedChildElements}/>
+                {/* <AddChildren callback={() => setAddingChild(true)}/> */}
+                <div style={{marginTop: "50px"}}/>
+                {/* <InformationBox
+                    text="Barn det søkes for må være registrert på samme adresse som forelder som søker." /> */}
 
-                    <NextButton 
-                        isClickable
-                        callback={() => {
-                            setLastPage(currentPage)
-                            goToNextPage();
-                        }}/> {/*TODO Make this appear at the bottom. Do the same for similar pages */}
-                </>
-                }
+                <NextButton 
+                    isClickable={clickable}
+                    callback={() => {
+                        setLastPage(currentPage)
+                        goToNextPage();
+                    }}/> {/*TODO Make this appear at the bottom. Do the same for similar pages */}
+                
 
             </div>
         </>

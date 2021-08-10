@@ -52,15 +52,25 @@ export default function Income() {
                     <p >Vi beregner anslått inntekt i år basert på siste oppdaterte skatteopplysninger.</p>
                     <p >Søknaden blir behandlet på bakgrunn av inntekten til:</p>
                     <ul>
-                        <li>{getName(applicant)}</li>
-                        <li>{getName(partner)}</li>
+                        <li className={styles.person}>{getName(applicant)}</li>
+                        <li className={styles.person}>{getName(partner)}</li>
                     </ul>
                 </div>
 
                 <InformationBox
                     text="Dersom noen i husholdningen har hatt nedgang i inntekt siden forrige skattemelding,
                     må dette dokumenteres."
-                    link="Liste over gyldig dokumentasjon" />
+                    link="Liste over gyldig dokumentasjon" 
+                    modalTitle = "Forslag til dokumentasjon"
+                    modalTextBody = ""
+                    modalTextBodyList = {[
+                        "Siste skattemelding",
+                        "Lønnsslipp eller inntektsopplysninger fra a-meldingenfra de siste to månedene",
+                        "Utbetalingsoversikt fra NAV",
+                        "Bekreftelse på permisjon/avskjedigelse fra arbeidsgiver",
+                        "Studentbevis eller bekreftelse på skoleplass"
+                    ]}
+                    modalButtonText = "OK"/>
                     
                 <UploadArea />
 

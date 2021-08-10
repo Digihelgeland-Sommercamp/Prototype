@@ -27,5 +27,6 @@
     text-align: left;
     border: none;
     padding: 2px 0;
+    font: inherit;
 }
 
