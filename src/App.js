@@ -26,7 +26,7 @@ import Receipt from './pages/Receipt/Reicept'
 
 const page = atom({
   key: "page",
-  default: PAGE_POINTER.reviewApplication
+  default: PAGE_POINTER.login
 });
 
 const lastPage = atom({
