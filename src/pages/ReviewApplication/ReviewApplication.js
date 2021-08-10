@@ -132,12 +132,7 @@ function ReviewApplication() {
         return(
             <>
                 <div className={styles.container}>
-                    <InformationTitle 
-                        title={"Søker for"}
-                        modalTitle="Dine barn btw"
-                        modalTextBody="Dette er dine barn"
-                        modalButtonText="OK"/>
-                    <div style={{marginBottom: "15px"}}></div>
+                    <h3 style={{marginBottom: "15px"}}>Søker for</h3>
                 </div>
                 {/* <Applicant applicantName={"Kari jajaja"} identifier={"465487465"}/> */}
                 {allChildren()}
