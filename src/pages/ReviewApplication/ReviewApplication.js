@@ -28,6 +28,10 @@ const page = selector({
 const attachmentList = selector({
     key: "attachmentList"
 })
+
+const caseNumber = selector({
+    key: "caseNumber"
+})
   
 
 function ReviewApplication() {
@@ -37,7 +41,7 @@ function ReviewApplication() {
     const [situation, ] = useRecoilState(currentSituation)
     const [shouldBeNotified, setShouldBeNotified] = useState(null)
     const [itemList] = useRecoilState(attachmentList)
-    const [caseNumber, setCaseNumber] = useState(null)
+    const [caseNumberReference, setCaseNumberReference] = useRecoilState(caseNumber)
 
     const setNextPage = (page) => {
         setLastPage(state);
@@ -259,15 +263,13 @@ function ReviewApplication() {
         }
 
         axios.post(url, data)
-        .then(async function (response) {
+        .then(function (response) {
             sessionStorage.removeItem("applicant");
             sessionStorage.removeItem("partner");
             sessionStorage.removeItem("kids");
             sessionStorage.removeItem("children");
-            await setCaseNumber(response.data.saksnummer)
-            console.log(caseNumber)
+            setCaseNumberReference(response.data.saksnummer)
         })
-
         goToNextPage();
     }
 

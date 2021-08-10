@@ -44,6 +44,11 @@ const attachmentList = atom({
   default: []
 })
 
+const caseNumber = atom({
+  key: "caseNumber",
+  default: "feil referansenummer"
+})
+
 
 function App() {
   

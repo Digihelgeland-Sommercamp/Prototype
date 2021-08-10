@@ -1,21 +1,27 @@
-import React from "react";
+import { React, useState } from "react";
 import NextButton from "../../components/NextButton/NextButton";
 import styles from "./Receipt.module.css";
-import { selector, useRecoilState } from 'recoil';
+import { selector, useRecoilState, useRecoilValue } from 'recoil';
 import { PAGE_POINTER } from "../../pagePointer";
 
 const page = selector({
-    key: 'page', 
-  });
+        key: 'page', 
+    });
   
-  const lastPage = selector({
-    key: 'lastPage', 
-  });
+const lastPage = selector({
+        key: 'lastPage', 
+    });
+
+const caseNumber = selector({
+        key: "caseNumber"
+    });
 
 function Receipt() {
     // TODO add callbacks for the two buttons
     const [currentPage, setCurrentPage] = useRecoilState(page);
-    const [, setLastPage] = useRecoilState(lastPage)
+    const [, setLastPage] = useRecoilState(lastPage);
+    const [caseNumberReference] = useRecoilState(caseNumber);
+    const [theDate] = useState(new Date())
 
     const goToPortal = () => {
         setLastPage(currentPage);
@@ -27,6 +33,7 @@ function Receipt() {
         setCurrentPage(PAGE_POINTER.login);
     }
 
+
     return (
         <div className={styles.container}>
             <div className={styles.content}>
@@ -36,8 +43,8 @@ function Receipt() {
                 </h1>
                 <div className={styles.textContainer}>
                     <p className={styles.text}>
-                        Brønnøy kommune bekrefter mottatt søknad 29/07/2021 kl. 18:45.
-                        Referansenummer ABC123
+                        Brønnøy kommune bekrefter mottatt søknad {theDate.getDate()}-{theDate.getMonth() + 1}-{theDate.getFullYear()}.
+                        Saksnummeret er {caseNumberReference}.
                     </p>
 
                     <p className={styles.text}>

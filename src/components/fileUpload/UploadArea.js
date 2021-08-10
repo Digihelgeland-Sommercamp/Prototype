@@ -62,25 +62,6 @@ function UploadArea() {
         clearInputFile(event.target);
     };
 
-    /*const handleSubmission = () => { //må vurderes om denne logikken skal flyttes opp til en høyere komponent
-        const formData = new FormData();
-
-        for (var i = 0; i<itemList.length; i++){
-            formData.append('file'+i, itemList[i][0]);
-        };
-        axios({
-            method: "post",
-            url: "http://51.107.208.107/add_attachment",
-            data: formData,
-            headers: {"Content-Type": "multipart/form-data"}
-        })
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (response) {
-            console.log(response)
-        });//response inneholder vedleggenes id og filtype i azure storage containeren
-    };*/
 
     const routeUpload = () => {
         document.getElementById("inputSelectFile").click();

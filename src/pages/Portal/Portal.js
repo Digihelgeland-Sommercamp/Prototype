@@ -123,7 +123,7 @@ export default function Portal(props) {
         let tempActiveApplications = [];
         let tempOldApplications = [];
         const applications = JSON.parse(applicationsToSave);
-        console.log(applicationsToSave)
+
         for(let i=0; i<applications.length; i++)
         {
             if(applications[i]["status"] === null || typeof applications[i]["dato_siste_endring"] === "undefined")
@@ -134,6 +134,7 @@ export default function Portal(props) {
             else
                 tempOldApplications.push(applications[i]);
         }
+        
         setActiveApplications(tempActiveApplications);
         setOldApplications(tempOldApplications);
 
