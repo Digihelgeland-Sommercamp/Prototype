@@ -2,28 +2,26 @@ import React, { useState } from 'react'
 
 import { PAGE_POINTER } from '../../pagePointer.js';
 
-import { Button } from '@material-ui/core'
 import { useRecoilState, selector } from 'recoil'
 import ProgressBar from '../../components/ProgressBar/ProgressBar'
 
 
 import styles from './Invoice.module.css'
 import RadioBoxGroup from '../../components/radioBox/RadioBoxGroup.js';
-import InfoButtonText from '../../components/InfoButtonText/InfoButtonText.js';
+import NextButton from '../../components/NextButton/NextButton.js';
+import InformationLink from '../../components/information/InformationLink.js';
 
 const page = selector({
     key: 'page', 
 });
 
-export default function Invoice(props) {
+// TODO: Check for children here, if none is found show an error or something 
+export default function Invoice() {
     
     const [, changePage] = useRecoilState(page)
 
     const [noClick, setNoClick] = useState(true)
-    const [chosenInvoice, setChosenInvoice] = useState("")
-
-    
-    
+    const [, setChosenInvoice] = useState("")
 
     const textForRadioButtons = [
         "Jeg blir fakturert av barnehage eller SFO.",
@@ -32,6 +30,13 @@ export default function Invoice(props) {
     const handler = (id) => {
         setChosenInvoice(textForRadioButtons[id])
         setNoClick(false)
+    }
+
+    const info = {
+        text: "Hva menes med husholdning?",
+        modalTitle: "Husholdning",
+        modalTextBody: "Husholdning er deg og din ektefelle, registrerte partner eller samboer. Samboere med felles barn regnes som en husholdning. \n\nDersom du og din samboer ikke har felles barn vil dere regnes som en husholdning hvis dere har bodd sammen i minst 12 av de siste 18 månedene.",
+        modalButtonText: "OK"
     }
 
     return (
@@ -43,15 +48,14 @@ export default function Invoice(props) {
                 <h1>Fakturering</h1>
                 <p>Hvem i husholdningen din blir fakturert av barnehagen eller SFO?</p>
                 <RadioBoxGroup radioTextList={textForRadioButtons} radioGroupCallback={handler}/>
-                <InfoButtonText text="Hva menes med husholdning?"/>
-                <Button
-                    style={{width:"100%"}}
-                    variant='contained'
-                    disabled={noClick}
-                    className={styles.nextButton}
-                    onClick={() => changePage(PAGE_POINTER.situation)}>
-                    Neste
-                </Button>
+                <InformationLink 
+                    linkText={info.text}
+                    modalTitle={info.modalTitle}
+                    modalTextBody={info.modalTextBody}
+                    modalButtonText={info.modalButtonText}/>
+                <NextButton 
+                    isClickable={!noClick}
+                    callback={() => changePage(PAGE_POINTER.situation)}/>
             </div>
         </>
     );

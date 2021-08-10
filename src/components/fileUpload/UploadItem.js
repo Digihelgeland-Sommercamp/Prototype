@@ -1,11 +1,10 @@
-import { useState } from 'react';
 import "./UploadItem.css";
 
 function UploadItem(props) {
-    const [filename] = useState(props.filename);
-    const [type] = useState(props.type);
-    const [size] = useState(props.size);
-    const [keykey] = useState(props.keykey);
+    const filename = props.filename
+    const type = props.type
+    const size = props.size
+    const keykey = props.keykey
 
     function formatBytes(bytes, decimals = 2) {
         if (bytes === 0) return '0 Bytes';
@@ -44,10 +43,9 @@ function UploadItem(props) {
             <div className="file-name-box">{formatName(filename)}</div>
             <div className="file-size-box">{formatBytes(size)}</div>
             <div className="file-remove-box">
-                <div onClick={delFile}>
+                <button className="file-remove-button" onClick={delFile}>
                     Fjern
-                </div>
-
+                </button>
             </div>
         </div>
     );

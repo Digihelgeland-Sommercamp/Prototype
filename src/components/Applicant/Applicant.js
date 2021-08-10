@@ -1,12 +1,9 @@
 import './Applicant.css';
-import { useState } from 'react';
-import Divider from '@material-ui/core/Divider';
-import InfoIcon from '@material-ui/icons/Info';
 
 
 function Applicant(props) {
-    const [applicantName, setApplicantName] = useState(props.applicantName)
-    const [identifier, setIdentifier] = useState(props.identifier)
+    const applicantName = props.applicantName
+    const identifier = props.identifier
 
     return(
         <div>

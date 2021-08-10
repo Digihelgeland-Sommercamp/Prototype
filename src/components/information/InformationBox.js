@@ -1,32 +1,22 @@
-import { useState } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React from 'react'
+
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
+
 import styles from './InformationBox.module.css'
-import InfoIcon from '@material-ui/icons/Info';
-import { createTheme, ThemeProvider } from "@material-ui/core";
 
-
-
-function InformationBox(props) {
-    const textBody= props.text
-    
-    return(
-        <div>
-            <div className={styles.container}>
-                <div className={styles.iconWrapper}>
-                    <InfoIcon color={"primary"}/>
-                </div>
-                <div className={styles.text}>
-                    {textBody}
-                </div>
-            
+export default function InformationBox(props) {
+    return (
+        <div className={styles.container}>
+            <div className={styles.icon}>
+               <FontAwesomeIcon icon={faInfoCircle} color="#1C77FF"/> 
             </div>
-
+            <p className={styles.text}>{props.text}</p>
+            <button className={styles.link}>{props.link}</button>
         </div>
     )
 }
 
 InformationBox.defaultProps = {
-    informationBoxTextBody: "Dersom noen i husholdningen har en nylig, varig endring av sin inntekt må dette dokumenteres."
-
+    text:"Informasjon"
 }
-
-export default InformationBox

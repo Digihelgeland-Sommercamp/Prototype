@@ -30,7 +30,7 @@ const attachmentList = selector({
 })
   
 
-function ReviewApplication(props) {
+function ReviewApplication() {
 
     const [state, setState] = useRecoilState(page);
     const [, setLastPage] = useRecoilState(lastPage)
@@ -59,8 +59,18 @@ function ReviewApplication(props) {
         if(!partner)
             return <p className={styles.container}>Ingen samboer</p>;
 
-        return <Applicant applicantName={partner["fornavn"] + " " + partner["etternavn"]} 
-                identifier={partner["personidentifikator"]} />;
+        let fornavn = typeof partner["navn"] !=="undefined" && partner["navn"]["fornavn"]
+                ? partner["navn"]["fornavn"] : "";
+        let mellomnavn = typeof partner["navn"] !=="undefined" && partner["navn"]["mellomnavn"] !== null 
+                ? partner["navn"]["mellomnavn"] + " " : "";
+        let etternavn = typeof partner["navn"] !=="undefined" && partner["navn"]["etternavn"] !== null
+                ? partner["navn"]["etternavn"] : "";
+        let personid = typeof partner["identifikasjonsnummer"] !=="undefined" && 
+                partner["identifikasjonsnummer"]["foedselsEllerDNummer"] !== null
+                ? partner["identifikasjonsnummer"]["foedselsEllerDNummer"] : "";
+
+        return <Applicant applicantName={fornavn + " " + mellomnavn + etternavn} 
+                identifier={personid} />;
     }
 
     const partner = () => {
@@ -92,7 +102,7 @@ function ReviewApplication(props) {
             let mellomnavn = childrenList[i]["navn"]["mellomnavn"] ? childrenList[i]["navn"]["mellomnavn"]+" " : ""
             let childName = childrenList[i]["navn"]["fornavn"] + " " + mellomnavn + childrenList[i]["navn"]["etternavn"]
 
-            let applicant = <Applicant applicantName={childName} 
+            let applicant = <Applicant key={i} applicantName={childName} 
                             identifier={childrenList[i]["foedsel"]} />;
             applicantList.push(applicant);
         }
@@ -113,18 +123,33 @@ function ReviewApplication(props) {
                 <div style={{marginBottom: "10px"}}></div>
 
 
-            <div className={styles.container}>
-                <Edit callback={()=>setNextPage(PAGE_POINTER.kids)}/>
-            </div>
+                <div className={styles.container}>
+                    <Edit callback={()=>setNextPage(PAGE_POINTER.kids)}/>
+                </div>
             </>
         )
     }
 
+    let getName = (person) => {
+        let fornavn = typeof person["navn"] !=="undefined" && person["navn"]["fornavn"]
+                    ? person["navn"]["fornavn"] : "";
+        let mellomnavn = typeof person["navn"] !=="undefined" && person["navn"]["mellomnavn"] !== null 
+                    ? person["navn"]["mellomnavn"] + " " : "";
+        let etternavn = typeof person["navn"] !=="undefined" && person["navn"]["etternavn"] !== null
+                    ? person["navn"]["etternavn"] : "";
+        return fornavn + " " + mellomnavn + etternavn;
+    }
+
     const income = () => {
-        let applicants = ["Ola IkkeAutoGenerert"]
-        let partner = sessionStorage.getItem("partner") ? JSON.parse(sessionStorage.getItem("partner")) : null;
+        let applicant = sessionStorage.getItem("applicant") ? 
+                        JSON.parse(sessionStorage.getItem("applicant")) : null;
+        let partner = sessionStorage.getItem("partner") ? 
+                        JSON.parse(sessionStorage.getItem("partner")) : null;
+
+        let applicants = [getName(applicant)]
         if(partner)
-            applicants.push(partner["fornavn"]+" "+partner["etternavn"]);
+            applicants.push(getName(partner));
+        
         return(
         <>
             <IncomeArea applicants={applicants} showAttachments={true} />
@@ -157,10 +182,10 @@ function ReviewApplication(props) {
 
         for(let i=0; i<childrenList.length; i++)
         {
-            let navn = childrenList[i]["fornavn"] + " " + childrenList[i]["etternavn"];
+            // let navn = childrenList[i]["fornavn"] + " " + childrenList[i]["etternavn"];
             let identifikator = childrenList[i]["personidentifikator"];
             childrenToSend.push({
-                "barnets_navn": navn,
+                "barnets_navn": getName(childrenList[i]),
                 "fodselsnummer": identifikator,
                 "navn_pa_barnehage": null, // TODO: Make this appear and differ between SFO / barnehage
                 "prosent_plass": null
@@ -170,24 +195,29 @@ function ReviewApplication(props) {
         return childrenToSend;
     }
 
+    const goToNextPage = () => {
+        setLastPage(state);
+        setState(PAGE_POINTER.receipt)
+    }
+
     const sendApplication = () => {
         if(!canSendApplication()) return false;
         let url = "http://51.107.208.107/submit_application";
         let attachmentsUrl = "http://51.107.208.107/add_attachment";
 
+        let applicant = sessionStorage.getItem("applicant") ? JSON.parse(sessionStorage.getItem("applicant")) : null;
         let partner = sessionStorage.getItem("partner") ? JSON.parse(sessionStorage.getItem("partner")) : null;
         let hasPartner = partner !== null;
         let stableIncome = situation === "stable-income";
+        let applicantID = sessionStorage.getItem("applicantIdentifier")
+        console.log(applicant)
 
+        console.log(applicant)
         let data = {
-            "navn": {
-                "etternavn": "IkkeAutoGenerert",
-                "fornavn": "Ola",
-                "mellomnavn": null
-            },
+            "navn": applicant["navn"],
             "identifikasjonsnummer": {
-                "foedselsEllerDNummer": "03839199405", // TODO Make this respond to login number
-                "identifikatortype": "foedselsnummer"
+                "foedselsEllerDNummer": applicantID,
+                "identifikatortype": "foedselsnummer" // TODO: Get the identifikasjonsnummer object from the backend instead
             },
             "sivilstand": {
                 "har_samboer": hasPartner,
@@ -233,7 +263,7 @@ function ReviewApplication(props) {
 
         axios.post(url, data)
 
-        return true; // Optionally just go to next page directly
+        goToNextPage();
     }
 
     const canSendApplication = () => {

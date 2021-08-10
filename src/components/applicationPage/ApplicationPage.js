@@ -3,7 +3,7 @@ import { Button } from '@material-ui/core'
 // import Applicant from './Applicant'
 import Partner from './Partner'
 // import IncomeArea from '../IncomeArea/IncomeArea';
-import InformationBox from '../information/InformationBox';
+// import InformationBox from '../information/InformationBox';
 import InformationModal from '../information/InformationModal';
 import InformationLink from '../information/InformationLink';
 
@@ -31,7 +31,7 @@ function ApplicationPage(props) {
             {/* <Partner partnerName={partnerName} identifier={partnerIdentifier}/> */}
             {/*<ChildList />*/}
             {/* <IncomeArea /> */}
-            <InformationBox />
+            {/* <InformationBox /> */}
             <InformationModal shouldBeVisible={shouldShowInformationModal} textBody={informationText} toggleVisible={toggleInformationModal}/>
             <button onClick={toggleInformationModal}>sd</button>
             <InformationLink modalTitle={"Kul tittel"} modalTextBody={"Masse tekst"} linkText={"Dette er en link"} modalButtonText={"GREIT"} />

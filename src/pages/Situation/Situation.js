@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 
 import { PAGE_POINTER } from '../../pagePointer.js';
 
-import { Button } from '@material-ui/core'
-import { useRecoilState, selector, useRecoilValue } from 'recoil'
+import { useRecoilState, selector } from 'recoil'
 import IntrodctionRadioButtons from '../../components/IntroductionRadioButtons/IntroductionRadioButtons'
 import ProgressBar from '../../components/ProgressBar/ProgressBar'
 
 
 import styles from './Situation.module.css'
+import NextButton from '../../components/NextButton/NextButton.js';
 
 const page = selector({
     key: 'page', 
@@ -33,14 +33,9 @@ export default function Situation(props) {
                 <h1>Hei, {props.name}!</h1>
                 <p>Hvilken situasjon gjelder deg?</p>
                 <IntrodctionRadioButtons onChange={handler} />
-                <Button
-                    style={{width:"100%"}}
-                    variant='contained'
-                    disabled={noClick}
-                    className={styles.nextButton}
-                    onClick={() => changePage(PAGE_POINTER.household)}>
-                    Neste
-                </Button>
+                <NextButton 
+                    isClickable={!noClick}
+                    callback={() => changePage(PAGE_POINTER.household)}/>
             </div>
         </>
     );

@@ -11,14 +11,22 @@ const page = selector({
 export default function ProgressBarElement(props) {
     const [, setPage] = useRecoilState(page)
 
-    const numberWidth = (1/props.numElem)*100
-    const strWidth = String(numberWidth)+"%"
+    // const numberWidth = (1/props.numElem)*100
+    // const strWidth = String(numberWidth)+"%"
+
 
     return (
-        <div className={styles.elementWrapper} style={{ width:strWidth}} onClick={() => setPage(props.num)}>
-            <div className={styles.fill} style={{background: props.fill  ? "grey" : "lightgrey", color: props.fill  ? "white" : "black"}}>{props.num}</div>
-            {//<p className={styles.elementText}>{props.text}</p>
-            }
+        <div 
+            className={styles.elementWrapper} 
+            style={{
+                width: props.selected && "50px",
+                height: props.selected && "50px",
+                borderColor: props.fill && "grey" || props.selected && "grey",
+                background: props.fill  ? "grey" : "white", 
+                color: props.fill  ? "white" : "black", }} 
+            onClick={() => setPage(props.num)}>
+                {props.num}
         </div>
+            
     )
 }

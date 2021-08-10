@@ -1,8 +1,5 @@
 import { useState } from 'react';
 import styles from './IncomeArea.module.css'
-// import '../applicationPage/ApplicationPageTitle'
-// import ApplicationPageTitle from '../applicationPage/ApplicationPageTitle';
-import InformationBox from '../information/InformationBox';
 import InformationTitle from '../information/InformationTitle';
 import { selector, useRecoilState, useRecoilValue } from 'recoil';
 
@@ -19,9 +16,8 @@ function IncomeArea(props) {
     function renderAttachments() {
         if (props.showAttachments) {
             const returner = [];
-            console.log("itemList later: " + itemList)
-            if (itemList.length > 0) {
-                returner.push(<div className={styles.attachmentTitle}>Vedlegg:</div>);
+            if (sjekk != null && sjekk.length > 0) {
+                returner.push(<div className={styles.attachmentTitle}>Dokumentasjon:</div>);
             }
             else {
                 return(<div className={styles.attachmentText}>Ingen vedlegg er lagt til</div>);
@@ -47,14 +43,12 @@ function IncomeArea(props) {
             <div className={styles.container}>
                 
                 <div className={styles.text}> {incomeTextBody} </div>
-                {applicants.map((value, index) => {
-                    return <li className={styles.applicants}>{value}</li>
+                {applicants.map((value, i) => {
+                    return <li key={i} className={styles.applicants}>{value}</li>
                 })}
                 {renderAttachments()}
                 <div style={{marginBottom: "15px"}}></div>
-            </div>
-            {/* <InformationBox /> */}
-            
+            </div>           
         </div>
     );
 }

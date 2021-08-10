@@ -3,10 +3,8 @@ import { selector, useRecoilState } from 'recoil'
 
 import { PAGE_POINTER } from '../../pagePointer.js';
 
-import { Button } from '@material-ui/core'
-import InformationBox from '../../components/InformationBox/InformationBox'
+import InformationBox from '../../components/information/InformationBox'
 import ProgressBar from '../../components/ProgressBar/ProgressBar'
-import Kid from './Kid'
 import Form from '../../components/Form/Form.js';
 
 import styles from './Kids.module.css'
@@ -14,6 +12,7 @@ import AddChildren from '../../components/AddChildren/AddChildren.js';
 import CheckBoxGroup from '../../components/checkBoxField/CheckBoxGroup.js';
 import ErrorBlob from '../../components/Form/ErrorBlob.js';
 import axios from 'axios';
+import NextButton from '../../components/NextButton/NextButton.js';
 
 
 const page = selector({
@@ -24,11 +23,11 @@ const lastPage = selector({
 })
 
 
-export default function Kids(props) {
+export default function Kids() {
     const [currentPage, setPage] = useRecoilState(page)
     const [previousPage, setLastPage] = useRecoilState(lastPage)
 
-    const [formError, setFormError] = useState(false)
+    const [formError, setFormError] = useState(true)
     const [showError, setShowError] = useState(false)
 
     const [addingChild, setAddingChild] = useState(false)
@@ -38,20 +37,7 @@ export default function Kids(props) {
     const [selectedChildren, setSelectedChildren] = useState([]); // List of the selected kids objects
         
     //TODO: Get kids from userID
-    const [kids, setKids] = useState(sessionStorage.getItem("kids") ? JSON.parse(sessionStorage.getItem("kids")) :
-    [
-        // {
-        //     "name": "Karl Morten",
-        //     "birth": "20.05.2015",
-        //     "personidentifikator": "154623958774"
-        // },
-        // {
-        //     "name": "Karl Karlsrud",
-        //     "birth": "20.05.2015",
-        //     "personidentifikator": "19586325477"
-        // }
-    ])
-    // List of bools corresponding to selectedChildren
+    const [kids, setKids] = useState(sessionStorage.getItem("kids") ? JSON.parse(sessionStorage.getItem("kids")) : [])
     const [selectedChildElements, setSelectedChildElements] = useState([]) 
     
     const saveChildren = (childrenToSave) => {
@@ -63,8 +49,9 @@ export default function Kids(props) {
 
     useEffect(() => {
         let applicantIdentifier = sessionStorage.getItem("applicantIdentifier");
+        console.log("Checking if kids already exists")
 
-        console.log(sessionStorage.getItem("kids"))
+        console.log(sessionStorage.getItem("kids"))            
         if(sessionStorage.getItem("kids") || !applicantIdentifier)
             return;
         console.log("Getting kids from hub")
@@ -93,7 +80,6 @@ export default function Kids(props) {
                 }
             }
         }
-        // setSelectedChildren(tempSelectedChildren);
         childrenCallback(tempSelectedChildElements);
     }
 
@@ -129,7 +115,6 @@ export default function Kids(props) {
         setForm(newForm)
         setFormError(error)
         const personid = form.personidentifikator
-        const childName = `${form.fornavn} ${form.etternavn}`
         const child = {
             navn: {
             fornavn: form.fornavn,
@@ -154,9 +139,9 @@ export default function Kids(props) {
             setPage(PAGE_POINTER.income);
     }
 
+
     if(previousPage === PAGE_POINTER.reviewApplication && selectedChildElements.length === 0)
         findSelectedKids();
-    // sessionStorage.setItem("kids", []);
     return (
         <>
             <ProgressBar
@@ -170,35 +155,30 @@ export default function Kids(props) {
                     <>
                         <Form handleFormChange={handleFormChange} />
                         {showError && <ErrorBlob firstText="Feil navn eller fødselsnummer/D-nummer." secondText="Sjekk at du har skrevet riktig."/>}
-                        <Button
-                            variant='contained'
-                            style={{ margin: "20px 0" }}
-                            onClick={handleAddChild}>
-                            Legg til
-                        </Button>
+                        <NextButton 
+                            text="Legg til"
+                            isClickable
+                            callback={handleAddChild}/>
                     </>
                     :
                     <>
                     <p className={styles.information}>Vi fant opplysninger om barn i Folkeregisteret. Hvilke barn vil du søke for?</p>
-                    {/* {kids.map((kid, _) => {
-                        return <Kid name={kid.name} born={kid.born} />
-                    })} */}
+                    
                     <CheckBoxGroup personList={kids} checkboxCallback={childrenCallback} selectedElements={selectedChildElements}/>
                     
                     {/* <Button variant="outlined" style={{ margin: "20px 0 50px 0" }} onClick={() => setAddingChild(true)}>Legg til barn</Button> */}
-                    <AddChildren callback={() => setAddingChild(true)}/>
-                    <InformationBox
-                        text="Barn det søkes for må være registrert på samme adresse som forelder som søker." />
-                    <Button
-                        variant='contained'
-                        style={{ margin: "20px 0" }}
-                        onClick={() => {
+                    {/* <AddChildren callback={() => setAddingChild(true)}/> */}
+                    <div style={{marginTop: "50px"}}/>
+                    {/* <InformationBox
+                        text="Barn det søkes for må være registrert på samme adresse som forelder som søker." /> */}
+                    {/* <div style={{marginTop: "50px"}}/> */}
+
+                    <NextButton 
+                        isClickable
+                        callback={() => {
                             setLastPage(currentPage)
                             goToNextPage();
-                            
-                        }}>
-                        Neste
-                    </Button>
+                        }}/> {/*TODO Make this appear at the bottom. Do the same for similar pages */}
                 </>
                 }
 

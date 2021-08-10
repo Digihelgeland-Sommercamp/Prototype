@@ -4,15 +4,14 @@ import { selector, useRecoilState } from 'recoil'
 import { PAGE_POINTER } from '../../pagePointer';
 
 import ProgressBar from '../../components/ProgressBar/ProgressBar';
-import { Button } from '@material-ui/core';
 import RadioBoxGroup from '../../components/radioBox/RadioBoxGroup';
-import InfoButtonText from '../../components/InfoButtonText/InfoButtonText';
 import Form from '../../components/Form/Form';
 
 import styles from './Household.module.css'
 import InformationLink from '../../components/information/InformationLink';
 import axios from 'axios';
 import ErrorBlob from '../../components/Form/ErrorBlob';
+import NextButton from '../../components/NextButton/NextButton';
 
 
 const page = selector({
@@ -23,21 +22,23 @@ const lastPage = selector({
     key: 'lastPage',
 });
 
-const applicantIdentifier = "09838197571"
 
 const radioTextList = [
-    "Ektefelle / Registrert partner",
+    "Enslig",
+    "Ektefelle/registrert partner",
     "Samboer med felles barn",
-    "Samboer uten felles barn",
-    "Enslig"
+    "Samboer uten felles barn"
 ]
+
+// TODO: Change the text based on if the applicant is married or not
+// TODO: The title "Husholdning" should not be the same where you choose if you're single and ready to mingle  
 
 export default function Household() {
     const [currentPage, setPage] = useRecoilState(page)
     const [previousPage, setLastPage] = useRecoilState(lastPage)
     
     const [notClicked, setNotClicked] = useState(true)
-    const [formError, setFormError] = useState(false)
+    const [formError, setFormError] = useState(true)
     const [showError, setShowError] = useState(false)
 
     const [partner, setPartner] = useState({})
@@ -46,9 +47,9 @@ export default function Household() {
     const [addPartnerPage, setAddPartner] = useState(false)
 
     const [chosenYesNo, setChosenYesNo] = useState("")
-    const [answer, setAnswer] = useState("")
+    const [, setAnswer] = useState("")
 
-    const [applicant, setApplicant] = useState(null)
+    const [, setApplicant] = useState(null)
 
 
     const radioGroupCallback = (id) => {
@@ -57,15 +58,16 @@ export default function Household() {
     }
 
     const saveApplicant = (applicantToSave) => {
-         setApplicant(applicantToSave);
-         sessionStorage.setItem("applicant", JSON.stringify(applicantToSave));
-         sessionStorage.setItem("applicantIdentifier", applicantIdentifier);
-         console.log(applicantToSave);
+        setApplicant(applicantToSave);
+        sessionStorage.setItem("applicant", JSON.stringify(applicantToSave));
+        console.log(applicantToSave);
     } 
     
     // Get the applicant from hub
     // TODO: Move this to login
     useEffect(() => {
+        let applicantIdentifier = sessionStorage.getItem("applicantIdentifier");
+
         let url = "http://51.107.208.107/get_applicant/"+applicantIdentifier;
         axios.get(url).then((response) => {
             saveApplicant(response.data); 
@@ -83,29 +85,22 @@ export default function Household() {
     }
 
     const savePartner = (partnerToSave) => {
-        let tempPartner = {
-            "fornavn": partnerToSave["navn"]["fornavn"],
-            "etternavn": partnerToSave["navn"]["etternavn"],
-            "personidentifikator": partnerToSave["identifikasjonsnummer"]["foedselsEllerDNummer"]
-        }
 
-        setPartner(tempPartner)
+        // let tempPartner = {
+        //     navn: partnerToSave["navn"],
+        //     "personidentifikator": partnerToSave["identifikasjonsnummer"]["foedselsEllerDNummer"]
+        // }
+        console.log(partnerToSave)
+        setPartner(partnerToSave)
     }
 
     function fetchPartner() {
-        //TODO: Fetch partner from folkreg
-
-        if(partner === "")
+        if(typeof partner["personidentifikator"] === "undefined")
         {
-            // let tempPartner = {
-            //     "fornavn": "Kari",
-            //     "etternavn": "Nordmann",
-            //     "personidentifikator": "23568945586" 
-            //     };
+            let applicantIdentifier = sessionStorage.getItem("applicantIdentifier");
             let url = "http://51.107.208.107/get_partner/"+applicantIdentifier;
             axios.get(url).then((response) => {savePartner(response.data);})
         }
-        // return partner['fornavn'] + " " + partner["etternavn"];
     }
 
     const handleYesNoClick = () => {
@@ -123,12 +118,6 @@ export default function Household() {
 
     function goToNextPage() {
 
-        let partnerDict = {
-            "partner": {
-                partner
-            }
-        }
-
         sessionStorage.setItem("partner", JSON.stringify(partner));
         console.log(sessionStorage.getItem("partner"));
 
@@ -144,38 +133,53 @@ export default function Household() {
         setPartner(form)
     }
 
+    const handleAddPartner = () => {
+        if(!formError){
+            setLastPage(currentPage)
+            goToNextPage();
+        }
+        else {
+            setShowError(true) 
+        }
+    }
     
 
     const info = {
-        linkText: "Hvem bor du sammen med?",
-        modalTitle: "",
-        modalTextBody: "",
-        modalButtonText: ""
+        linkText: "Hva er en husholdning?",
+        modalTitle: "Husholdning",
+        modalTextBody: "Husholdning er deg og din ektefelle, registrerte partner eller samboer. Samboere med felles barn regnes som en husholdning. \n\nDersom du og din samboer ikke har felles barn vil dere regnes som en husholdning hvis dere har bodd sammen i minst 12 av de siste 18 månedene.",
+        modalButtonText: "OK"
     }
 
+    const getPartnerName = () => {
+        let fornavn = typeof partner["navn"] !=="undefined" && partner["navn"]["fornavn"]
+                ? partner["navn"]["fornavn"] : "";
+        let mellomnavn = typeof partner["navn"] !=="undefined" && partner["navn"]["mellomnavn"] !== null 
+                ? partner["navn"]["mellomnavn"] + " " : "";
+        let etternavn = typeof partner["navn"] !=="undefined" && partner["navn"]["etternavn"] !== null
+                ? partner["navn"]["etternavn"] : "";
+        return fornavn + " " + mellomnavn + etternavn;
+    }
     return (
         <>
             <ProgressBar filled={3} elements={[{}, {}, {}, {}, {}, {}]} />
             <div className={styles.container}>
                 <h1 className={styles.title}>Husholdning</h1>
+                <div style={{margin: "10px"}}></div>
                 {yesNo &&
                     <>
                         <h4 className={styles.question}>
                             Stemmer det at du er gift og bor sammen med <span className={styles.partner}>
-                                {partner["fornavn"] + " " + partner["etternavn"]}</span>
+                                {getPartnerName()}</span>
                         </h4>
                         
                         <RadioBoxGroup
                             radioTextList={yesNoList}
                             radioGroupCallback={yesNoRadioGroupCallback}
                         />
-                        <Button
-                            disabled={notClicked}
-                            variant='contained'
-                            style={{ margin: "20px 0", width:"100%" }}
-                            onClick={handleYesNoClick}>
-                            Neste
-                        </Button>
+                        <NextButton 
+                            isClickable={!notClicked}
+                            callback={handleYesNoClick}/>
                     </>
                 }
                 {askQuestion &&
@@ -189,37 +193,23 @@ export default function Household() {
                             radioTextList={radioTextList}
                             radioGroupCallback={radioGroupCallback}
                         />
-                        <Button
-                            disabled={notClicked}
-                            variant='contained'
-                            style={{ margin: "20px 0", width:"100%" }}
-                            onClick={() => {
+                        <NextButton 
+                            isClickable={!notClicked}
+                            callback={() => {
                                 setAskQuestion(false)
                                 setAddPartner(true)
-                            }}>
-                            Neste
-                        </Button>
+                            }}/>
                     </>
                 }
                 {addPartnerPage &&
                     <>
-                        <p>Vi fant ingen ektefelle eller registrert partner i Folkeregisteret.</p>
+                        <p>Dersom du har hatt samboer i minst 12 av de siste 18 månedene, legg til personen her.</p>
                         <Form handleFormChange={handleFormChange} />
                         {showError && <ErrorBlob firstText="Feil navn eller fødselsnummer/D-nummer." secondText="Sjekk at du har skrevet riktig."/>}
-                        <Button
-                            variant='contained'
-                            style={{ margin: "20px 0", width:"100%" }}
-                            onClick={() => {
-                                if(!formError){
-                                    setLastPage(currentPage)
-                                    goToNextPage();
-                                }
-                                else {
-                                   setShowError(true) 
-                                }
-                            }}>
-                            Legg til
-                        </Button>
+                        <NextButton 
+                            text="Legg til"
+                            isClickable={!notClicked}
+                            callback={handleAddPartner}/>
                     </>
                 }
 

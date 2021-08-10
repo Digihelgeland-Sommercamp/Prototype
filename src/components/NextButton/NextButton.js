@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './NextButton.module.css';
 
 function NextButton(props) {
@@ -11,11 +11,9 @@ function NextButton(props) {
     }
 
     return(
-        <>
-        <button className={props.isClickable ?  styles.btn : styles.btnUnclickable} onClick={handleCallback}>
+        <button disabled={!props.isClickable} className={styles.btn} onClick={handleCallback}>
             {props.text}
         </button>
-        </>
     );
 }
 

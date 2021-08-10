@@ -6,7 +6,6 @@ function InformationModal(props) {
     const [textBody,] = useState(props.textBody);
     const [buttonText,] = useState(props.buttonText)
 
-
     const modal = () => {
         return(
             <div className={styles.modal}>
@@ -15,7 +14,10 @@ function InformationModal(props) {
                     {title}
                 </h3>
                 <div className={styles.text}>
-                    {textBody}
+                    {textBody.split('\\n').map((item, i) => {
+                        return <p className={styles.bodyItem} key={i}>{item}</p>
+                    })
+                    }
                 </div>
                 <button className={styles.closeButton} onClick={props.toggleVisible}>{buttonText}</button>
             </div>
