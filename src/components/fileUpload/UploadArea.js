@@ -16,7 +16,6 @@ const attachmentList = selector({
 function UploadArea() {
     const [selectedFile, setSelectedFile] = useState();
     const [itemList, setItemList] = useRecoilState(attachmentList)
-    const [, forceUpdate] = useReducer(x => x + 1, 0);
     const [counter, setCounter] = useState(0)
 
 
@@ -63,7 +62,7 @@ function UploadArea() {
         clearInputFile(event.target);
     };
 
-    const handleSubmission = () => { //må vurderes om denne logikken skal flyttes opp til en høyere komponent
+    /*const handleSubmission = () => { //må vurderes om denne logikken skal flyttes opp til en høyere komponent
         const formData = new FormData();
 
         for (var i = 0; i<itemList.length; i++){
@@ -81,7 +80,7 @@ function UploadArea() {
         .catch(function (response) {
             console.log(response)
         });//response inneholder vedleggenes id og filtype i azure storage containeren
-    };
+    };*/
 
     const routeUpload = () => {
         document.getElementById("inputSelectFile").click();
@@ -126,7 +125,6 @@ function UploadArea() {
                 <div className="list-wrapper">
                     <ListRender /> 
                 </div>
-                <button onClick={handleSubmission}>upload</button>
             </div>
             
         </div>

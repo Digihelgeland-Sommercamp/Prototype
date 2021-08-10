@@ -16,7 +16,7 @@ function IncomeArea(props) {
     function renderAttachments() {
         if (props.showAttachments) {
             const returner = [];
-            if (sjekk != null && sjekk.length > 0) {
+            if (itemList.length > 0) {
                 returner.push(<div className={styles.attachmentTitle}>Dokumentasjon:</div>);
             }
             else {

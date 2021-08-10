@@ -37,8 +37,8 @@ function ReviewApplication() {
     const [situation, ] = useRecoilState(currentSituation)
     const [shouldBeNotified, setShouldBeNotified] = useState(null)
     const [itemList] = useRecoilState(attachmentList)
+    const [caseNumber, setCaseNumber] = useState(null)
 
-    console.log(situation);
     const setNextPage = (page) => {
         setLastPage(state);
         setState(page);
@@ -210,9 +210,7 @@ function ReviewApplication() {
         let hasPartner = partner !== null;
         let stableIncome = situation === "stable-income";
         let applicantID = sessionStorage.getItem("applicantIdentifier")
-        console.log(applicant)
 
-        console.log(applicant)
         let data = {
             "navn": applicant["navn"],
             "identifikasjonsnummer": {
@@ -246,7 +244,6 @@ function ReviewApplication() {
             for (var i = 0; i<vedleggListe.length; i++){
                 formData.append('file'+i, vedleggListe[i][0]);
             };
-            console.log(formData)
             axios({
                 method: "post",
                 url: attachmentsUrl,
@@ -262,6 +259,14 @@ function ReviewApplication() {
         }
 
         axios.post(url, data)
+        .then(async function (response) {
+            sessionStorage.removeItem("applicant");
+            sessionStorage.removeItem("partner");
+            sessionStorage.removeItem("kids");
+            sessionStorage.removeItem("children");
+            await setCaseNumber(response.data.saksnummer)
+            console.log(caseNumber)
+        })
 
         goToNextPage();
     }
