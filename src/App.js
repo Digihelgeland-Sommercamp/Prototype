@@ -44,6 +44,12 @@ const attachmentList = atom({
   default: []
 })
 
+const caseNumberAtom = atom({
+  key: 'caseNumber',
+  default: ''
+})
+
+
 
 function App() {
   

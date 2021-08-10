@@ -2,7 +2,7 @@ import { useState } from "react";
 import Edit from "../../components/Edit/Edit";
 import styles from './ReviewApplication.module.css'
 
-import { selector, useRecoilState, useRecoilValue } from 'recoil';
+import { atom, selector, useRecoilState } from 'recoil';
 
 import { PAGE_POINTER } from '../../pagePointer.js';
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
@@ -12,22 +12,29 @@ import IncomeArea from "../../components/IncomeArea/IncomeArea";
 import RadioBoxGroup from "../../components/radioBox/RadioBoxGroup";
 import NextButton from "../../components/NextButton/NextButton";
 import axios from "axios";
+
+
+
 const page = selector({
     key: 'page', 
-  });
-  
-  const lastPage = selector({
+});
+
+const lastPage = selector({
     key: 'lastPage', 
-  });
+});
 
-  const currentSituation = selector({
-      key: 'situation',
-  })
-
+const currentSituation = selector({
+    key: 'situation',
+})
 
 const attachmentList = selector({
     key: "attachmentList"
 })
+
+const caseNumberAtom = selector({
+    key: 'caseNumber',
+})
+
   
 
 function ReviewApplication() {
@@ -37,7 +44,7 @@ function ReviewApplication() {
     const [situation, ] = useRecoilState(currentSituation)
     const [shouldBeNotified, setShouldBeNotified] = useState(null)
     const [itemList] = useRecoilState(attachmentList)
-    const [caseNumber, setCaseNumber] = useState(null)
+    const [caseNumber, setCaseNumber] = useRecoilState(caseNumberAtom)
 
     const setNextPage = (page) => {
         setLastPage(state);
@@ -239,7 +246,7 @@ function ReviewApplication() {
         }
 
         const vedleggListe = itemList;
-        if (vedleggListe != null && vedleggListe.length > 0) {
+        if (vedleggListe !== null && vedleggListe.length > 0) {
             const formData = new FormData();
             for (var i = 0; i<vedleggListe.length; i++){
                 formData.append('file'+i, vedleggListe[i][0]);
@@ -264,7 +271,7 @@ function ReviewApplication() {
             sessionStorage.removeItem("partner");
             sessionStorage.removeItem("kids");
             sessionStorage.removeItem("children");
-            await setCaseNumber(response.data.saksnummer)
+            setCaseNumber(response.data.saksnummer)
             console.log(caseNumber)
         })
 
