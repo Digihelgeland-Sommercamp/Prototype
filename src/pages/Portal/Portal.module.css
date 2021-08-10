@@ -37,3 +37,8 @@
 .spacer {
     margin:25px 0;
 }
+
+.noApplicationText {
+    color: #888;
+    font-style: italic;
+}

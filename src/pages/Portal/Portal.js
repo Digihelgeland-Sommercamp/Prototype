@@ -31,93 +31,6 @@ export default function Portal(props) {
     const [activeApplications, setActiveApplications] = useState([]);
     const [oldApplications, setOldApplications] = useState([])
 
-    // TODO: fetch applications for currentUser
-    // const newApplications = [
-    //     {
-    //         applicationName: "Søknad om redusert foreldrebetaling",
-    //         date: "10.10.10",
-    //         changeOrCheck: true,
-    //         changedDate: "11.10.10",
-    //         status: "Søknad ikke sendt",
-    //         action: "",
-    //         filled: 1,
-    //         firstInfo: [
-    //             {
-    //                 name: "Ola Normann"
-    //             },
-    //             {
-    //                 name: "Thea Normann"
-    //             }
-    //         ],
-    //         secondInfo: [
-    //             {
-    //                 name: "Ola Normann",
-    //                 extraInformation: "Salhus SFO"
-    //             },
-    //             {
-    //                 name: "Thea Normann",
-    //                 extraInformation: "Salhus SFO"
-    //             }
-    //         ]
-    //     }
-    // ]
-
-    // const oldApplications = [{
-    //     applicationName: "Søknad om redusert foreldrebetaling",
-    //     date: "10.10.10",
-    //     changeOrCheck: false,
-    //     changedDate: "11.10.10",
-    //     status: "Vedtak foretatt",
-    //     action: "",
-    //     filled: 3,
-    //     firstInfo: [
-    //         {
-    //             name: "Ola Normann"
-    //         },
-    //         {
-    //             name: "Thea Normann"
-    //         }
-    //     ],
-    //     secondInfo: [
-    //         {
-    //             name: "Ola Normann",
-    //             extraInformation: "Salhus SFO"
-    //         },
-    //         {
-    //             name: "Thea Normann",
-    //             extraInformation: "Salhus SFO"
-    //         }
-    //     ]
-    // },
-    // {
-    //     applicationName: "Søknad om redusert foreldrebetaling",
-    //     date: "10.10.10",
-    //     changeOrCheck: false,
-    //     changedDate: "11.10.10",
-    //     status: "Vedtak foretatt",
-    //     action: "",
-    //     filled: 3,
-    //     firstInfo: [
-    //         {
-    //             name: "Ola Normann"
-    //         },
-    //         {
-    //             name: "Thea Normann"
-    //         }
-    //     ],
-    //     secondInfo: [
-    //         {
-    //             name: "Ola Normann",
-    //             extraInformation: "Salhus SFO"
-    //         },
-    //         {
-    //             name: "Thea Normann",
-    //             extraInformation: "Salhus SFO"
-    //         }
-    //     ]
-    // }
-    // ]
-
     const saveAllApplications = (applicationsToSave) => {
         sessionStorage.setItem("applicantIdentifier", applicantIdentifier);
         let tempActiveApplications = [];
@@ -138,10 +51,14 @@ export default function Portal(props) {
         }
         setActiveApplications(tempActiveApplications);
         setOldApplications(tempOldApplications);
+        
 
         //TODO: save to session storage if necessary
         //TODO: consider a filter on the backend for the applications returned
     }
+
+    console.log(activeApplications);
+    console.log(oldApplications);
 
     useEffect(() => {
         axios.get("http://51.107.208.107/get_applicant/"+applicantIdentifier).then(
@@ -207,6 +124,9 @@ export default function Portal(props) {
                     />
                 )
             })}
+            {activeApplications.length === 0 && 
+                <p className={styles.noApplicationText}>Du har ingen aktive søknader</p>
+            }
             <h5>Eldre</h5>
             {oldApplications.map((application, index) => {
                 return (
@@ -230,6 +150,9 @@ export default function Portal(props) {
                     />
                         )
             })}
+            {oldApplications.length === 0 && 
+                <p className={styles.noApplicationText}>Du har ingen gamle søknader</p>
+            }
  
             <h2 className={styles.minorHeading}>Ofte stilte spørsmål</h2>
             {questions.map((question, i) => {
