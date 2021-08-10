@@ -14,8 +14,14 @@ const page = selector({
     key: 'page', 
 });
 
+const progressSelector = selector({
+    key: 'progress'
+})
+
+
 export default function Situation(props) {    
     const [, changePage] = useRecoilState(page)
+    const [progress, setProgress] = useRecoilState(progressSelector)
 
     const [noClick, setNoClick] = useState(true)
 
@@ -35,7 +41,12 @@ export default function Situation(props) {
                 <IntrodctionRadioButtons onChange={handler} />
                 <NextButton 
                     isClickable={!noClick}
-                    callback={() => changePage(PAGE_POINTER.household)}/>
+                    callback={() => {
+                        if(progress < 3) {
+                            setProgress(3)
+                        }
+                        changePage(PAGE_POINTER.household)
+                    }}/>
             </div>
         </>
     );

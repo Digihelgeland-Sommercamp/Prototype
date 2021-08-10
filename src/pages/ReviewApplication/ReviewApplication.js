@@ -34,13 +34,17 @@ const attachmentList = selector({
 const caseNumberAtom = selector({
     key: 'caseNumber',
 })
+const progressSelector = selector({
+    key: 'progress'
+})
 
   
 
 function ReviewApplication() {
-
     const [state, setState] = useRecoilState(page);
     const [, setLastPage] = useRecoilState(lastPage)
+    const [progress, setProgress] = useRecoilState(progressSelector) 
+
     const [situation, ] = useRecoilState(currentSituation)
     const [shouldBeNotified, setShouldBeNotified] = useState(null)
     const [itemList] = useRecoilState(attachmentList)
@@ -203,6 +207,7 @@ function ReviewApplication() {
     }
 
     const goToNextPage = () => {
+        setProgress(1)
         setLastPage(state);
         setState(PAGE_POINTER.receipt)
     }

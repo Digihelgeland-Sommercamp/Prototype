@@ -21,11 +21,16 @@ const page = selector({
 const lastPage = selector({
     key: "lastPage"
 })
+const progressSelector = selector({
+    key: 'progress'
+})
+
 
 
 export default function Kids() {
     const [currentPage, setPage] = useRecoilState(page)
     const [previousPage, setLastPage] = useRecoilState(lastPage)
+    const [progress, setProgress] = useRecoilState(progressSelector)
 
     const [formError, setFormError] = useState(true)
     const [showError, setShowError] = useState(false)
@@ -58,7 +63,11 @@ export default function Kids() {
 
         // let applicantIdentifier = tempApplicant[""]
         let url = "http://51.107.208.107/get_children/"+applicantIdentifier;
-        axios.get(url).then((response) => {saveChildren(response.data);})
+        axios.get(url).then((response) => {
+            saveChildren(response.data);
+            console.log(response.data);
+        })
+        
     }, [])
 
     // Gets the children from storage and compares to the available kids. Saving matches as selected
@@ -132,8 +141,10 @@ export default function Kids() {
         sessionStorage.setItem("kids", JSON.stringify(kids));
         console.log(kids)
 
+        if(progress < 5) {
+            setProgress(5)
+        }
         setLastPage(currentPage)
-
         previousPage === PAGE_POINTER.reviewApplication ? 
             setPage(PAGE_POINTER.reviewApplication) : 
             setPage(PAGE_POINTER.income);

@@ -15,9 +15,15 @@ const page = selector({
     key: 'page', 
 });
 
+const progressSelector = selector({
+    key: 'progress'
+})
+
+
 // TODO: Check for children here, if none is found show an error or something 
 export default function Invoice() {
-    
+    const [progress, setProgress] = useRecoilState(progressSelector)
+
     const [, changePage] = useRecoilState(page)
 
     const [noClick, setNoClick] = useState(true)
@@ -55,7 +61,12 @@ export default function Invoice() {
                     modalButtonText={info.modalButtonText}/>
                 <NextButton 
                     isClickable={!noClick}
-                    callback={() => changePage(PAGE_POINTER.situation)}/>
+                    callback={() => {
+                        if(progress < 2) {
+                            setProgress(2)
+                        }
+                        changePage(PAGE_POINTER.situation)
+                    }}/>
             </div>
         </>
     );

@@ -49,6 +49,10 @@ const caseNumberAtom = atom({
   default: ''
 })
 
+const progressSelector = atom({
+  key: 'progress',
+  default: 1
+})
 
 
 function App() {

@@ -21,6 +21,9 @@ const page = selector({
 const lastPage = selector({
     key: 'lastPage',
 });
+const progressSelector = selector({
+    key: 'progress'
+})
 
 
 const radioTextList = [
@@ -36,6 +39,7 @@ const radioTextList = [
 export default function Household() {
     const [currentPage, setPage] = useRecoilState(page)
     const [previousPage, setLastPage] = useRecoilState(lastPage)
+    const [progress, setProgress] = useRecoilState(progressSelector)
     
     const [notClicked, setNotClicked] = useState(true)
     const [formError, setFormError] = useState(true)
@@ -112,7 +116,6 @@ export default function Household() {
         }
         else if (chosenYesNo === "Ja") {
             goToNextPage();
-
         }
     }
 
@@ -121,6 +124,9 @@ export default function Household() {
         sessionStorage.setItem("partner", JSON.stringify(partner));
         console.log(sessionStorage.getItem("partner"));
 
+        if(progress < 4) {
+            setProgress(4)
+        }
         setLastPage(currentPage)
         previousPage === PAGE_POINTER.reviewApplication ? 
             setPage(PAGE_POINTER.reviewApplication) : 

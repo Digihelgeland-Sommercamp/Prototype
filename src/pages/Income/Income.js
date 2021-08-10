@@ -16,11 +16,16 @@ const page = selector({
 const lastPage = selector({
     key: "lastPage"
 })
+const progressSelector = selector({
+    key: 'progress'
+})
+
 
 
 export default function Income() {
     const [currentPage, changePage] = useRecoilState(page)
     const [, setLastPage] = useRecoilState(lastPage)
+    const [progress, setProgress] = useRecoilState(progressSelector)
 
 
     const partner = sessionStorage.getItem("partner") ? JSON.parse(sessionStorage.getItem("partner")) : null;
@@ -62,6 +67,9 @@ export default function Income() {
                 <NextButton 
                     isClickable
                     callback={() => {
+                        if(progress < 6) {
+                            setProgress(6)
+                        }
                         setLastPage(currentPage)
                         changePage(PAGE_POINTER.reviewApplication)
                     }}/>
