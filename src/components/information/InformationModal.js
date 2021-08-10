@@ -6,8 +6,6 @@ function InformationModal(props) {
     const textBody = props.textBody
     const buttonText = props.buttonText
     const list = props.list
-    
-    console.log(list);
 
     const modal = () => {
         return(

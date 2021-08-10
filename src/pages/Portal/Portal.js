@@ -13,7 +13,7 @@ import NextButton from '../../components/NextButton/NextButton';
 const overviewOfApplication = atom({
     key: "overviewOfApplication",
     default: {}
-  })
+})
   
 const page = selector({
     key: "page"

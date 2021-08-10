@@ -44,46 +44,47 @@ export default function Income() {
 
     return (
         <>
-            <ProgressBar filled={5} elements={[{}, {}, {}, {}, {}, {}]} />
-            <div className={styles.container}>
+            <div className="wrapper">
+                <ProgressBar filled={5} elements={[{}, {}, {}, {}, {}, {}]} />
+                <div className={styles.container}>
 
-                <h1 className={styles.title}>Inntekt</h1>
-                <div className={styles.info}>
-                    <p >Vi beregner anslått inntekt i år basert på siste oppdaterte skatteopplysninger.</p>
-                    <p >Søknaden blir behandlet på bakgrunn av inntekten til:</p>
-                    <ul>
-                        <li className={styles.person}>{getName(applicant)}</li>
-                        <li className={styles.person}>{getName(partner)}</li>
-                    </ul>
-                </div>
-
-                <InformationBox
-                    text="Dersom noen i husholdningen har hatt nedgang i inntekt siden forrige skattemelding,
-                    må dette dokumenteres."
-                    link="Liste over gyldig dokumentasjon" 
-                    modalTitle = "Forslag til dokumentasjon"
-                    modalTextBody = ""
-                    modalTextBodyList = {[
-                        "Siste skattemelding",
-                        "Lønnsslipp eller inntektsopplysninger fra a-meldingenfra de siste to månedene",
-                        "Utbetalingsoversikt fra NAV",
-                        "Bekreftelse på permisjon/avskjedigelse fra arbeidsgiver",
-                        "Studentbevis eller bekreftelse på skoleplass"
-                    ]}
-                    modalButtonText = "OK"/>
+                    <h1 className={styles.title}>Inntekt</h1>
+                    <div className={styles.info}>
+                        <p >Vi beregner anslått inntekt i år basert på siste oppdaterte skatteopplysninger.</p>
+                        <p >Søknaden blir behandlet på bakgrunn av inntekten til:</p>
+                        <ul>
+                            <li className={styles.person}>{getName(applicant)}</li>
+                            <li className={styles.person}>{getName(partner)}</li>
+                        </ul>
+                    </div>
                     
-                <UploadArea />
-
-                <NextButton 
-                    isClickable
-                    callback={() => {
-                        if(progress < 6) {
-                            setProgress(6)
-                        }
-                        setLastPage(currentPage)
-                        changePage(PAGE_POINTER.reviewApplication)
-                    }}/>
+                    <InformationBox
+                        text="Dersom noen i husholdningen har hatt nedgang i inntekt siden forrige skattemelding,
+                        må dette dokumenteres."
+                        link="Liste over gyldig dokumentasjon" 
+                        modalTitle = "Forslag til dokumentasjon"
+                        modalTextBody = ""
+                        modalTextBodyList = {[
+                            "Siste skattemelding",
+                            "Lønnsslipp eller inntektsopplysninger fra a-meldingenfra de siste to månedene",
+                            "Utbetalingsoversikt fra NAV",
+                            "Bekreftelse på permisjon/avskjedigelse fra arbeidsgiver",
+                            "Studentbevis eller bekreftelse på skoleplass"
+                        ]}
+                        modalButtonText = "OK"/>
+                        
+                    <UploadArea />
+                </div>
             </div>
+            <NextButton 
+                isClickable
+                callback={() => {
+                    if(progress < 6) {
+                        setProgress(6)
+                    }
+                    setLastPage(currentPage)
+                    changePage(PAGE_POINTER.reviewApplication)
+                }}/>
         </>
     )
 }

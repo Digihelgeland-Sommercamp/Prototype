@@ -2,7 +2,10 @@
     display: flex;
     flex-direction: column;
     padding: 20px;
-    min-height: 80vh;
     justify-content: space-between;
+}
+
+.question {
+    margin-top: 20px;
 }
 

@@ -46,28 +46,32 @@ export default function Invoice() {
     }
 
     return (
-        <>
-            <ProgressBar
-                filled={1}
-                elements={[{}, {}, {}, {}, {}, {}]} />
-            <div className={styles.container}>
-                <h1>Fakturering</h1>
-                <p>Hvem i husholdningen din blir fakturert av barnehagen eller SFO?</p>
-                <RadioBoxGroup radioTextList={textForRadioButtons} radioGroupCallback={handler}/>
-                <InformationLink 
-                    linkText={info.text}
-                    modalTitle={info.modalTitle}
-                    modalTextBody={info.modalTextBody}
-                    modalButtonText={info.modalButtonText}/>
-                <NextButton 
-                    isClickable={!noClick}
-                    callback={() => {
-                        if(progress < 2) {
-                            setProgress(2)
-                        }
-                        changePage(PAGE_POINTER.situation)
-                    }}/>
+        <>  
+            <div className="wrapper">
+                <ProgressBar
+                    filled={1}
+                    elements={[{}, {}, {}, {}, {}, {}]} />
+                <div className={styles.container}>
+                    <h1>Fakturering</h1>
+                    <p className={styles.question}>Hvem i husholdningen din blir fakturert av barnehagen eller SFO?</p>
+                    <RadioBoxGroup radioTextList={textForRadioButtons} radioGroupCallback={handler}/>
+                    <InformationLink 
+                        linkText={info.text}
+                        modalTitle={info.modalTitle}
+                        modalTextBody={info.modalTextBody}
+                        modalButtonText={info.modalButtonText}/>
+                    
+                </div>
             </div>
-        </>
+            
+            <NextButton 
+                isClickable={!noClick}
+                callback={() => {
+                    if(progress < 2) {
+                        setProgress(2)
+                    }
+                    changePage(PAGE_POINTER.situation)
+                }}/>
+    </>
     );
 }

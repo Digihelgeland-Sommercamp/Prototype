@@ -58,7 +58,7 @@ function ReviewApplication() {
     const title = () => {
         return(
         <div className={styles.container}>
-            <h2 className={styles.title}>Se over før innsending</h2>
+            <h1 className={styles.title}>Se over før innsending</h1>
         </div>
         );
     }
@@ -86,25 +86,25 @@ function ReviewApplication() {
 
     const partner = () => {
         return( 
-        <>           
-            <div className={styles.container}>
-                <InformationTitle 
-                    title={"Ektefelle / Reg.partner / Samboer"}
-                    modalTitle="Husholdning"
-                    modalTextBody="Husholdning er deg og din ektefelle, registrerte partner eller samboer. 
-                        Samboere med felles barn regnes som en husholdning. 
-                        Dersom du og din samboer ikke har felles barn vil dere regnes som en husholdning hvis dere har bodd sammen i minst 12 av de siste 18 månedene."
-                    modalButtonText="OK"/>
-                <div style={{marginBottom: "15px"}}></div>
-            </div>
+            <div className={styles.component}>           
+                <div className={styles.container}>
+                    <InformationTitle 
+                        title={"Ektefelle / Reg.partner / Samboer"}
+                        modalTitle="Husholdning"
+                        modalTextBody="Husholdning er deg og din ektefelle, registrerte partner eller samboer. 
+                            Samboere med felles barn regnes som en husholdning. 
+                            Dersom du og din samboer ikke har felles barn vil dere regnes som en husholdning hvis dere har bodd sammen i minst 12 av de siste 18 månedene."
+                        modalButtonText="OK"/>
+                    <div style={{marginBottom: "15px"}}></div>
+                </div>
 
-                {getPartner()}
-                <div style={{marginBottom: "10px"}}></div>
+                    {getPartner()}
+                    <div style={{marginBottom: "10px"}}></div>
 
-            <div className={styles.container}>
-                <Edit callback={()=>setNextPage(PAGE_POINTER.household)}/>
-            </div>
-        </>);
+                <div className={styles.container}>
+                    <Edit callback={()=>setNextPage(PAGE_POINTER.household)}/>
+                </div>
+            </div>);
     }
 
     const allChildren = () => {
@@ -130,7 +130,7 @@ function ReviewApplication() {
 
     const children = () => {
         return(
-            <>
+            <div className={styles.component}> 
                 <div className={styles.container}>
                     <h3 style={{marginBottom: "15px"}}>Søker for</h3>
                 </div>
@@ -142,7 +142,7 @@ function ReviewApplication() {
                 <div className={styles.container}>
                     <Edit callback={()=>setNextPage(PAGE_POINTER.kids)}/>
                 </div>
-            </>
+            </div>
         )
     }
 
@@ -167,9 +167,9 @@ function ReviewApplication() {
             applicants.push(getName(partner));
         
         return(
-        <>
-            <IncomeArea applicants={applicants} showAttachments={true} />
-        </>
+            <div className={styles.component}> 
+                <IncomeArea applicants={applicants} showAttachments={true} />
+            </div>
         );
     }
 
@@ -180,12 +180,14 @@ function ReviewApplication() {
     const automaticReminder = () => {
         let radioBoxText = ["Ja", "Nei"]
         return(
-            <div className={styles.container}>
-                <h2 className={styles.subtitle}>Automatisk påminnelse?</h2>
-                <p className={styles.reminderText}>Ønsker du at søknaden skal gjelde for alle årene ditt barn går i barnehage/SFO? </p>
-                <p className={styles.reminderText}>Velger du <strong>ja</strong> vil kommunen automatisk innhente husholdningens inntektsopplysninger hvert år (der dette er mulig).</p>
-                <p className={styles.reminderText}>Velger du <strong>nei</strong> må du søke på nytt hvert år. </p>
-                <RadioBoxGroup radioGroupCallback={automaticReminderCallback} radioTextList={radioBoxText}/>
+            <div className={styles.component}> 
+                <div className={styles.container}>
+                    <h2 className={styles.subtitle}>Automatisk påminnelse?</h2>
+                    <p className={styles.reminderText}>Ønsker du at søknaden skal gjelde for alle årene ditt barn går i barnehage/SFO? </p>
+                    <p className={styles.reminderText}>Velger du <strong>ja</strong> vil kommunen automatisk innhente husholdningens inntektsopplysninger hvert år (der dette er mulig).</p>
+                    <p className={styles.reminderText}>Velger du <strong>nei</strong> må du søke på nytt hvert år. </p>
+                    <RadioBoxGroup radioGroupCallback={automaticReminderCallback} radioTextList={radioBoxText}/>
+                </div>
             </div>
         );
     }
@@ -299,26 +301,19 @@ function ReviewApplication() {
     const sendApplicationButton = () => {
 
         return(
-            <div className={styles.container}>
-                <NextButton text="Send søknad" callback={sendApplication} isClickable={canSendApplication()}/>
-            </div>
+            <NextButton text="Send søknad" callback={sendApplication} isClickable={canSendApplication()}/>
         );
     }
     return(
         <>
-            <ProgressBar filled={6} elements={[{}, {}, {}, {}, {}, {}]} />
-            {title()}
-            
-            {partner()}
-
-            <div style={{marginBottom:"50px"}}></div>
-
-            {children()}
-            <div style={{marginBottom:"50px"}}></div>
-            {income()}
-            <div style={{marginBottom:"30px"}}></div>
-            {automaticReminder()}
-            <div style={{marginBottom:"20px"}}></div>
+            <div className="wrapper">
+                <ProgressBar filled={6} elements={[{}, {}, {}, {}, {}, {}]} />
+                {title()}
+                {partner()}
+                {children()}
+                {income()}
+                {automaticReminder()}
+            </div>
             {sendApplicationButton()}
         </>
     );

@@ -30,24 +30,28 @@ export default function Situation(props) {
     }
 
     return (
-        <>
-            <ProgressBar
-                filled={2}
-                elements={[{}, {}, {}, {}, {}, {}]} />
-            <div className={styles.container}>
-                
-                <h1>Hei, {props.name}!</h1>
-                <p>Hvilken situasjon gjelder deg?</p>
-                <IntrodctionRadioButtons onChange={handler} />
-                <NextButton 
-                    isClickable={!noClick}
-                    callback={() => {
-                        if(progress < 3) {
-                            setProgress(3)
-                        }
-                        changePage(PAGE_POINTER.household)
-                    }}/>
+        <>  
+            <div className="wrapper">
+                <ProgressBar
+                    filled={2}
+                    elements={[{}, {}, {}, {}, {}, {}]} />
+                <div className={styles.container}>
+                    
+                    <h1>Hei, {props.name}!</h1>
+                    <p className={styles.question}>Hvilken situasjon gjelder deg?</p>
+                    <IntrodctionRadioButtons onChange={handler} />
+                    
+                </div>
             </div>
+            <NextButton 
+                isClickable={!noClick}
+                callback={() => {
+                    if(progress < 3) {
+                        setProgress(3)
+                    }
+                    changePage(PAGE_POINTER.household)
+                }}/>
+            
         </>
     );
 }

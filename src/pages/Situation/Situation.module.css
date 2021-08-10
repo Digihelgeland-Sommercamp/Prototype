@@ -1,7 +1,7 @@
 .container {
     padding:20px;
 }
-.nextButton {
-    display: block !important;
-    margin: 0 auto !important;
+
+.question {
+    margin-top:20px;
 }

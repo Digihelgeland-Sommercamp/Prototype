@@ -163,40 +163,41 @@ export default function Kids() {
         findSelectedKids();
     return (
         <>
-            <ProgressBar
-                filled={4}
-                elements={[{}, {}, {}, {}, {}, {}]} />
-            <div className={styles.container}>
+            <div className="wrapper">
+                <ProgressBar
+                    filled={4}
+                    elements={[{}, {}, {}, {}, {}, {}]} />
+                <div className={styles.container}>
 
-                <h1 className={styles.title}>Barn</h1>
-                {/* {addingChild 
-                    ? 
-                    <>
-                        <Form handleFormChange={handleFormChange} />
-                        {showError && <ErrorBlob firstText="Feil navn eller fødselsnummer/D-nummer." secondText="Sjekk at du har skrevet riktig."/>}
-                        <NextButton 
-                            text="Legg til"
-                            isClickable
-                            callback={handleAddChild}/>
-                    </> */}
+                    <h1 className={styles.title}>Barn</h1>
+                    {/* {addingChild 
+                        ? 
+                        <>
+                            <Form handleFormChange={handleFormChange} />
+                            {showError && <ErrorBlob firstText="Feil navn eller fødselsnummer/D-nummer." secondText="Sjekk at du har skrevet riktig."/>}
+                            <NextButton 
+                                text="Legg til"
+                                isClickable
+                                callback={handleAddChild}/>
+                        </> */}
+                        
+                    <p className={styles.information}>Vi fant opplysninger om barn i Folkeregisteret. Hvilke barn vil du søke for?</p>
                     
-                <p className={styles.information}>Vi fant opplysninger om barn i Folkeregisteret. Hvilke barn vil du søke for?</p>
-                
-                <CheckBoxGroup personList={kids} checkboxCallback={childrenCallback} selectedElements={selectedChildElements}/>
-                {/* <AddChildren callback={() => setAddingChild(true)}/> */}
-                <div style={{marginTop: "50px"}}/>
-                {/* <InformationBox
-                    text="Barn det søkes for må være registrert på samme adresse som forelder som søker." /> */}
-
-                <NextButton 
-                    isClickable={clickable}
-                    callback={() => {
-                        setLastPage(currentPage)
-                        goToNextPage();
-                    }}/> {/*TODO Make this appear at the bottom. Do the same for similar pages */}
-                
-
+                    <CheckBoxGroup personList={kids} checkboxCallback={childrenCallback} selectedElements={selectedChildElements}/>
+                    {/* <AddChildren callback={() => setAddingChild(true)}/> */}
+                    <div style={{marginTop: "50px"}}/>
+                    {/* <InformationBox
+                        text="Barn det søkes for må være registrert på samme adresse som forelder som søker." /> */}
+                </div>
             </div>
+            
+            <NextButton 
+                isClickable={clickable}
+                callback={() => {
+                    setLastPage(currentPage)
+                    goToNextPage();
+                }}/> 
+            
         </>
     )
 }

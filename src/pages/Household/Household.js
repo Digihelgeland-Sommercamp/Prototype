@@ -181,58 +181,71 @@ export default function Household() {
     }
     return (
         <>
-            <ProgressBar filled={3} elements={[{}, {}, {}, {}, {}, {}]} />
-            <div className={styles.container}>
-                <h1 className={styles.title}>Husholdning</h1>
-                <div style={{margin: "10px"}}></div>
-                {yesNo &&
-                    <>
-                        <h4 className={styles.question}>
-                            Stemmer det at du er gift og bor sammen med <span className={styles.partner}>
-                                {getPartnerName()}</span>
-                        </h4>
-                        
-                        <RadioBoxGroup
-                            radioTextList={yesNoList}
-                            radioGroupCallback={yesNoRadioGroupCallback}
-                        />
-                        <NextButton 
-                            isClickable={!notClicked}
-                            callback={handleYesNoClick}/>
-                    </>
-                }
-                {askQuestion &&
-                    <>
-                        <InformationLink 
-                            linkText={info.linkText}
-                            modalTitle={info.modalTitle}
-                            modalTextBody={info.modalTextBody}
-                            modalButtonText={info.modalButtonText}/>
-                        <RadioBoxGroup
-                            radioTextList={radioTextList}
-                            radioGroupCallback={radioGroupCallback}
-                        />
-                        <NextButton 
-                            isClickable={!notClicked}
-                            callback={() => {
-                                setAskQuestion(false)
-                                setAddPartner(true)
-                            }}/>
-                    </>
-                }
-                {addPartnerPage &&
-                    <div >
-                        <p>Dersom du har hatt samboer i minst 12 av de siste 18 månedene, legg til personen her.</p>
-                        <Form handleFormChange={handleFormChange} />
-                        {showError && <ErrorBlob firstText="Feil navn eller fødselsnummer/D-nummer." secondText="Sjekk at du har skrevet riktig."/>}
-                        <NextButton 
-                            text="Legg til"
-                            isClickable={!notClicked}
-                            callback={handleAddPartner}/>
-                    </div>
-                }
+            <div className="wrapper">
+                <ProgressBar filled={3} elements={[{}, {}, {}, {}, {}, {}]} />
+                <div className={styles.container}>
+                    <h1 className={styles.title}>Husholdning</h1>
+                    {yesNo &&
+                        <>
+                            <h4 className={styles.question}>
+                                Stemmer det at du er gift og bor sammen med <span className={styles.partner}>
+                                    {getPartnerName()}</span>
+                            </h4>
+                            
+                            <RadioBoxGroup
+                                radioTextList={yesNoList}
+                                radioGroupCallback={yesNoRadioGroupCallback}
+                            />
+                            
+                        </>
+                    }
+                    {askQuestion &&
+                        <>  
+                            <div className={styles.question}>
+                                <InformationLink 
+                                linkText={info.linkText}
+                                modalTitle={info.modalTitle}
+                                modalTextBody={info.modalTextBody}
+                                modalButtonText={info.modalButtonText}/>
+                            </div>
+                            
+                            <RadioBoxGroup
+                                radioTextList={radioTextList}
+                                radioGroupCallback={radioGroupCallback}
+                            />
+                            
+                        </>
+                    }
+                    {addPartnerPage &&
+                        <div >
+                            <p className={styles.question}>Dersom du har hatt samboer i minst 12 av de siste 18 månedene, legg til personen her.</p>
+                            <Form handleFormChange={handleFormChange} />
+                            {showError && <ErrorBlob firstText="Feil navn eller fødselsnummer/D-nummer." secondText="Sjekk at du har skrevet riktig."/>}
+                        </div>
+                    }
 
+                </div>
             </div>
+            {yesNo 
+                ? <NextButton 
+                    isClickable={!notClicked}
+                    callback={handleYesNoClick}/> 
+                : askQuestion 
+                ? <NextButton 
+                    isClickable={!notClicked}
+                    callback={() => {
+                        setAskQuestion(false)
+                        setAddPartner(true)
+                    }}/> 
+                : addPartnerPage && 
+                    <NextButton 
+                        text="Legg til"
+                        isClickable={!notClicked}
+                        callback={handleAddPartner}/>
+            }
+            
+            
+            
         </>
     )
 }

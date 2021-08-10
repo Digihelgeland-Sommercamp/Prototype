@@ -13,8 +13,24 @@
   box-sizing: border-box;
 }
 
+#root {
+  display: flex;
+  min-height: calc(100vh - 20px);
+  flex-direction: column;
+}
+
+body {
+  margin-bottom: 20px;
+}
+
+.wrapper {
+  flex:1;
+}
+
+
 .App {
   text-align: center;
   display: flex;
   flex-direction: column;
+  
 }
