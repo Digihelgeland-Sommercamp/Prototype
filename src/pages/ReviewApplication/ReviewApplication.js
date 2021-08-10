@@ -88,7 +88,13 @@ function ReviewApplication() {
         return( 
         <>           
             <div className={styles.container}>
-                <InformationTitle title={"Ektefelle / Reg.partner / Samboer"}/>
+                <InformationTitle 
+                    title={"Ektefelle / Reg.partner / Samboer"}
+                    modalTitle="Husholdning"
+                    modalTextBody="Husholdning er deg og din ektefelle, registrerte partner eller samboer. 
+                        Samboere med felles barn regnes som en husholdning. 
+                        Dersom du og din samboer ikke har felles barn vil dere regnes som en husholdning hvis dere har bodd sammen i minst 12 av de siste 18 månedene."
+                    modalButtonText="OK"/>
                 <div style={{marginBottom: "15px"}}></div>
             </div>
 
@@ -126,7 +132,11 @@ function ReviewApplication() {
         return(
             <>
                 <div className={styles.container}>
-                    <InformationTitle title={"Søker for"}/>
+                    <InformationTitle 
+                        title={"Søker for"}
+                        modalTitle="Dine barn btw"
+                        modalTextBody="Dette er dine barn"
+                        modalButtonText="OK"/>
                     <div style={{marginBottom: "15px"}}></div>
                 </div>
                 {/* <Applicant applicantName={"Kari jajaja"} identifier={"465487465"}/> */}
@@ -177,8 +187,9 @@ function ReviewApplication() {
         return(
             <div className={styles.container}>
                 <h2 className={styles.subtitle}>Automatisk påminnelse?</h2>
-                <p>Vil du bli kontaktet når du kan søke om redusert foreldrebetaling 
-                    eller gratis kjernetid til neste år?</p>
+                <p className={styles.reminderText}>Ønsker du at søknaden skal gjelde for alle årene ditt barn går i barnehage/SFO? </p>
+                <p className={styles.reminderText}>Velger du <strong>ja</strong> vil kommunen automatisk innhente husholdningens inntektsopplysninger hvert år (der dette er mulig).</p>
+                <p className={styles.reminderText}>Velger du <strong>nei</strong> må du søke på nytt hvert år. </p>
                 <RadioBoxGroup radioGroupCallback={automaticReminderCallback} radioTextList={radioBoxText}/>
             </div>
         );

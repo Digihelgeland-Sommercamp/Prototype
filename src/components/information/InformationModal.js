@@ -1,10 +1,13 @@
-import { useState } from "react";
+
 import styles from './InformationModal.module.css';
 
 function InformationModal(props) {
-    const [title,] = useState(props.title);
-    const [textBody,] = useState(props.textBody);
-    const [buttonText,] = useState(props.buttonText)
+    const title = props.title
+    const textBody = props.textBody
+    const buttonText = props.buttonText
+    const list = props.list
+    
+    console.log(list);
 
     const modal = () => {
         return(
@@ -14,10 +17,16 @@ function InformationModal(props) {
                     {title}
                 </h3>
                 <div className={styles.text}>
-                    {textBody.split('\\n').map((item, i) => {
+                    {textBody && textBody.split('\\n').map((item, i) => {
                         return <p className={styles.bodyItem} key={i}>{item}</p>
-                    })
-                    }
+                    })}
+                    {list && 
+                        <ul>
+                            {list.map((item, _)=>{
+                                return <li style={{marginLeft:"20px"}}>{item}</li>
+                            })}                    
+                        </ul>
+                    }   
                 </div>
                 <button className={styles.closeButton} onClick={props.toggleVisible}>{buttonText}</button>
             </div>

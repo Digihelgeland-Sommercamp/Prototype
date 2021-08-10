@@ -137,6 +137,7 @@ export default function Household() {
 
     const handleFormChange = (form, formError) => {
         setFormError(formError)
+        setShowError(false)
         let newForm = {
             "identifikasjonsnummer": {
                 "foedselsEllerDNummer": form.personidentifikator,
@@ -220,7 +221,7 @@ export default function Household() {
                     </>
                 }
                 {addPartnerPage &&
-                    <>
+                    <div >
                         <p>Dersom du har hatt samboer i minst 12 av de siste 18 månedene, legg til personen her.</p>
                         <Form handleFormChange={handleFormChange} />
                         {showError && <ErrorBlob firstText="Feil navn eller fødselsnummer/D-nummer." secondText="Sjekk at du har skrevet riktig."/>}
@@ -228,7 +229,7 @@ export default function Household() {
                             text="Legg til"
                             isClickable={!notClicked}
                             callback={handleAddPartner}/>
-                    </>
+                    </div>
                 }
 
             </div>
