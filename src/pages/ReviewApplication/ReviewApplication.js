@@ -237,8 +237,8 @@ function ReviewApplication(props) {
     }
 
     const canSendApplication = () => {
-        //if(shouldBeNotified === null) return false;
-        //if(!sessionStorage.getItem("children") || JSON.parse(sessionStorage.getItem("children")).length<1) return false;
+        if(shouldBeNotified === null) return false;
+        if(!sessionStorage.getItem("children") || JSON.parse(sessionStorage.getItem("children")).length<1) return false;
 
         return true;
     }
