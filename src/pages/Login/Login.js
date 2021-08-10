@@ -1,4 +1,5 @@
 import { selector, useRecoilState } from 'recoil';
+import NextButton from '../../components/NextButton/NextButton.js';
 
 import { PAGE_POINTER } from '../../pagePointer.js';
 
@@ -17,10 +18,13 @@ function Login() {
   const [, setLastPage] = useRecoilState(lastPage)
   return (
     <div className={styles.container}>
-      <button className={styles.login} onClick={() => {
-        setLastPage(state)
-        setState(PAGE_POINTER.portal)
-      }}>Til søknad</button>
+      <NextButton 
+          isClickable
+          text="Til søknad"
+          callback={() => {
+            setLastPage(state)
+            setState(PAGE_POINTER.portal)
+          }}/>
     </div>
   );
 }
