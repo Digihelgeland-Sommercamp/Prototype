@@ -3,7 +3,6 @@ import './App.css';
 import React from 'react';
 import {
   RecoilRoot,
-  atom,
   useRecoilState,
   useRecoilValue,
 } from 'recoil';
@@ -21,43 +20,7 @@ import ReviewApplication from './pages/ReviewApplication/ReviewApplication';
 import Invoice from './pages/Invoice/Invoice';
 import Portal from './pages/Portal/Portal';
 import Receipt from './pages/Receipt/Reicept'
-
-
-
-const page = atom({
-  key: "page",
-  default: PAGE_POINTER.login
-});
-
-const lastPage = atom({
-  key: "lastPage",
-  default: 0
-})
-
-const situation = atom({
-  key: "situation",
-  default: ""
-})
-
-const attachmentList = atom({
-  key: "attachmentList",
-  default: []
-})
-
-const caseNumberAtom = atom({
-  key: 'caseNumber',
-  default: ''
-})
-
-const progressSelector = atom({
-  key: 'progress',
-  default: 1
-})
-
-const partnerSelector = atom({
-  key: 'partner',
-  default: {}
-})
+import { page, situation } from './atoms';
 
 
 function App() {

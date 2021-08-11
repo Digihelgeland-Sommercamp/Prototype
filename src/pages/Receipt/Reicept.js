@@ -1,27 +1,15 @@
 import React from "react";
 import NextButton from "../../components/NextButton/NextButton";
 import styles from "./Receipt.module.css";
-import { selector, useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { PAGE_POINTER } from "../../pagePointer";
-
-const page = selector({
-    key: 'page', 
-});
-
-const lastPage = selector({
-    key: 'lastPage', 
-});
-
-const caseNumberSelector = selector({
-    key:'caseNumber'
-})
-
+import { caseNumberAtom, lastPage, page } from "../../atoms";
 
 function Receipt() {
     // TODO add callbacks for the two buttons
     const [currentPage, setCurrentPage] = useRecoilState(page);
     const [, setLastPage] = useRecoilState(lastPage)
-    const caseNumber = useRecoilValue(caseNumberSelector)
+    const caseNumber = useRecoilValue(caseNumberAtom)
 
     const goToPortal = () => {
         setLastPage(currentPage);

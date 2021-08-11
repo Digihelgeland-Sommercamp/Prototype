@@ -1,16 +1,10 @@
 import React from 'react'
 
 import styles from './ProgressBar.module.css'
-import { selector, useRecoilState, useRecoilValue } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { PAGE_POINTER } from '../../pagePointer'
+import { page, progressSelector } from '../../atoms'
 
-const page = selector({
-    key: 'page'
-})
-
-const progressSelector = selector({
-    key: 'progress'
-})
 
 export default function ProgressBarElement(props) {
     const progress = useRecoilValue(progressSelector)

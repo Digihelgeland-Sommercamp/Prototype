@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { selector, useRecoilState } from 'recoil'
+import { useRecoilState } from 'recoil'
 
 import { PAGE_POINTER } from '../../pagePointer';
 
@@ -12,23 +12,7 @@ import InformationLink from '../../components/information/InformationLink';
 import axios from 'axios';
 import ErrorBlob from '../../components/Form/ErrorBlob';
 import NextButton from '../../components/NextButton/NextButton';
-
-
-const page = selector({
-    key: 'page',
-});
-
-const lastPage = selector({
-    key: 'lastPage',
-});
-const progressSelector = selector({
-    key: 'progress'
-})
-const partnerSelector = selector({
-    key: 'partner'
-})
-
-
+import { lastPage, page, partnerSelector, progressSelector } from '../../atoms';
 
 const radioTextList = [
     "Enslig",

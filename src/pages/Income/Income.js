@@ -1,5 +1,5 @@
 import React from 'react'
-import { selector, useRecoilState } from 'recoil'
+import { useRecoilState } from 'recoil'
 
 import { PAGE_POINTER } from '../../pagePointer';
 
@@ -9,17 +9,7 @@ import UploadArea from '../../components/fileUpload/UploadArea'
 
 import styles from './Income.module.css'
 import NextButton from '../../components/NextButton/NextButton';
-
-const page = selector({
-    key: "page"
-})
-const lastPage = selector({
-    key: "lastPage"
-})
-const progressSelector = selector({
-    key: 'progress'
-})
-
+import { lastPage, page, progressSelector } from '../../atoms';
 
 
 export default function Income() {

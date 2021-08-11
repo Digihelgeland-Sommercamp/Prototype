@@ -2,7 +2,7 @@ import { useState } from "react";
 import Edit from "../../components/Edit/Edit";
 import styles from './ReviewApplication.module.css'
 
-import { selector, useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { PAGE_POINTER } from '../../pagePointer.js';
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
@@ -12,44 +12,17 @@ import IncomeArea from "../../components/IncomeArea/IncomeArea";
 import RadioBoxGroup from "../../components/radioBox/RadioBoxGroup";
 import NextButton from "../../components/NextButton/NextButton";
 import axios from "axios";
+import { attachmentList, caseNumberAtom, lastPage, page, partnerSelector, progressSelector, situation } from "../../atoms";
 
-
-
-const page = selector({
-    key: 'page', 
-});
-
-const lastPage = selector({
-    key: 'lastPage', 
-});
-
-const currentSituation = selector({
-    key: 'situation',
-})
-
-const attachmentList = selector({
-    key: "attachmentList"
-})
-
-const caseNumberAtom = selector({
-    key: 'caseNumber',
-})
-const progressSelector = selector({
-    key: 'progress'
-})
-const partnerSelector = selector({
-    key: 'partner'
-})
-  
 
 function ReviewApplication() {
     const [state, setState] = useRecoilState(page);
     const [, setLastPage] = useRecoilState(lastPage)
     const [, setProgress] = useRecoilState(progressSelector) 
 
-    const [situation, ] = useRecoilState(currentSituation)
+    const currentSituaton = useRecoilState(situation)
     const [shouldBeNotified, setShouldBeNotified] = useState(null)
-    const [itemList] = useRecoilState(attachmentList)
+    const itemList = useRecoilValue(attachmentList)
     const [, setCaseNumber] = useRecoilState(caseNumberAtom)
     const savedPartner = useRecoilValue(partnerSelector)
 
@@ -236,7 +209,7 @@ function ReviewApplication() {
         let applicant = sessionStorage.getItem("applicant") ? JSON.parse(sessionStorage.getItem("applicant")) : null;
         let partner = sessionStorage.getItem("partner") ? JSON.parse(sessionStorage.getItem("partner")) : null;
         let hasPartner = partner !== null;
-        let stableIncome = situation === "stable-income";
+        let stableIncome = currentSituaton === "stable-income";
         let applicantID = sessionStorage.getItem("applicantIdentifier")
 
         let data = {

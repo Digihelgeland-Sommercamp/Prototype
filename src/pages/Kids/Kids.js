@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { selector, useRecoilState } from 'recoil'
+import { useRecoilState } from 'recoil'
 
 import { PAGE_POINTER } from '../../pagePointer.js';
 
@@ -13,18 +13,7 @@ import CheckBoxGroup from '../../components/checkBoxField/CheckBoxGroup.js';
 import ErrorBlob from '../../components/Form/ErrorBlob.js';
 import axios from 'axios';
 import NextButton from '../../components/NextButton/NextButton.js';
-
-
-const page = selector({
-    key: "page"
-})
-const lastPage = selector({
-    key: "lastPage"
-})
-const progressSelector = selector({
-    key: 'progress'
-})
-
+import { lastPage, page, progressSelector } from '../../atoms.js';
 
 
 export default function Kids() {

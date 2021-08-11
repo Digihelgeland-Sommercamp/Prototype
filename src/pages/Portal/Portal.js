@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { atom, selector, useRecoilState } from 'recoil'
+import { useRecoilState } from 'recoil'
 
 import { PAGE_POINTER } from '../../pagePointer';
 
@@ -9,18 +9,8 @@ import styles from './Portal.module.css'
 import InformationLink from '../../components/information/InformationLink';
 import axios from 'axios';
 import NextButton from '../../components/NextButton/NextButton';
+import { lastPage, overviewOfApplication, page } from '../../atoms';
 
-const overviewOfApplication = atom({
-    key: "overviewOfApplication",
-    default: {}
-})
-  
-const page = selector({
-    key: "page"
-})
-const lastPage = selector({
-    key: 'lastPage',
-});
 
 const applicantIdentifier = "03839199405"
 

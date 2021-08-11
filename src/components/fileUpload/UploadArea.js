@@ -2,14 +2,8 @@ import './UploadArea.css';
 import React, { useState } from 'react';
 import UploadItem from './UploadItem';
 
-import {
-    selector,
-    useRecoilState,
-  } from 'recoil';
-
-const attachmentList = selector({
-    key: "attachmentList"
-})
+import {useRecoilState} from 'recoil';
+import { attachmentList } from '../../atoms';
 
 
 function UploadArea() {
@@ -53,8 +47,6 @@ function UploadArea() {
         const size = event.target.files[0].size;
         list_of_items.push([event.target.files[0], [counterKey, filename, type, size]]); 
         await setItemList(list_of_items);
-        console.log("List of items: " + list_of_items);
-        console.log("ItemList: " + itemList);
 
 
         clearInputFile(event.target);

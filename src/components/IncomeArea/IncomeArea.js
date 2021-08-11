@@ -1,10 +1,7 @@
 import styles from './IncomeArea.module.css'
 import InformationTitle from '../information/InformationTitle';
-import { selector, useRecoilValue } from 'recoil';
-
-const attachmentList = selector({
-    key: "attachmentList"
-})
+import { useRecoilValue } from 'recoil';
+import { attachmentList } from '../../atoms';
 
 function IncomeArea(props) {
     const incomeTitleText = props.incomeTitleText
@@ -27,7 +24,7 @@ function IncomeArea(props) {
                 if (name.length > 20) {
                     simplified = name.slice(0,20) + " ... ." + itemList[i][1][2].split("/")[1];
                 }
-                returner.push(<li className={styles.attachmentList}>{simplified}</li>);
+                returner.push(<li key={i} className={styles.attachmentList}>{simplified}</li>);
             }
             return(returner);
         }

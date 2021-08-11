@@ -2,22 +2,14 @@ import React, { useState } from 'react'
 
 import { PAGE_POINTER } from '../../pagePointer.js';
 
-import { useRecoilState, selector } from 'recoil'
+import { useRecoilState } from 'recoil'
 import IntrodctionRadioButtons from '../../components/IntroductionRadioButtons/IntroductionRadioButtons'
 import ProgressBar from '../../components/ProgressBar/ProgressBar'
 
 
 import styles from './Situation.module.css'
 import NextButton from '../../components/NextButton/NextButton.js';
-
-const page = selector({
-    key: 'page', 
-});
-
-const progressSelector = selector({
-    key: 'progress'
-})
-
+import { page, progressSelector } from '../../atoms.js';
 
 export default function Situation(props) {    
     const [, changePage] = useRecoilState(page)

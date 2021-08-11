@@ -1,14 +1,11 @@
 import React from 'react';
-import { selector, useRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 import { FormControl, RadioGroup, FormControlLabel, Radio } from '@material-ui/core'
 
 import styles from './IntroductionRadioButtons.module.css'
 import InformationLink from '../information/InformationLink';
-
-const situation = selector({
-    key: 'situation', 
-});
+import { situation } from '../../atoms';
 
 export default function IntrodctionRadioButtons(props) {
     const [, setSituation] = useRecoilState(situation)

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import { PAGE_POINTER } from '../../pagePointer.js';
 
-import { useRecoilState, selector } from 'recoil'
+import { useRecoilState } from 'recoil'
 import ProgressBar from '../../components/ProgressBar/ProgressBar'
 
 
@@ -10,20 +10,12 @@ import styles from './Invoice.module.css'
 import RadioBoxGroup from '../../components/radioBox/RadioBoxGroup.js';
 import NextButton from '../../components/NextButton/NextButton.js';
 import InformationLink from '../../components/information/InformationLink.js';
-
-const page = selector({
-    key: 'page', 
-});
-
-const progressSelector = selector({
-    key: 'progress'
-})
+import { page, progressSelector } from '../../atoms.js';
 
 
 // TODO: Check for children here, if none is found show an error or something 
 export default function Invoice() {
     const [progress, setProgress] = useRecoilState(progressSelector)
-
     const [, changePage] = useRecoilState(page)
 
     const [noClick, setNoClick] = useState(true)
