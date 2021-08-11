@@ -48,26 +48,20 @@ export default function Kids() {
     const [clickable, setClickable] = useState(false)
     
     const saveChildren = (childrenToSave) => {
-        console.log("Saving children");
-        console.log(childrenToSave);
         setKids(childrenToSave);
         sessionStorage.setItem("kids", JSON.stringify(childrenToSave))
     }
 
     useEffect(() => {
         let applicantIdentifier = sessionStorage.getItem("applicantIdentifier");
-        console.log("Checking if kids already exists")
-
-        console.log(sessionStorage.getItem("kids"))            
+          
         if(sessionStorage.getItem("kids") || !applicantIdentifier)
             return;
-        console.log("Getting kids from hub")
 
         // let applicantIdentifier = tempApplicant[""]
         let url = "http://51.107.208.107/get_children/"+applicantIdentifier;
         axios.get(url).then((response) => {
             saveChildren(response.data);
-            console.log(response.data);
         })
         
     }, [])
@@ -101,8 +95,6 @@ export default function Kids() {
         let tempSelectedChildren = []
         for(let i=0; i<kids.length; i++)
         {
-            console.log("Selected element list in kids: "+selectedElementList)
-
             if(selectedElementList[i] === true){
                 tempSelectedChildren.push(kids[i])
                 flag = true
@@ -147,7 +139,6 @@ export default function Kids() {
     function goToNextPage() {
         sessionStorage.setItem("children", JSON.stringify(selectedChildren)) // Only send in selected kids
         sessionStorage.setItem("kids", JSON.stringify(kids));
-        console.log(kids)
 
         if(progress < 5) {
             setProgress(5)

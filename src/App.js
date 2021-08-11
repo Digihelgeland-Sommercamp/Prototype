@@ -54,6 +54,11 @@ const progressSelector = atom({
   default: 1
 })
 
+const partnerSelector = atom({
+  key: 'partner',
+  default: {}
+})
+
 
 function App() {
   
@@ -65,7 +70,6 @@ function App() {
 
 }
 
-// TODO: Remove all console.log
 function Router() {
   const [state, setState] = useRecoilState(page);
   const currentSituaton = useRecoilValue(situation)

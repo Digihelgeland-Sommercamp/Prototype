@@ -31,7 +31,6 @@ export default function Income() {
     const partner = sessionStorage.getItem("partner") ? JSON.parse(sessionStorage.getItem("partner")) : null;
     const applicant = sessionStorage.getItem("applicant") ? JSON.parse(sessionStorage.getItem("applicant")) : null
 
-    console.log(partner)
     const getName = (person) => {
         let fornavn = typeof person["navn"] !=="undefined" && person["navn"]["fornavn"]
                         ? person["navn"]["fornavn"] : "";

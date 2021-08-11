@@ -1,7 +1,6 @@
-import { useState } from 'react';
 import styles from './IncomeArea.module.css'
 import InformationTitle from '../information/InformationTitle';
-import { selector, useRecoilState, useRecoilValue } from 'recoil';
+import { selector, useRecoilValue } from 'recoil';
 
 const attachmentList = selector({
     key: "attachmentList"
