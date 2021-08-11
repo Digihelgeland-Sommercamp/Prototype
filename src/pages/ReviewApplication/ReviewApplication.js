@@ -2,7 +2,7 @@ import { useState } from "react";
 import Edit from "../../components/Edit/Edit";
 import styles from './ReviewApplication.module.css'
 
-import { selector, useRecoilState } from 'recoil';
+import { selector, useRecoilState, useRecoilValue } from 'recoil';
 
 import { PAGE_POINTER } from '../../pagePointer.js';
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
@@ -37,18 +37,21 @@ const caseNumberAtom = selector({
 const progressSelector = selector({
     key: 'progress'
 })
-
+const partnerSelector = selector({
+    key: 'partner'
+})
   
 
 function ReviewApplication() {
     const [state, setState] = useRecoilState(page);
     const [, setLastPage] = useRecoilState(lastPage)
-    const [progress, setProgress] = useRecoilState(progressSelector) 
+    const [, setProgress] = useRecoilState(progressSelector) 
 
     const [situation, ] = useRecoilState(currentSituation)
     const [shouldBeNotified, setShouldBeNotified] = useState(null)
     const [itemList] = useRecoilState(attachmentList)
-    const [caseNumber, setCaseNumber] = useRecoilState(caseNumberAtom)
+    const [, setCaseNumber] = useRecoilState(caseNumberAtom)
+    const savedPartner = useRecoilValue(partnerSelector)
 
     const setNextPage = (page) => {
         setLastPage(state);
@@ -85,26 +88,31 @@ function ReviewApplication() {
     }
 
     const partner = () => {
-        return( 
-            <div className={styles.component}>           
-                <div className={styles.container}>
-                    <InformationTitle 
-                        title={"Ektefelle / Reg.partner / Samboer"}
-                        modalTitle="Husholdning"
-                        modalTextBody="Husholdning er deg og din ektefelle, registrerte partner eller samboer. 
-                            Samboere med felles barn regnes som en husholdning. 
-                            Dersom du og din samboer ikke har felles barn vil dere regnes som en husholdning hvis dere har bodd sammen i minst 12 av de siste 18 månedene."
-                        modalButtonText="OK"/>
-                    <div style={{marginBottom: "15px"}}></div>
-                </div>
+        return(
+            <>
+                {savedPartner !== "" &&
+                    <div className={styles.component}>           
+                        <div className={styles.container}>
+                            <InformationTitle 
+                                title={"Medsøker"}
+                                modalTitle="Husholdning"
+                                modalTextBody="Husholdning er deg og din ektefelle, registrerte partner eller samboer. 
+                                    Samboere med felles barn regnes som en husholdning. 
+                                    Dersom du og din samboer ikke har felles barn vil dere regnes som en husholdning hvis dere har bodd sammen i minst 12 av de siste 18 månedene."
+                                modalButtonText="OK"/>
+                            <div style={{marginBottom: "15px"}}></div>
+                        </div>
 
-                    {getPartner()}
-                    <div style={{marginBottom: "10px"}}></div>
+                            {getPartner()}
+                            <div style={{marginBottom: "10px"}}></div>
 
-                <div className={styles.container}>
-                    <Edit callback={()=>setNextPage(PAGE_POINTER.household)}/>
-                </div>
-            </div>);
+                        <div className={styles.container}>
+                            <Edit callback={()=>setNextPage(PAGE_POINTER.household)}/>
+                        </div>
+                    </div>
+                } 
+            </>
+        );
     }
 
     const allChildren = () => {
@@ -274,7 +282,6 @@ function ReviewApplication() {
                 data["vedlegg"] = JSON.parse(response.data);
             })
             .catch(function (response) {
-                console.log(response)
             });
         }
 
@@ -285,7 +292,6 @@ function ReviewApplication() {
             sessionStorage.removeItem("kids");
             sessionStorage.removeItem("children");
             setCaseNumber(response.data.saksnummer)
-            console.log(caseNumber)
         })
 
         goToNextPage();

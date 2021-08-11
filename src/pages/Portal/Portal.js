@@ -57,9 +57,6 @@ export default function Portal(props) {
         //TODO: consider a filter on the backend for the applications returned
     }
 
-    console.log(activeApplications);
-    console.log(oldApplications);
-
     useEffect(() => {
         axios.get("http://51.107.208.107/get_applicant/"+applicantIdentifier).then(
             (response) => {sessionStorage.setItem("applicant", JSON.stringify(response.data))}

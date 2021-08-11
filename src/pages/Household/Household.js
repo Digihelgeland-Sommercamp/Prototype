@@ -24,6 +24,10 @@ const lastPage = selector({
 const progressSelector = selector({
     key: 'progress'
 })
+const partnerSelector = selector({
+    key: 'partner'
+})
+
 
 
 const radioTextList = [
@@ -45,13 +49,13 @@ export default function Household() {
     const [formError, setFormError] = useState(true)
     const [showError, setShowError] = useState(false)
 
-    const [partner, setPartner] = useState({})
+    const [partner, setPartner] = useRecoilState(partnerSelector)
     const [yesNo, setYesNo] = useState(true)
     const [askQuestion, setAskQuestion] = useState(false)
     const [addPartnerPage, setAddPartner] = useState(false)
 
     const [chosenYesNo, setChosenYesNo] = useState("")
-    const [, setAnswer] = useState("")
+    const [answer, setAnswer] = useState("")
 
     const [, setApplicant] = useState(null)
 
@@ -64,7 +68,6 @@ export default function Household() {
     const saveApplicant = (applicantToSave) => {
         setApplicant(applicantToSave);
         sessionStorage.setItem("applicant", JSON.stringify(applicantToSave));
-        console.log(applicantToSave);
     } 
     
     // Get the applicant from hub
@@ -88,22 +91,12 @@ export default function Household() {
         setChosenYesNo(yesNoList[id])
     }
 
-    const savePartner = (partnerToSave) => {
-
-        // let tempPartner = {
-        //     navn: partnerToSave["navn"],
-        //     "personidentifikator": partnerToSave["identifikasjonsnummer"]["foedselsEllerDNummer"]
-        // }
-        console.log(partnerToSave)
-        setPartner(partnerToSave)
-    }
-
     function fetchPartner() {
         if(typeof partner["personidentifikator"] === "undefined")
         {
             let applicantIdentifier = sessionStorage.getItem("applicantIdentifier");
             let url = "http://51.107.208.107/get_partner/"+applicantIdentifier;
-            axios.get(url).then((response) => {savePartner(response.data);})
+            axios.get(url).then((response) => {setPartner(response.data);})
         }
         
     }
@@ -122,7 +115,6 @@ export default function Household() {
     function goToNextPage() {
         
         sessionStorage.setItem("partner", JSON.stringify(partner));
-        console.log(sessionStorage.getItem("partner"));
 
         if(progress < 4) {
             setProgress(4)
@@ -151,6 +143,18 @@ export default function Household() {
             }
         }
         setPartner(newForm)
+    }
+
+    const handleAskQuestion = () => {
+        if(answer === "Enslig"){
+            setPartner("")
+            goToNextPage()
+        }
+        else{
+            setAskQuestion(false)
+            setAddPartner(true)
+        }
+        
     }
 
     const handleAddPartner = () => {
@@ -233,10 +237,7 @@ export default function Household() {
                 : askQuestion 
                 ? <NextButton 
                     isClickable={!notClicked}
-                    callback={() => {
-                        setAskQuestion(false)
-                        setAddPartner(true)
-                    }}/> 
+                    callback={handleAskQuestion}/> 
                 : addPartnerPage && 
                     <NextButton 
                         text="Legg til"

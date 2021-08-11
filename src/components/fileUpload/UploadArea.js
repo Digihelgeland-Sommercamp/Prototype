@@ -1,5 +1,4 @@
 import './UploadArea.css';
-import axios from 'axios';
 import React, { useState } from 'react';
 import UploadItem from './UploadItem';
 
@@ -14,9 +13,8 @@ const attachmentList = selector({
 
 
 function UploadArea() {
-    const [selectedFile, setSelectedFile] = useState();
+    const [, setSelectedFile] = useState();
     const [itemList, setItemList] = useRecoilState(attachmentList)
-    const [counter, setCounter] = useState(0)
 
 
 
