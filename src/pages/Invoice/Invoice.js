@@ -41,7 +41,7 @@ export default function Invoice(props) {
                 elements={[{}, {}, {}, {}, {}, {}]} />
             <div className={styles.container}>
                 <h1>Fakturering</h1>
-                <p>Hvem i husholdningen din blir fakturert av barnehagen eller SFO?</p>
+                <p>Blir du fakturert av barnehage eller SFO?</p>
                 <RadioBoxGroup radioTextList={textForRadioButtons} radioGroupCallback={handler}/>
                 <InfoButtonText text="Hva menes med husholdning?"/>
                 <Button
