@@ -3,7 +3,6 @@ import './App.css';
 import React from 'react';
 import {
   RecoilRoot,
-  atom,
   useRecoilState,
   useRecoilValue,
 } from 'recoil';
@@ -21,28 +20,7 @@ import ReviewApplication from './pages/ReviewApplication/ReviewApplication';
 import Invoice from './pages/Invoice/Invoice';
 import Portal from './pages/Portal/Portal';
 import Receipt from './pages/Receipt/Reicept'
-
-
-
-const page = atom({
-  key: "page",
-  default: PAGE_POINTER.income
-});
-
-const lastPage = atom({
-  key: "lastPage",
-  default: 0
-})
-
-const situation = atom({
-  key: "situation",
-  default: ""
-})
-
-const attachmentList = atom({
-  key: "attachmentList",
-  default: []
-})
+import { page, situation } from './atoms';
 
 
 function App() {
@@ -55,7 +33,6 @@ function App() {
 
 }
 
-// TODO: Remove all console.log
 function Router() {
   const [state, setState] = useRecoilState(page);
   const currentSituaton = useRecoilValue(situation)

@@ -12,9 +12,11 @@ function InformationTitle(props) {
     return (
         <div className={styles.box}>
             <h3 className={styles.text}>{title}</h3>
-            <InformationLink modalTitle={modalTitle} 
-            modalTextBody={modalTextBody} 
-            modalButtonText={modalButtonText}/>
+            <InformationLink 
+                iconOnly = {true}
+                modalTitle = {modalTitle} 
+                modalTextBody = {modalTextBody} 
+                modalButtonText = {modalButtonText}/>
         </div>
     )
 }

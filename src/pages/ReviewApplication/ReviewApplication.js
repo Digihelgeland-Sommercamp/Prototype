@@ -2,7 +2,7 @@ import { useState } from "react";
 import Edit from "../../components/Edit/Edit";
 import styles from './ReviewApplication.module.css'
 
-import { selector, useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { PAGE_POINTER } from '../../pagePointer.js';
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
@@ -12,33 +12,20 @@ import IncomeArea from "../../components/IncomeArea/IncomeArea";
 import RadioBoxGroup from "../../components/radioBox/RadioBoxGroup";
 import NextButton from "../../components/NextButton/NextButton";
 import axios from "axios";
-const page = selector({
-    key: 'page', 
-  });
-  
-  const lastPage = selector({
-    key: 'lastPage', 
-  });
+import { attachmentList, caseNumberAtom, lastPage, page, partnerSelector, progressSelector, situation } from "../../atoms";
 
-  const currentSituation = selector({
-      key: 'situation',
-  })
-
-
-const attachmentList = selector({
-    key: "attachmentList"
-})
-  
 
 function ReviewApplication() {
-
     const [state, setState] = useRecoilState(page);
     const [, setLastPage] = useRecoilState(lastPage)
-    const [situation, ] = useRecoilState(currentSituation)
-    const [shouldBeNotified, setShouldBeNotified] = useState(null)
-    const [itemList] = useRecoilState(attachmentList)
+    const [, setProgress] = useRecoilState(progressSelector) 
 
-    console.log(situation);
+    const currentSituaton = useRecoilState(situation)
+    const [shouldBeNotified, setShouldBeNotified] = useState(null)
+    const itemList = useRecoilValue(attachmentList)
+    const [, setCaseNumber] = useRecoilState(caseNumberAtom)
+    const savedPartner = useRecoilValue(partnerSelector)
+
     const setNextPage = (page) => {
         setLastPage(state);
         setState(page);
@@ -47,7 +34,7 @@ function ReviewApplication() {
     const title = () => {
         return(
         <div className={styles.container}>
-            <h2 className={styles.title}>Se over før innsending</h2>
+            <h1 className={styles.title}>Se over før innsending</h1>
         </div>
         );
     }
@@ -74,20 +61,31 @@ function ReviewApplication() {
     }
 
     const partner = () => {
-        return( 
-        <>           
-            <div className={styles.container}>
-                <InformationTitle title={"Ektefelle / Reg.partner / Samboer"}/>
-                <div style={{marginBottom: "15px"}}></div>
-            </div>
+        return(
+            <>
+                {savedPartner !== "" &&
+                    <div className={styles.component}>           
+                        <div className={styles.container}>
+                            <InformationTitle 
+                                title={"Medsøker"}
+                                modalTitle="Husholdning"
+                                modalTextBody="Husholdning er deg og din ektefelle, registrerte partner eller samboer. 
+                                    Samboere med felles barn regnes som en husholdning. 
+                                    Dersom du og din samboer ikke har felles barn vil dere regnes som en husholdning hvis dere har bodd sammen i minst 12 av de siste 18 månedene."
+                                modalButtonText="OK"/>
+                            <div style={{marginBottom: "15px"}}></div>
+                        </div>
 
-                {getPartner()}
-                <div style={{marginBottom: "10px"}}></div>
+                            {getPartner()}
+                            <div style={{marginBottom: "10px"}}></div>
 
-            <div className={styles.container}>
-                <Edit callback={()=>setNextPage(PAGE_POINTER.household)}/>
-            </div>
-        </>);
+                        <div className={styles.container}>
+                            <Edit callback={()=>setNextPage(PAGE_POINTER.household)}/>
+                        </div>
+                    </div>
+                } 
+            </>
+        );
     }
 
     const allChildren = () => {
@@ -113,10 +111,9 @@ function ReviewApplication() {
 
     const children = () => {
         return(
-            <>
+            <div className={styles.component}> 
                 <div className={styles.container}>
-                    <InformationTitle title={"Søker for"}/>
-                    <div style={{marginBottom: "15px"}}></div>
+                    <h3 style={{marginBottom: "15px"}}>Søker for</h3>
                 </div>
                 {/* <Applicant applicantName={"Kari jajaja"} identifier={"465487465"}/> */}
                 {allChildren()}
@@ -126,7 +123,7 @@ function ReviewApplication() {
                 <div className={styles.container}>
                     <Edit callback={()=>setNextPage(PAGE_POINTER.kids)}/>
                 </div>
-            </>
+            </div>
         )
     }
 
@@ -151,9 +148,9 @@ function ReviewApplication() {
             applicants.push(getName(partner));
         
         return(
-        <>
-            <IncomeArea applicants={applicants} showAttachments={true} />
-        </>
+            <div className={styles.component}> 
+                <IncomeArea applicants={applicants} showAttachments={true} />
+            </div>
         );
     }
 
@@ -199,11 +196,12 @@ function ReviewApplication() {
     }
 
     const goToNextPage = () => {
+        setProgress(1)
         setLastPage(state);
         setState(PAGE_POINTER.receipt)
     }
 
-    const sendApplication = () => {
+    const sendApplication = async () => {
         if(!canSendApplication()) return false;
         let url = "http://51.107.208.107/submit_application";
         let attachmentsUrl = "http://51.107.208.107/add_attachment";
@@ -211,11 +209,9 @@ function ReviewApplication() {
         let applicant = sessionStorage.getItem("applicant") ? JSON.parse(sessionStorage.getItem("applicant")) : null;
         let partner = sessionStorage.getItem("partner") ? JSON.parse(sessionStorage.getItem("partner")) : null;
         let hasPartner = partner !== null;
-        let stableIncome = situation === "stable-income";
+        let stableIncome = currentSituaton === "stable-income";
         let applicantID = sessionStorage.getItem("applicantIdentifier")
-        console.log(applicant)
 
-        console.log(applicant)
         let data = {
             "navn": applicant["navn"],
             "identifikasjonsnummer": {
@@ -244,13 +240,12 @@ function ReviewApplication() {
         }
 
         const vedleggListe = itemList;
-        if (vedleggListe != null && vedleggListe.length > 0) {
+        if (vedleggListe !== null && vedleggListe.length > 0) {
             const formData = new FormData();
             for (var i = 0; i<vedleggListe.length; i++){
                 formData.append('file'+i, vedleggListe[i][0]);
             };
-            console.log(formData)
-            axios({
+            await axios({
                 method: "post",
                 url: attachmentsUrl,
                 data: formData,
@@ -260,11 +255,17 @@ function ReviewApplication() {
                 data["vedlegg"] = JSON.parse(response.data);
             })
             .catch(function (response) {
-                console.log(response)
             });
         }
 
         axios.post(url, data)
+        .then(async function (response) {
+            sessionStorage.removeItem("applicant");
+            sessionStorage.removeItem("partner");
+            sessionStorage.removeItem("kids");
+            sessionStorage.removeItem("children");
+            setCaseNumber(response.data.saksnummer)
+        })
 
         goToNextPage();
     }
@@ -279,26 +280,19 @@ function ReviewApplication() {
     const sendApplicationButton = () => {
 
         return(
-            <div className={styles.container}>
-                <NextButton text="Send søknad" callback={sendApplication} isClickable={canSendApplication()}/>
-            </div>
+            <NextButton text="Send søknad" callback={sendApplication} isClickable={canSendApplication()}/>
         );
     }
     return(
         <>
-            <ProgressBar filled={6} elements={[{}, {}, {}, {}, {}, {}]} />
-            {title()}
-            
-            {partner()}
-
-            <div style={{marginBottom:"50px"}}></div>
-
-            {children()}
-            <div style={{marginBottom:"50px"}}></div>
-            {income()}
-            <div style={{marginBottom:"30px"}}></div>
-            {automaticReminder()}
-            <div style={{marginBottom:"20px"}}></div>
+            <div className="wrapper">
+                <ProgressBar filled={6} elements={[{}, {}, {}, {}, {}, {}]} />
+                {title()}
+                {partner()}
+                {children()}
+                {income()}
+                {automaticReminder()}
+            </div>
             {sendApplicationButton()}
         </>
     );

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { atom, selector, useRecoilState } from 'recoil'
+import { useRecoilState } from 'recoil'
 
 import { PAGE_POINTER } from '../../pagePointer';
 
@@ -9,18 +9,8 @@ import styles from './Portal.module.css'
 import InformationLink from '../../components/information/InformationLink';
 import axios from 'axios';
 import NextButton from '../../components/NextButton/NextButton';
+import { lastPage, overviewOfApplication, page } from '../../atoms';
 
-const overviewOfApplication = atom({
-    key: "overviewOfApplication",
-    default: {}
-  })
-  
-const page = selector({
-    key: "page"
-})
-const lastPage = selector({
-    key: 'lastPage',
-});
 
 const applicantIdentifier = "03839199405"
 
@@ -31,99 +21,14 @@ export default function Portal(props) {
     const [activeApplications, setActiveApplications] = useState([]);
     const [oldApplications, setOldApplications] = useState([])
 
-    // TODO: fetch applications for currentUser
-    // const newApplications = [
-    //     {
-    //         applicationName: "Søknad om redusert foreldrebetaling",
-    //         date: "10.10.10",
-    //         changeOrCheck: true,
-    //         changedDate: "11.10.10",
-    //         status: "Søknad ikke sendt",
-    //         action: "",
-    //         filled: 1,
-    //         firstInfo: [
-    //             {
-    //                 name: "Ola Normann"
-    //             },
-    //             {
-    //                 name: "Thea Normann"
-    //             }
-    //         ],
-    //         secondInfo: [
-    //             {
-    //                 name: "Ola Normann",
-    //                 extraInformation: "Salhus SFO"
-    //             },
-    //             {
-    //                 name: "Thea Normann",
-    //                 extraInformation: "Salhus SFO"
-    //             }
-    //         ]
-    //     }
-    // ]
-
-    // const oldApplications = [{
-    //     applicationName: "Søknad om redusert foreldrebetaling",
-    //     date: "10.10.10",
-    //     changeOrCheck: false,
-    //     changedDate: "11.10.10",
-    //     status: "Vedtak foretatt",
-    //     action: "",
-    //     filled: 3,
-    //     firstInfo: [
-    //         {
-    //             name: "Ola Normann"
-    //         },
-    //         {
-    //             name: "Thea Normann"
-    //         }
-    //     ],
-    //     secondInfo: [
-    //         {
-    //             name: "Ola Normann",
-    //             extraInformation: "Salhus SFO"
-    //         },
-    //         {
-    //             name: "Thea Normann",
-    //             extraInformation: "Salhus SFO"
-    //         }
-    //     ]
-    // },
-    // {
-    //     applicationName: "Søknad om redusert foreldrebetaling",
-    //     date: "10.10.10",
-    //     changeOrCheck: false,
-    //     changedDate: "11.10.10",
-    //     status: "Vedtak foretatt",
-    //     action: "",
-    //     filled: 3,
-    //     firstInfo: [
-    //         {
-    //             name: "Ola Normann"
-    //         },
-    //         {
-    //             name: "Thea Normann"
-    //         }
-    //     ],
-    //     secondInfo: [
-    //         {
-    //             name: "Ola Normann",
-    //             extraInformation: "Salhus SFO"
-    //         },
-    //         {
-    //             name: "Thea Normann",
-    //             extraInformation: "Salhus SFO"
-    //         }
-    //     ]
-    // }
-    // ]
-
     const saveAllApplications = (applicationsToSave) => {
         sessionStorage.setItem("applicantIdentifier", applicantIdentifier);
         let tempActiveApplications = [];
         let tempOldApplications = [];
         const applications = JSON.parse(applicationsToSave);
-        console.log(applicationsToSave)
+        applications.sort((a,b) => (a['dato_siste_endring'] < b['dato_siste_endring']) ? 1 : (b['dato_siste_endring'] < a['dato_siste_endring']) ? -1: 0)
+        
+
         for(let i=0; i<applications.length; i++)
         {
             if(applications[i]["status"] === null || typeof applications[i]["dato_siste_endring"] === "undefined")
@@ -136,6 +41,7 @@ export default function Portal(props) {
         }
         setActiveApplications(tempActiveApplications);
         setOldApplications(tempOldApplications);
+        
 
         //TODO: save to session storage if necessary
         //TODO: consider a filter on the backend for the applications returned
@@ -205,6 +111,9 @@ export default function Portal(props) {
                     />
                 )
             })}
+            {activeApplications.length === 0 && 
+                <p className={styles.noApplicationText}>Du har ingen aktive søknader</p>
+            }
             <h5>Eldre</h5>
             {oldApplications.map((application, index) => {
                 return (
@@ -218,7 +127,7 @@ export default function Portal(props) {
                         // index={index} 
                         // status={application.status}/>
                         applicationName={"Søknad om redusert foreldrebetaling"}
-                        date={"10.10.2019"} // TODO Add the date in the backend
+                        date={application["dato_siste_endring"]} // TODO Add the date in the backend
                         changeOrCheck={false}
                         changedDate={"11.10.2019"} // TODO Retrieve from statushistorikk
                         excerptClicked={() => excerptClicked("old", index)}
@@ -228,6 +137,9 @@ export default function Portal(props) {
                     />
                         )
             })}
+            {oldApplications.length === 0 && 
+                <p className={styles.noApplicationText}>Du har ingen gamle søknader</p>
+            }
  
             <h2 className={styles.minorHeading}>Ofte stilte spørsmål</h2>
             {questions.map((question, i) => {

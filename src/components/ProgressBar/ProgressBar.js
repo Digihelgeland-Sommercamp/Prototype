@@ -27,7 +27,7 @@ export default function ProgressBar(props) {
                 height:"3px",
                 top:"35px",
                 left:0,
-                background:"grey",
+                background:"#676766",
                 zIndex:-2}}></div>
         </>
     )

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { selector, useRecoilState } from 'recoil'
+import { useRecoilState } from 'recoil'
 
 import { PAGE_POINTER } from '../../pagePointer';
 
@@ -12,16 +12,7 @@ import InformationLink from '../../components/information/InformationLink';
 import axios from 'axios';
 import ErrorBlob from '../../components/Form/ErrorBlob';
 import NextButton from '../../components/NextButton/NextButton';
-
-
-const page = selector({
-    key: 'page',
-});
-
-const lastPage = selector({
-    key: 'lastPage',
-});
-
+import { lastPage, page, partnerSelector, progressSelector } from '../../atoms';
 
 const radioTextList = [
     "Enslig",
@@ -36,18 +27,19 @@ const radioTextList = [
 export default function Household() {
     const [currentPage, setPage] = useRecoilState(page)
     const [previousPage, setLastPage] = useRecoilState(lastPage)
+    const [progress, setProgress] = useRecoilState(progressSelector)
     
     const [notClicked, setNotClicked] = useState(true)
     const [formError, setFormError] = useState(true)
     const [showError, setShowError] = useState(false)
 
-    const [partner, setPartner] = useState({})
+    const [partner, setPartner] = useRecoilState(partnerSelector)
     const [yesNo, setYesNo] = useState(true)
     const [askQuestion, setAskQuestion] = useState(false)
     const [addPartnerPage, setAddPartner] = useState(false)
 
     const [chosenYesNo, setChosenYesNo] = useState("")
-    const [, setAnswer] = useState("")
+    const [answer, setAnswer] = useState("")
 
     const [, setApplicant] = useState(null)
 
@@ -60,7 +52,6 @@ export default function Household() {
     const saveApplicant = (applicantToSave) => {
         setApplicant(applicantToSave);
         sessionStorage.setItem("applicant", JSON.stringify(applicantToSave));
-        console.log(applicantToSave);
     } 
     
     // Get the applicant from hub
@@ -84,23 +75,14 @@ export default function Household() {
         setChosenYesNo(yesNoList[id])
     }
 
-    const savePartner = (partnerToSave) => {
-
-        // let tempPartner = {
-        //     navn: partnerToSave["navn"],
-        //     "personidentifikator": partnerToSave["identifikasjonsnummer"]["foedselsEllerDNummer"]
-        // }
-        console.log(partnerToSave)
-        setPartner(partnerToSave)
-    }
-
     function fetchPartner() {
         if(typeof partner["personidentifikator"] === "undefined")
         {
             let applicantIdentifier = sessionStorage.getItem("applicantIdentifier");
             let url = "http://51.107.208.107/get_partner/"+applicantIdentifier;
-            axios.get(url).then((response) => {savePartner(response.data);})
+            axios.get(url).then((response) => {setPartner(response.data);})
         }
+        
     }
 
     const handleYesNoClick = () => {
@@ -110,17 +92,18 @@ export default function Household() {
             setNotClicked(true)
         }
         else if (chosenYesNo === "Ja") {
-            setLastPage(currentPage)
             goToNextPage();
-
         }
     }
 
     function goToNextPage() {
-
+        
         sessionStorage.setItem("partner", JSON.stringify(partner));
-        console.log(sessionStorage.getItem("partner"));
 
+        if(progress < 4) {
+            setProgress(4)
+        }
+        setLastPage(currentPage)
         previousPage === PAGE_POINTER.reviewApplication ? 
             setPage(PAGE_POINTER.reviewApplication) : 
             setPage(PAGE_POINTER.kids);
@@ -130,12 +113,36 @@ export default function Household() {
 
     const handleFormChange = (form, formError) => {
         setFormError(formError)
-        setPartner(form)
+        setShowError(false)
+        let newForm = {
+            "identifikasjonsnummer": {
+                "foedselsEllerDNummer": form.personidentifikator,
+                "identifikatortype": "foedselsnummer"
+            },
+            "navn": {
+                "etternavn": form.fornavn,
+                "forkortetNavn": `${form.fornavn} ${form.etternavn}`,
+                "fornavn": form.etternavn, 
+                "mellomnavn": "",
+            }
+        }
+        setPartner(newForm)
+    }
+
+    const handleAskQuestion = () => {
+        if(answer === "Enslig"){
+            setPartner("")
+            goToNextPage()
+        }
+        else{
+            setAskQuestion(false)
+            setAddPartner(true)
+        }
+        
     }
 
     const handleAddPartner = () => {
         if(!formError){
-            setLastPage(currentPage)
             goToNextPage();
         }
         else {
@@ -162,58 +169,68 @@ export default function Household() {
     }
     return (
         <>
-            <ProgressBar filled={3} elements={[{}, {}, {}, {}, {}, {}]} />
-            <div className={styles.container}>
-                <h1 className={styles.title}>Husholdning</h1>
-                <div style={{margin: "10px"}}></div>
-                {yesNo &&
-                    <>
-                        <h4 className={styles.question}>
-                            Stemmer det at du er gift og bor sammen med <span className={styles.partner}>
-                                {getPartnerName()}</span>
-                        </h4>
-                        
-                        <RadioBoxGroup
-                            radioTextList={yesNoList}
-                            radioGroupCallback={yesNoRadioGroupCallback}
-                        />
-                        <NextButton 
-                            isClickable={!notClicked}
-                            callback={handleYesNoClick}/>
-                    </>
-                }
-                {askQuestion &&
-                    <>
-                        <InformationLink 
-                            linkText={info.linkText}
-                            modalTitle={info.modalTitle}
-                            modalTextBody={info.modalTextBody}
-                            modalButtonText={info.modalButtonText}/>
-                        <RadioBoxGroup
-                            radioTextList={radioTextList}
-                            radioGroupCallback={radioGroupCallback}
-                        />
-                        <NextButton 
-                            isClickable={!notClicked}
-                            callback={() => {
-                                setAskQuestion(false)
-                                setAddPartner(true)
-                            }}/>
-                    </>
-                }
-                {addPartnerPage &&
-                    <>
-                        <p>Dersom du har hatt samboer i minst 12 av de siste 18 månedene, legg til personen her.</p>
-                        <Form handleFormChange={handleFormChange} />
-                        {showError && <ErrorBlob firstText="Feil navn eller fødselsnummer/D-nummer." secondText="Sjekk at du har skrevet riktig."/>}
-                        <NextButton 
-                            text="Legg til"
-                            isClickable={!notClicked}
-                            callback={handleAddPartner}/>
-                    </>
-                }
+            <div className="wrapper">
+                <ProgressBar filled={3} elements={[{}, {}, {}, {}, {}, {}]} />
+                <div className={styles.container}>
+                    <h1 className={styles.title}>Husholdning</h1>
+                    {yesNo &&
+                        <>
+                            <h4 className={styles.question}>
+                                Stemmer det at du er gift og bor sammen med <span className={styles.partner}>
+                                    {getPartnerName()}</span>
+                            </h4>
+                            
+                            <RadioBoxGroup
+                                radioTextList={yesNoList}
+                                radioGroupCallback={yesNoRadioGroupCallback}
+                            />
+                            
+                        </>
+                    }
+                    {askQuestion &&
+                        <>  
+                            <div className={styles.question}>
+                                <InformationLink 
+                                linkText={info.linkText}
+                                modalTitle={info.modalTitle}
+                                modalTextBody={info.modalTextBody}
+                                modalButtonText={info.modalButtonText}/>
+                            </div>
+                            
+                            <RadioBoxGroup
+                                radioTextList={radioTextList}
+                                radioGroupCallback={radioGroupCallback}
+                            />
+                            
+                        </>
+                    }
+                    {addPartnerPage &&
+                        <div >
+                            <p className={styles.question}>Dersom du har hatt samboer i minst 12 av de siste 18 månedene, legg til personen her.</p>
+                            <Form handleFormChange={handleFormChange} />
+                            {showError && <ErrorBlob firstText="Feil navn eller fødselsnummer/D-nummer." secondText="Sjekk at du har skrevet riktig."/>}
+                        </div>
+                    }
 
+                </div>
             </div>
+            {yesNo 
+                ? <NextButton 
+                    isClickable={!notClicked}
+                    callback={handleYesNoClick}/> 
+                : askQuestion 
+                ? <NextButton 
+                    isClickable={!notClicked}
+                    callback={handleAskQuestion}/> 
+                : addPartnerPage && 
+                    <NextButton 
+                        text="Legg til"
+                        isClickable={!notClicked}
+                        callback={handleAddPartner}/>
+            }
+            
+            
+            
         </>
     )
 }

@@ -1,22 +1,18 @@
-import { useState } from 'react';
 import styles from './IncomeArea.module.css'
 import InformationTitle from '../information/InformationTitle';
-import { selector, useRecoilState, useRecoilValue } from 'recoil';
-
-const attachmentList = selector({
-    key: "attachmentList"
-})
+import { useRecoilValue } from 'recoil';
+import { attachmentList } from '../../atoms';
 
 function IncomeArea(props) {
-    const [incomeTitleText, setIncomeTitleText] = useState(props.incomeTitleText)
-    const [incomeTextBody, setIncomeTextBody] = useState(props.incomeTextBody)
-    const [applicants, setApplicants] = useState(props.applicants)
-    const [itemList] = useRecoilState(attachmentList)
+    const incomeTitleText = props.incomeTitleText
+    const incomeTextBody = props.incomeTextBody
+    const applicants = props.applicants
+    const itemList = useRecoilValue(attachmentList)
 
     function renderAttachments() {
         if (props.showAttachments) {
             const returner = [];
-            if (sjekk != null && sjekk.length > 0) {
+            if (itemList.length > 0) {
                 returner.push(<div className={styles.attachmentTitle}>Dokumentasjon:</div>);
             }
             else {
@@ -28,7 +24,7 @@ function IncomeArea(props) {
                 if (name.length > 20) {
                     simplified = name.slice(0,20) + " ... ." + itemList[i][1][2].split("/")[1];
                 }
-                returner.push(<li className={styles.attachmentList}>{simplified}</li>);
+                returner.push(<li key={i} className={styles.attachmentList}>{simplified}</li>);
             }
             return(returner);
         }
@@ -38,7 +34,12 @@ function IncomeArea(props) {
         <div>
             {/* <ApplicationPageTitle titleText={incomeTitleText} displayInfoIcon={false}/> */}
             <div className={styles.title}>
-                <InformationTitle title={incomeTitleText}/>
+                <InformationTitle 
+                    title={incomeTitleText}
+                    modalTitle="Inntekt"
+                    modalTextBody="Personinntekt etter skatteloven kapittel 12 og skattepliktig kapitalinntekt. 
+                        Skattefrie overføringer som barnebidrag, kontaktstøtte, barnetrygd m.m. regnes ikke som inntekt. "
+                    modalButtonText="OK"/>
             </div>
             <div className={styles.container}>
                 

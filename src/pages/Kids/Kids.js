@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { selector, useRecoilState } from 'recoil'
+import { useRecoilState } from 'recoil'
 
 import { PAGE_POINTER } from '../../pagePointer.js';
 
@@ -13,19 +13,13 @@ import CheckBoxGroup from '../../components/checkBoxField/CheckBoxGroup.js';
 import ErrorBlob from '../../components/Form/ErrorBlob.js';
 import axios from 'axios';
 import NextButton from '../../components/NextButton/NextButton.js';
-
-
-const page = selector({
-    key: "page"
-})
-const lastPage = selector({
-    key: "lastPage"
-})
+import { lastPage, page, progressSelector } from '../../atoms.js';
 
 
 export default function Kids() {
     const [currentPage, setPage] = useRecoilState(page)
     const [previousPage, setLastPage] = useRecoilState(lastPage)
+    const [progress, setProgress] = useRecoilState(progressSelector)
 
     const [formError, setFormError] = useState(true)
     const [showError, setShowError] = useState(false)
@@ -39,26 +33,26 @@ export default function Kids() {
     //TODO: Get kids from userID
     const [kids, setKids] = useState(sessionStorage.getItem("kids") ? JSON.parse(sessionStorage.getItem("kids")) : [])
     const [selectedChildElements, setSelectedChildElements] = useState([]) 
+
+    const [clickable, setClickable] = useState(false)
     
     const saveChildren = (childrenToSave) => {
-        console.log("Saving children");
-        console.log(childrenToSave);
         setKids(childrenToSave);
         sessionStorage.setItem("kids", JSON.stringify(childrenToSave))
     }
 
     useEffect(() => {
         let applicantIdentifier = sessionStorage.getItem("applicantIdentifier");
-        console.log("Checking if kids already exists")
-
-        console.log(sessionStorage.getItem("kids"))            
+          
         if(sessionStorage.getItem("kids") || !applicantIdentifier)
             return;
-        console.log("Getting kids from hub")
 
         // let applicantIdentifier = tempApplicant[""]
         let url = "http://51.107.208.107/get_children/"+applicantIdentifier;
-        axios.get(url).then((response) => {saveChildren(response.data);})
+        axios.get(url).then((response) => {
+            saveChildren(response.data);
+        })
+        
     }, [])
 
     // Gets the children from storage and compares to the available kids. Saving matches as selected
@@ -84,17 +78,21 @@ export default function Kids() {
     }
 
     const childrenCallback = (selectedElementList) => {
+        let flag = false
+
         // TODO: Make sure this does not add children prematurely
         let tempSelectedChildren = []
         for(let i=0; i<kids.length; i++)
         {
-            console.log("Selected element list in kids: "+selectedElementList)
-
-            if(selectedElementList[i] === true)
+            if(selectedElementList[i] === true){
                 tempSelectedChildren.push(kids[i])
+                flag = true
+            } 
         }
         setSelectedChildren(tempSelectedChildren);
         setSelectedChildElements(selectedElementList);
+    
+        setClickable(flag)
     }
 
     const handleAddChild = () => {
@@ -130,10 +128,11 @@ export default function Kids() {
     function goToNextPage() {
         sessionStorage.setItem("children", JSON.stringify(selectedChildren)) // Only send in selected kids
         sessionStorage.setItem("kids", JSON.stringify(kids));
-        console.log(kids)
 
+        if(progress < 5) {
+            setProgress(5)
+        }
         setLastPage(currentPage)
-
         previousPage === PAGE_POINTER.reviewApplication ? 
             setPage(PAGE_POINTER.reviewApplication) : 
             setPage(PAGE_POINTER.income);
@@ -144,45 +143,41 @@ export default function Kids() {
         findSelectedKids();
     return (
         <>
-            <ProgressBar
-                filled={4}
-                elements={[{}, {}, {}, {}, {}, {}]} />
-            <div className={styles.container}>
+            <div className="wrapper">
+                <ProgressBar
+                    filled={4}
+                    elements={[{}, {}, {}, {}, {}, {}]} />
+                <div className={styles.container}>
 
-                <h1 className={styles.title}>Barn</h1>
-                {addingChild 
-                    ? 
-                    <>
-                        <Form handleFormChange={handleFormChange} />
-                        {showError && <ErrorBlob firstText="Feil navn eller fødselsnummer/D-nummer." secondText="Sjekk at du har skrevet riktig."/>}
-                        <NextButton 
-                            text="Legg til"
-                            isClickable
-                            callback={handleAddChild}/>
-                    </>
-                    :
-                    <>
+                    <h1 className={styles.title}>Barn</h1>
+                    {/* {addingChild 
+                        ? 
+                        <>
+                            <Form handleFormChange={handleFormChange} />
+                            {showError && <ErrorBlob firstText="Feil navn eller fødselsnummer/D-nummer." secondText="Sjekk at du har skrevet riktig."/>}
+                            <NextButton 
+                                text="Legg til"
+                                isClickable
+                                callback={handleAddChild}/>
+                        </> */}
+                        
                     <p className={styles.information}>Vi fant opplysninger om barn i Folkeregisteret. Hvilke barn vil du søke for?</p>
                     
                     <CheckBoxGroup personList={kids} checkboxCallback={childrenCallback} selectedElements={selectedChildElements}/>
-                    
-                    {/* <Button variant="outlined" style={{ margin: "20px 0 50px 0" }} onClick={() => setAddingChild(true)}>Legg til barn</Button> */}
                     {/* <AddChildren callback={() => setAddingChild(true)}/> */}
                     <div style={{marginTop: "50px"}}/>
                     {/* <InformationBox
                         text="Barn det søkes for må være registrert på samme adresse som forelder som søker." /> */}
-                    {/* <div style={{marginTop: "50px"}}/> */}
-
-                    <NextButton 
-                        isClickable
-                        callback={() => {
-                            setLastPage(currentPage)
-                            goToNextPage();
-                        }}/> {/*TODO Make this appear at the bottom. Do the same for similar pages */}
-                </>
-                }
-
+                </div>
             </div>
+            
+            <NextButton 
+                isClickable={clickable}
+                callback={() => {
+                    setLastPage(currentPage)
+                    goToNextPage();
+                }}/> 
+            
         </>
     )
 }

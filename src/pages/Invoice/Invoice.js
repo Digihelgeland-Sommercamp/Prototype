@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import { PAGE_POINTER } from '../../pagePointer.js';
 
-import { useRecoilState, selector } from 'recoil'
+import { useRecoilState } from 'recoil'
 import ProgressBar from '../../components/ProgressBar/ProgressBar'
 
 
@@ -10,14 +10,12 @@ import styles from './Invoice.module.css'
 import RadioBoxGroup from '../../components/radioBox/RadioBoxGroup.js';
 import NextButton from '../../components/NextButton/NextButton.js';
 import InformationLink from '../../components/information/InformationLink.js';
+import { page, progressSelector } from '../../atoms.js';
 
-const page = selector({
-    key: 'page', 
-});
 
 // TODO: Check for children here, if none is found show an error or something 
 export default function Invoice() {
-    
+    const [progress, setProgress] = useRecoilState(progressSelector)
     const [, changePage] = useRecoilState(page)
 
     const [noClick, setNoClick] = useState(true)
@@ -40,23 +38,32 @@ export default function Invoice() {
     }
 
     return (
-        <>
-            <ProgressBar
-                filled={1}
-                elements={[{}, {}, {}, {}, {}, {}]} />
-            <div className={styles.container}>
-                <h1>Fakturering</h1>
-                <p>Hvem i husholdningen din blir fakturert av barnehagen eller SFO?</p>
-                <RadioBoxGroup radioTextList={textForRadioButtons} radioGroupCallback={handler}/>
-                <InformationLink 
-                    linkText={info.text}
-                    modalTitle={info.modalTitle}
-                    modalTextBody={info.modalTextBody}
-                    modalButtonText={info.modalButtonText}/>
-                <NextButton 
-                    isClickable={!noClick}
-                    callback={() => changePage(PAGE_POINTER.situation)}/>
+        <>  
+            <div className="wrapper">
+                <ProgressBar
+                    filled={1}
+                    elements={[{}, {}, {}, {}, {}, {}]} />
+                <div className={styles.container}>
+                    <h1>Fakturering</h1>
+                    <p className={styles.question}>Hvem i husholdningen din blir fakturert av barnehagen eller SFO?</p>
+                    <RadioBoxGroup radioTextList={textForRadioButtons} radioGroupCallback={handler}/>
+                    <InformationLink 
+                        linkText={info.text}
+                        modalTitle={info.modalTitle}
+                        modalTextBody={info.modalTextBody}
+                        modalButtonText={info.modalButtonText}/>
+                    
+                </div>
             </div>
-        </>
+            
+            <NextButton 
+                isClickable={!noClick}
+                callback={() => {
+                    if(progress < 2) {
+                        setProgress(2)
+                    }
+                    changePage(PAGE_POINTER.situation)
+                }}/>
+    </>
     );
 }

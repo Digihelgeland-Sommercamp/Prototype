@@ -1,16 +1,13 @@
 import React from 'react'
-import { selector, useRecoilValue } from 'recoil'
+import { useRecoilValue } from 'recoil'
+import { overviewOfApplication } from '../../atoms'
 import BackButton from '../../components/BackButton/BackButton'
 import ProgressBar from '../../components/ProgressBar/ProgressBar'
 import TitleWithChildren from '../../components/TitleWithChildren/TitleWithChildren'
 
 import styles from './OverviewApplication.module.css'
 
-const overviewOfApplication = selector({
-    key:"overviewOfApplication"
-})
-
-export default function OverviewApplication(props) {
+export default function OverviewApplication() {
     const applicationData = useRecoilValue(overviewOfApplication)    
 
     const states = {

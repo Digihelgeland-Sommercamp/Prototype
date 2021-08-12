@@ -1,23 +1,14 @@
 import './UploadArea.css';
-import axios from 'axios';
 import React, { useState } from 'react';
 import UploadItem from './UploadItem';
 
-import {
-    selector,
-    useRecoilState,
-  } from 'recoil';
-
-const attachmentList = selector({
-    key: "attachmentList"
-})
+import {useRecoilState} from 'recoil';
+import { attachmentList } from '../../atoms';
 
 
 function UploadArea() {
-    const [selectedFile, setSelectedFile] = useState();
+    const [, setSelectedFile] = useState();
     const [itemList, setItemList] = useRecoilState(attachmentList)
-    const [, forceUpdate] = useReducer(x => x + 1, 0);
-    const [counter, setCounter] = useState(0)
 
 
 
@@ -56,14 +47,12 @@ function UploadArea() {
         const size = event.target.files[0].size;
         list_of_items.push([event.target.files[0], [counterKey, filename, type, size]]); 
         await setItemList(list_of_items);
-        console.log("List of items: " + list_of_items);
-        console.log("ItemList: " + itemList);
 
 
         clearInputFile(event.target);
     };
 
-    const handleSubmission = () => { //må vurderes om denne logikken skal flyttes opp til en høyere komponent
+    /*const handleSubmission = () => { //må vurderes om denne logikken skal flyttes opp til en høyere komponent
         const formData = new FormData();
 
         for (var i = 0; i<itemList.length; i++){
@@ -81,7 +70,7 @@ function UploadArea() {
         .catch(function (response) {
             console.log(response)
         });//response inneholder vedleggenes id og filtype i azure storage containeren
-    };
+    };*/
 
     const routeUpload = () => {
         document.getElementById("inputSelectFile").click();
@@ -126,7 +115,6 @@ function UploadArea() {
                 <div className="list-wrapper">
                     <ListRender /> 
                 </div>
-                <button onClick={handleSubmission}>upload</button>
             </div>
             
         </div>

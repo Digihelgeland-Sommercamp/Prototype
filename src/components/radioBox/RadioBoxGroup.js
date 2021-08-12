@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import RadioBox from './RadioBox';
 import { useReducer } from 'react';
 
+import styles from './RadioBoxGroup.module.css'
+
 /* Creates a list of clickable boxes with radio buttons. 
 * @param props.radioTextList an array containing the text field of every box. Created one box per element. 
 * @param props.radioGroupCallback the callback function for when a radio box is clicked. Using the ID of the 
@@ -35,7 +37,7 @@ function RadioBoxGroup(props) {
     }
 
     return (
-        <div>
+        <div className={styles.container}>
             {buttons}
         </div>
     );

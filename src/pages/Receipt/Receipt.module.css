@@ -1,23 +1,8 @@
-* {
-    margin: 0;
-}
-
-.container{
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    /* margin: 0 7% 0 7%; */
-    height: 100%;
-    /* background-color: khaki; */
-    position: fixed; /* Stay in place */    
-}   
 
 .content {
     display: flex;
     flex-direction: column;
-    height: 100%;
-    margin: 7% 7% 7% 7%;
+    margin: 20px;
 
 }
 
@@ -49,13 +34,14 @@
 .btnContainer {
     display: flex;
     flex-direction: column;
-    height: 20%;
-    /* background-color: green; */
+    margin-bottom: 100px;
 }
 
 .logout {
     margin-top: 10px;
     align-self: center;
     text-decoration: underline;
+    border: none;
+    background: none;
 
 }
