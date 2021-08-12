@@ -13,7 +13,7 @@ function IncomeArea(props) {
         if (props.showAttachments) {
             const returner = [];
             if (itemList.length > 0) {
-                returner.push(<div className={styles.attachmentTitle}>Dokumentasjon:</div>);
+                returner.push(<div key={Math.random()} className={styles.attachmentTitle}>Dokumentasjon:</div>);
             }
             else {
                 return(<div className={styles.attachmentText}>Ingen vedlegg er lagt til</div>);

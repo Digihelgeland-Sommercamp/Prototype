@@ -20,7 +20,7 @@ export default function OverviewApplication() {
     // const partner = sessionStorage.getItem("partner") ? JSON.parse(sessionStorage.getItem("partner")) : null;
     // const childrenList = sessionStorage.getItem("children") ? JSON.parse(sessionStorage.getItem("children")) : null;
 
-    let getName = (person) => {
+    /* let getName = (person) => {
         let fornavn = typeof person["navn"] !=="undefined" && person["navn"]["fornavn"]
                     ? person["navn"]["fornavn"] : "";
         let mellomnavn = typeof person["navn"] !=="undefined" && person["navn"]["mellomnavn"] !== null 
@@ -29,7 +29,7 @@ export default function OverviewApplication() {
                     ? person["navn"]["etternavn"] : "";
         return fornavn + " " + mellomnavn + etternavn;
     }
-
+ */
     /* let children = []
     for (let child in childrenList) {
         let newChild = {

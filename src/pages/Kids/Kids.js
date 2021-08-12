@@ -3,30 +3,35 @@ import { useRecoilState } from 'recoil'
 
 import { PAGE_POINTER } from '../../pagePointer.js';
 
-import InformationBox from '../../components/information/InformationBox'
+
 import ProgressBar from '../../components/ProgressBar/ProgressBar'
-import Form from '../../components/Form/Form.js';
 
 import styles from './Kids.module.css'
-import AddChildren from '../../components/AddChildren/AddChildren.js';
 import CheckBoxGroup from '../../components/checkBoxField/CheckBoxGroup.js';
-import ErrorBlob from '../../components/Form/ErrorBlob.js';
 import axios from 'axios';
 import NextButton from '../../components/NextButton/NextButton.js';
 import { lastPage, page, progressSelector } from '../../atoms.js';
 
+/* 
+Imports for adding children
+import AddChildren from '../../components/AddChildren/AddChildren.js';
+import Form from '../../components/Form/Form.js';
+import InformationBox from '../../components/information/InformationBox'
+import ErrorBlob from '../../components/Form/ErrorBlob.js'; */
 
 export default function Kids() {
     const [currentPage, setPage] = useRecoilState(page)
     const [previousPage, setLastPage] = useRecoilState(lastPage)
     const [progress, setProgress] = useRecoilState(progressSelector)
 
+    /* 
+    States for adding children
     const [formError, setFormError] = useState(true)
     const [showError, setShowError] = useState(false)
-
     const [addingChild, setAddingChild] = useState(false)
     const [newChild, setNewChild] = useState({ name: "", birth: "" })
-    const [form, setForm] = useState({fornavn:"", etternavn:"",personidentifikator:""})
+    const [form, setForm] = useState({fornavn:"", etternavn:"",personidentifikator:""}) 
+    */
 
     const [selectedChildren, setSelectedChildren] = useState([]); // List of the selected kids objects
         
@@ -95,7 +100,7 @@ export default function Kids() {
         setClickable(flag)
     }
 
-    const handleAddChild = () => {
+    /* const handleAddChild = () => {
         if(!formError){
             let currentKids = kids
             currentKids.push(newChild)
@@ -123,7 +128,7 @@ export default function Kids() {
             personidentifikator: personid
         }
         setNewChild(child) 
-    }
+    } */
 
     function goToNextPage() {
         sessionStorage.setItem("children", JSON.stringify(selectedChildren)) // Only send in selected kids
