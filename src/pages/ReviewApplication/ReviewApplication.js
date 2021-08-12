@@ -164,11 +164,14 @@ function ReviewApplication() {
     const automaticReminder = () => {
         let radioBoxText = ["Ja", "Nei"]
         return(
-            <div className={styles.container}>
-                <h2 className={styles.subtitle}>Automatisk påminnelse?</h2>
-                <p>Vil du bli kontaktet når du kan søke om redusert foreldrebetaling 
-                    eller gratis kjernetid til neste år?</p>
-                <RadioBoxGroup radioGroupCallback={automaticReminderCallback} radioTextList={radioBoxText}/>
+            <div className={styles.component}> 
+                <div className={styles.container}>
+                    <h2 className={styles.subtitle}>Automatisk vedtak neste år?</h2>
+                    <p className={styles.reminderText}>Ønsker du at søknaden skal gjelde for alle årene ditt barn går i barnehage/SFO? </p>
+                    <p className={styles.reminderText}>Velger du <strong>ja</strong> vil kommunen automatisk innhente husholdningens inntektsopplysninger hvert år (der dette er mulig).</p>
+                    <p className={styles.reminderText}>Velger du <strong>nei</strong> må du søke på nytt hvert år. </p>
+                    <RadioBoxGroup radioGroupCallback={automaticReminderCallback} radioTextList={radioBoxText}/>
+                </div>
             </div>
         );
     }
