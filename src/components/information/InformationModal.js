@@ -20,8 +20,8 @@ function InformationModal(props) {
                     })}
                     {list && 
                         <ul>
-                            {list.map((item, _)=>{
-                                return <li style={{marginLeft:"20px"}}>{item}</li>
+                            {list.map((item, y)=>{
+                                return <li key={y} style={{marginLeft:"20px"}}>{item}</li>
                             })}                    
                         </ul>
                     }   

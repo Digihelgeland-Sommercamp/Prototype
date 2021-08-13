@@ -3,8 +3,7 @@ import './App.css';
 import React from 'react';
 import {
   RecoilRoot,
-  useRecoilState,
-  useRecoilValue,
+  useRecoilState
 } from 'recoil';
 
 import { PAGE_POINTER } from './pagePointer';
@@ -20,7 +19,7 @@ import ReviewApplication from './pages/ReviewApplication/ReviewApplication';
 import Invoice from './pages/Invoice/Invoice';
 import Portal from './pages/Portal/Portal';
 import Receipt from './pages/Receipt/Reicept'
-import { page, situation } from './atoms';
+import { page } from './atoms';
 
 
 function App() {
@@ -35,7 +34,6 @@ function App() {
 
 function Router() {
   const [state, setState] = useRecoilState(page);
-  const currentSituaton = useRecoilValue(situation)
 
   //TODO: Make situation name dynamic
   switch(state){

@@ -57,6 +57,16 @@ export default function Household() {
     // Get the applicant from hub
     // TODO: Move this to login
     useEffect(() => {
+        function fetchPartner() {
+            if(typeof partner["personidentifikator"] === "undefined")
+            {
+                let applicantIdentifier = sessionStorage.getItem("applicantIdentifier");
+                let url = "http://51.107.208.107/get_partner/"+applicantIdentifier;
+                axios.get(url).then((response) => {setPartner(response.data);})
+            }
+            
+        }
+
         let applicantIdentifier = sessionStorage.getItem("applicantIdentifier");
 
         let url = "http://51.107.208.107/get_applicant/"+applicantIdentifier;
@@ -64,7 +74,7 @@ export default function Household() {
             saveApplicant(response.data); 
             fetchPartner()
         })
-    }, [])
+    }, [partner, setPartner])
 
     const yesNoList = [
         "Ja",
@@ -75,15 +85,7 @@ export default function Household() {
         setChosenYesNo(yesNoList[id])
     }
 
-    function fetchPartner() {
-        if(typeof partner["personidentifikator"] === "undefined")
-        {
-            let applicantIdentifier = sessionStorage.getItem("applicantIdentifier");
-            let url = "http://51.107.208.107/get_partner/"+applicantIdentifier;
-            axios.get(url).then((response) => {setPartner(response.data);})
-        }
-        
-    }
+    
 
     const handleYesNoClick = () => {
         if(chosenYesNo === "Nei"){
