@@ -179,14 +179,15 @@ function ReviewApplication() {
         if(!childrenList) throw new Error("Couldn't parse children in ReviewApplication getListOfChildren");
 
         let childrenToSend = [];
-
+        console.log(childrenList)
         for(let i=0; i<childrenList.length; i++)
         {
             // let navn = childrenList[i]["fornavn"] + " " + childrenList[i]["etternavn"];
-            let identifikator = childrenList[i]["personidentifikator"];
+            let identifikator = childrenList[i]["foedselsnummer"];
             childrenToSend.push({
                 "barnets_navn": getName(childrenList[i]),
-                "fodselsnummer": identifikator,
+                "foedselsnummer": identifikator,
+                "foedsel": childrenList[i]["foedsel"],
                 "navn_pa_barnehage": null, // TODO: Make this appear and differ between SFO / barnehage
                 "prosent_plass": null
             })
@@ -220,7 +221,7 @@ function ReviewApplication() {
             },
             "sivilstand": {
                 "har_samboer": hasPartner,
-                "relatert_person": partner["personidentifikator"],
+                "relatert_person": partner["identifikasjonsnummer"],
                 "samboer_fra_dato": "2015-01-01"
             },
             "opplysninger_om_barn_barnehage": getListOfChildren(),
@@ -233,7 +234,7 @@ function ReviewApplication() {
                 }
             ],
             "flagg": {
-                "varig_nedgang_samlet_inntekt": !stableIncome, 
+                "varig_nedgang_samlet_inntekt": stableIncome, 
                 "mistet_jobb": false, // TODO: Make these dynamic
                 "samlivsbrudd": false
             }
